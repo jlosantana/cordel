@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cordel"
+  short_description: "Contexto, especificações e evidências"
+  default_prompt: "Use $cordel para classificar e preparar esta mudança com contexto, especificações e evidências."
+policy:
+  allow_implicit_invocation: true

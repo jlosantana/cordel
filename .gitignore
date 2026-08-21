@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local tools and editors
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Temporary validation directories
+.tmp*/
+
+# Consumer-specific, non-canonical AI development data
+**/.cordel/generated/
+**/.cordel/local/

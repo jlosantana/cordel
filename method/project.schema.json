@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cordel/project.schema.json",
+  "title": "Configuração do Cordel",
+  "type": "object",
+  "required": ["schema_version", "cordel_version", "project", "sources", "storage", "identifiers", "commands", "policies"],
+  "properties": {
+    "schema_version": {"const": 3},
+    "cordel_version": {"type": "string", "minLength": 1},
+    "project": {
+      "type": "object",
+      "required": ["name", "repositories"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "language": {"type": "string"},
+        "repositories": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "sources": {
+      "type": "object",
+      "required": ["requirements", "asis", "decisions", "needs", "stories", "specs", "analyses", "evidence"],
+      "additionalProperties": {"$ref": "#/$defs/source"}
+    },
+    "storage": {
+      "type": "object",
+      "required": ["archive", "generated", "local"],
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "identifiers": {
+      "type": "object",
+      "required": ["requirements", "needs", "stories", "specs", "decisions", "analyses"]
+    },
+    "commands": {
+      "type": "object",
+      "required": ["reconcile", "build", "test"],
+      "additionalProperties": {"type": "string"}
+    },
+    "policies": {
+      "type": "object",
+      "required": ["new_scope_requires_owner_decision", "ready_requires_gate", "technical_claims_require_evidence", "evidence_format"],
+      "properties": {
+        "new_scope_requires_owner_decision": {"type": "boolean"},
+        "ready_requires_gate": {"type": "boolean"},
+        "technical_claims_require_evidence": {"type": "boolean"},
+        "evidence_format": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "required": ["kind", "location", "owner"],
+      "properties": {
+        "kind": {"enum": ["path", "url"]},
+        "location": {"type": "string", "minLength": 1},
+        "owner": {"type": "string", "minLength": 1},
+        "scope": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

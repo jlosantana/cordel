@@ -1,0 +1,43 @@
+{
+  "schema_version": 3,
+  "cordel_version": "0.3.0",
+  "project": {
+    "name": "projeto-exemplo",
+    "language": "Java",
+    "repositories": ["backend", "frontend"]
+  },
+  "sources": {
+    "requirements": {"kind": "url", "location": "https://docs.example.com/requirements", "owner": "product-team"},
+    "asis": {"kind": "path", "location": ".cordel/product/context", "owner": "service-team"},
+    "decisions": {"kind": "path", "location": ".cordel/product/decisions", "owner": "service-team"},
+    "needs": {"kind": "url", "location": "https://tracker.example.com/project", "owner": "product-team"},
+    "stories": {"kind": "path", "location": ".cordel/work/stories", "owner": "service-team"},
+    "specs": {"kind": "path", "location": ".cordel/work/specs", "owner": "service-team"},
+    "analyses": {"kind": "path", "location": ".cordel/work/analyses", "owner": "service-team"},
+    "evidence": {"kind": "path", "location": ".cordel/evidence", "owner": "service-team"}
+  },
+  "storage": {
+    "archive": ".cordel/archive",
+    "generated": ".cordel/generated",
+    "local": ".cordel/local"
+  },
+  "identifiers": {
+    "requirements": ["REQ-", "NFR-"],
+    "needs": "NEED-",
+    "stories": "STORY-",
+    "specs": "SPEC-",
+    "decisions": "ADR-",
+    "analyses": "ANALYSIS-"
+  },
+  "commands": {
+    "reconcile": "",
+    "build": "",
+    "test": ""
+  },
+  "policies": {
+    "new_scope_requires_owner_decision": true,
+    "ready_requires_gate": true,
+    "technical_claims_require_evidence": true,
+    "evidence_format": "path:line"
+  }
+}
