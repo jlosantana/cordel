@@ -134,6 +134,12 @@ def update_managed_block(path: Path, block: str) -> str:
 
 
 def init_project(root: Path, agents: Sequence[str] = ("codex", "claude")) -> int:
+    invalid_agents = [agent for agent in agents if agent not in AGENT_FILES]
+    if invalid_agents:
+        raise ValueError(
+            "agente(s) não suportado(s): " + ", ".join(invalid_agents)
+        )
+
     root = root.resolve()
     root.mkdir(parents=True, exist_ok=True)
     config_dir = root / CONFIG_DIR
@@ -230,6 +236,14 @@ def install_skill(destination: Optional[Path] = None) -> int:
     if target_dir == source_dir:
         print(f"Nenhum arquivo alterado; a skill já está instalada em {target_dir}")
         return 0
+    try:
+        target_dir.relative_to(source_dir)
+    except ValueError:
+        pass
+    else:
+        raise ValueError(
+            f"destino não pode ficar dentro da origem da skill: {target_dir}"
+        )
     if target_dir.exists():
         raise ValueError(
             f"destino já existe: {target_dir}. Remova ou renomeie a instalação "
