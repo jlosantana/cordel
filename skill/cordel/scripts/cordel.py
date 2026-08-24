@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Inicializa e verifica um projeto que adota o Cordel."""
+"""Instala o Cordel e inicializa ou verifica projetos consumidores."""
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import sys
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Tuple
+from typing import Any, Dict, Iterable, List, Optional, Sequence
 
 
 CONFIG_DIR = ".cordel"
@@ -23,6 +24,12 @@ SOURCE_KEYS = (
     "analyses",
     "evidence",
 )
+AGENT_FILES = {
+    "codex": ("AGENTS.md", "agents.md"),
+    "claude": ("CLAUDE.md", "claude.md"),
+}
+MANAGED_BLOCK_START = "<!-- cordel:start -->"
+MANAGED_BLOCK_END = "<!-- cordel:end -->"
 
 
 def default_config(project_name: str) -> Dict[str, Any]:
@@ -87,13 +94,50 @@ def ensure_inside(root: Path, candidate: Path) -> Path:
     return resolved
 
 
-def init_project(root: Path) -> int:
+def update_managed_block(path: Path, block: str) -> str:
+    block = block.strip() + "\n"
+    if MANAGED_BLOCK_START not in block or MANAGED_BLOCK_END not in block:
+        raise ValueError(f"bloco Cordel inválido: {path.name}")
+
+    if not path.exists():
+        path.write_text(block, encoding="utf-8")
+        return "created"
+
+    current = path.read_text(encoding="utf-8")
+    start_count = current.count(MANAGED_BLOCK_START)
+    end_count = current.count(MANAGED_BLOCK_END)
+    if start_count == 0 and end_count == 0:
+        separator = "" if not current.strip() else "\n\n"
+        path.write_text(current.rstrip() + separator + block, encoding="utf-8")
+        return "updated"
+    if start_count != 1 or end_count != 1:
+        raise ValueError(
+            f"marcadores Cordel inconsistentes em {path}; corrija-os antes de executar init"
+        )
+
+    start = current.index(MANAGED_BLOCK_START)
+    end_marker = current.find(MANAGED_BLOCK_END)
+    if end_marker < start:
+        raise ValueError(
+            f"marcadores Cordel fora de ordem em {path}; corrija-os antes de executar init"
+        )
+    end = end_marker + len(MANAGED_BLOCK_END)
+    replacement = block.rstrip()
+    updated = current[:start] + replacement + current[end:]
+    if updated == current:
+        return "unchanged"
+    path.write_text(updated, encoding="utf-8")
+    return "updated"
+
+
+def init_project(root: Path, agents: Sequence[str] = ("codex", "claude")) -> int:
     root = root.resolve()
     root.mkdir(parents=True, exist_ok=True)
     config_dir = root / CONFIG_DIR
     config_dir.mkdir(exist_ok=True)
     config_path = config_dir / CONFIG_FILE
     created: List[Path] = []
+    updated: List[Path] = []
 
     if not config_path.exists():
         write_json(config_path, default_config(root.name))
@@ -142,13 +186,56 @@ def init_project(root: Path) -> int:
             shutil.copy2(source, target)
             created.append(target)
 
+    instruction_source = Path(__file__).resolve().parents[1] / "assets" / "instructions"
+    for agent in agents:
+        target_name, source_name = AGENT_FILES[agent]
+        target = root / target_name
+        block = (instruction_source / source_name).read_text(encoding="utf-8")
+        result = update_managed_block(target, block)
+        if result == "created":
+            created.append(target)
+        elif result == "updated":
+            updated.append(target)
+
     if created:
         print("Criados:")
         for path in created:
             print(f"  - {path.relative_to(root)}")
-    else:
+    if updated:
+        print("Atualizados:")
+        for path in updated:
+            print(f"  - {path.relative_to(root)}")
+    if not created and not updated:
         print("Nenhum arquivo alterado; a estrutura já existia.")
     print(f"Configuração: {config_path}")
+    return 0
+
+
+def install_skill(destination: Optional[Path] = None) -> int:
+    source_dir = Path(__file__).resolve().parents[1]
+    skills_dir = destination
+    if skills_dir is None:
+        codex_home = os.environ.get("CODEX_HOME")
+        skills_dir = (
+            Path(codex_home) / "skills"
+            if codex_home
+            else Path.home() / ".codex" / "skills"
+        )
+
+    skills_dir = skills_dir.expanduser().resolve()
+    target_dir = skills_dir / source_dir.name
+    if target_dir == source_dir:
+        print(f"Nenhum arquivo alterado; a skill já está instalada em {target_dir}")
+        return 0
+    if target_dir.exists():
+        raise ValueError(
+            f"destino já existe: {target_dir}. Remova ou renomeie a instalação "
+            "existente antes de atualizar."
+        )
+
+    skills_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source_dir, target_dir)
+    print(f"Skill instalada em: {target_dir}")
     return 0
 
 
@@ -222,6 +309,26 @@ def check_project(root: Path) -> int:
         errors.append("project.repositories deve ser uma lista")
     elif not repositories:
         warnings.append("project.repositories está vazio")
+    else:
+        for index, repository in enumerate(repositories):
+            if not isinstance(repository, str) or not repository.strip():
+                errors.append(
+                    f"project.repositories[{index}] deve ser um caminho relativo não vazio"
+                )
+                continue
+            repository_path = Path(repository)
+            if repository_path.is_absolute():
+                errors.append(
+                    f"project.repositories[{index}] deve ser relativo à raiz do projeto"
+                )
+                continue
+            try:
+                resolved = ensure_inside(root, root / repository_path)
+            except ValueError as exc:
+                errors.append(f"project.repositories[{index}]: {exc}")
+                continue
+            if not resolved.is_dir():
+                errors.append(f"repositório não existe: {repository}")
 
     sources = require_object(config, "sources", errors)
     for key in SOURCE_KEYS:
@@ -320,20 +427,51 @@ def check_project(root: Path) -> int:
 
 def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Inicializa e verifica projetos que adotam o Cordel."
+        description="Instala o Cordel e inicializa ou verifica projetos consumidores."
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
-    for name in ("init", "check"):
-        command = subparsers.add_parser(name)
-        command.add_argument("project", type=Path, help="raiz do projeto")
+    install = subparsers.add_parser(
+        "install", help="instala a skill no diretório de skills do Codex"
+    )
+    install.add_argument(
+        "destination",
+        nargs="?",
+        type=Path,
+        help="diretório de skills (padrão: CODEX_HOME/skills ou ~/.codex/skills)",
+    )
+    init = subparsers.add_parser("init")
+    init.add_argument("project", type=Path, help="raiz do projeto")
+    agents = init.add_mutually_exclusive_group()
+    agents.add_argument(
+        "--codex", dest="agents", action="store_const", const=("codex",),
+        help="integra somente AGENTS.md",
+    )
+    agents.add_argument(
+        "--claude", dest="agents", action="store_const", const=("claude",),
+        help="integra somente CLAUDE.md",
+    )
+    agents.add_argument(
+        "--all", dest="agents", action="store_const", const=("codex", "claude"),
+        help="integra AGENTS.md e CLAUDE.md (padrão)",
+    )
+    agents.add_argument(
+        "--no-agent-files", dest="agents", action="store_const", const=(),
+        help="não cria nem atualiza arquivos de orientação de agentes",
+    )
+    init.set_defaults(agents=("codex", "claude"))
+
+    check = subparsers.add_parser("check")
+    check.add_argument("project", type=Path, help="raiz do projeto")
     return parser.parse_args(list(argv))
 
 
 def main(argv: Iterable[str] = sys.argv[1:]) -> int:
     args = parse_args(argv)
     try:
+        if args.command == "install":
+            return install_skill(args.destination)
         if args.command == "init":
-            return init_project(args.project)
+            return init_project(args.project, args.agents)
         return check_project(args.project)
     except ValueError as exc:
         print(f"ERRO: {exc}")
