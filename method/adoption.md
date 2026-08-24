@@ -9,9 +9,11 @@ O inicializador cria `.cordel/`, mas não copia o núcleo do Cordel para o proje
 o adaptador, o índice e o conhecimento compartilhado; mantenha `local/` e `generated/`
 fora do Git.
 
-Instale a skill separadamente com `cordel.py install`. Esse comando cria o diretório de
-skills do Codex e copia o pacote; `cordel.py init`, por sua vez, cria a estrutura
-`.cordel/` no projeto consumidor e integra as orientações em `AGENTS.md` e `CLAUDE.md`.
+Instale a skill separadamente com
+`python skill/cordel/scripts/cordel.py install`. Esse comando cria o diretório de skills
+do Codex e copia o pacote; `python skill/cordel/scripts/cordel.py init <projeto>`, por sua
+vez, cria a estrutura `.cordel/` no projeto consumidor e integra as orientações em
+`AGENTS.md` e `CLAUDE.md`.
 O conteúdo preexistente desses arquivos é preservado; somente o bloco delimitado pelos
 marcadores `cordel:start` e `cordel:end` pertence ao inicializador.
 

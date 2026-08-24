@@ -50,7 +50,10 @@ python skill/cordel/scripts/cordel.py install
 ```
 
 Por padrão, o destino é `CODEX_HOME/skills/cordel` ou `~/.codex/skills/cordel`. Para
-usar outro diretório de skills, informe-o como argumento. O comando não substitui uma
+usar outro local, informe como argumento o diretório **pai** de skills; o instalador
+sempre acrescenta `cordel` ao destino. Por exemplo, `install /opt/codex/skills` instala
+em `/opt/codex/skills/cordel`, enquanto `install /opt/codex/skills/cordel` criaria o
+caminho incorreto `/opt/codex/skills/cordel/cordel`. O comando não substitui uma
 instalação existente; remova ou renomeie a versão anterior antes de atualizar.
 
 ## Experimente em um projeto-piloto
