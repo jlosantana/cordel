@@ -2,8 +2,10 @@
 
 ## Cordel, adaptador e conhecimento
 
-O Cordel é instalado como skill ou pacote. Cada repositório mantém apenas o
-adaptador e o conhecimento que acompanha seu código em `.cordel/`:
+O Cordel é instalado como skill ou pacote. Um projeto único pode manter o adaptador e o
+conhecimento que acompanha seu código em `.cordel/`. Em monorepos ou workspaces com
+demandas transversais, a `.cordel/` pode ficar na raiz comum e governar vários
+repositórios declarados em `project.repositories`:
 
 ```text
 .cordel/
@@ -19,6 +21,8 @@ adaptador e o conhecimento que acompanha seu código em `.cordel/`:
 
 Não copie a implementação completa do Cordel para cada serviço. `cordel_version` registra
 a versão esperada e permite evoluir o pacote separadamente dos projetos consumidores.
+Também não duplique uma demanda transversal nas `.cordel/` de vários serviços: escolha
+uma autoridade agregadora e vincule as evidências locais pelos caminhos dos repositórios.
 
 ## Ciclo de vida documental
 

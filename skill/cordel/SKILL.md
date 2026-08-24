@@ -13,9 +13,12 @@ as fronteiras de autorização; uma análise não autoriza publicação ou alter
 
 ## Descobrir o projeto
 
-Localize `.cordel/project.json` a partir da raiz do workspace. Leia a configuração
-antes de assumir caminhos, prefixos, comandos, arquitetura ou fontes da verdade. Se ela
-não existir e o usuário pediu adoção do Cordel, use `scripts/cordel.py init <projeto>`.
+Localize `.cordel/project.json` a partir da raiz do workspace e, se necessário, suba pelos
+diretórios ancestrais. A configuração pode representar um único repositório, um monorepo
+ou uma raiz agregadora com vários repositórios irmãos. Leia `project.repositories` antes
+de assumir o alcance da demanda, caminhos, comandos, arquitetura ou fontes da verdade.
+Se a configuração não existir e o usuário pediu adoção do Cordel, use
+`scripts/cordel.py init <projeto>` na menor raiz comum que contenha o escopo das demandas.
 
 Se a configuração não existir numa análise comum, use as convenções documentadas pelo
 próprio projeto e informe quais partes não puderam ser verificadas pelo método.

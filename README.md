@@ -41,6 +41,18 @@ Imagine o pedido: “o sistema deve avisar quando uma solicitação for aprovada
 Antes de implementar, o agente deve declarar um resultado de gate:
 `BLOQUEADO`, `PRONTO PARA ESPECIFICAR` ou `PRONTO PARA IMPLEMENTAR`.
 
+## Instale a skill
+
+O instalador cria o diretório de skills quando necessário e copia o Cordel para ele:
+
+```bash
+python skill/cordel/scripts/cordel.py install
+```
+
+Por padrão, o destino é `CODEX_HOME/skills/cordel` ou `~/.codex/skills/cordel`. Para
+usar outro diretório de skills, informe-o como argumento. O comando não substitui uma
+instalação existente; remova ou renomeie a versão anterior antes de atualizar.
+
 ## Experimente em um projeto-piloto
 
 Requer Python 3.8 ou superior e não possui dependências externas.
@@ -50,7 +62,8 @@ python skill/cordel/scripts/cordel.py init /caminho/do/projeto
 ```
 
 O comando cria `.cordel/project.json`, um índice de contexto, modelos e pastas por
-ciclo de vida sem sobrescrever arquivos existentes. Em seguida:
+ciclo de vida. Também cria ou atualiza blocos Cordel delimitados em `AGENTS.md` e
+`CLAUDE.md`, preservando as demais instruções existentes. Em seguida:
 
 1. preencha o nome, os repositórios, as fontes da verdade e os comandos do projeto;
 2. valide a configuração até obter `GO`:
@@ -63,8 +76,15 @@ ciclo de vida sem sobrescrever arquivos existentes. Em seguida:
 4. percorra a cadeia completa e registre onde o método ajudou ou criou atrito;
 5. ajuste regras locais no projeto; generalize o núcleo apenas com evidência recorrente.
 
-Para disponibilizar a skill ao Codex, copie
-`skill/cordel/` para o diretório de skills do ambiente.
+Em um workspace agregador ou monorepo, execute `init` na raiz comum e liste em
+`project.repositories` os caminhos relativos de cada repositório. Assim, uma única
+`.cordel/` pode manter necessidades, decisões, specs e evidências transversais, enquanto
+o código e as provas locais continuam endereçados pelo caminho de cada repositório.
+
+Por padrão, `init` integra Codex e Claude. Use `--codex`, `--claude` ou `--all` para
+escolher os arquivos de agentes; use `--no-agent-files` quando essa integração for
+gerenciada por outra ferramenta. Execuções posteriores atualizam somente o bloco entre
+`<!-- cordel:start -->` e `<!-- cordel:end -->`.
 
 ## Como estudar o Cordel
 

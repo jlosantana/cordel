@@ -13,7 +13,11 @@
       "properties": {
         "name": {"type": "string", "minLength": 1},
         "language": {"type": "string"},
-        "repositories": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        "repositories": {
+          "description": "Caminhos relativos dos repositórios governados por esta configuração, a partir da raiz que contém .cordel.",
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
       }
     },
     "sources": {
