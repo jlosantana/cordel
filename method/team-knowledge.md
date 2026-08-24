@@ -2,8 +2,10 @@
 
 ## Cordel, adaptador e conhecimento
 
-O Cordel é instalado como skill ou pacote. Cada repositório mantém apenas o
-adaptador e o conhecimento que acompanha seu código em `.cordel/`:
+O Cordel é instalado como skill ou pacote. Um projeto único pode manter o adaptador e o
+conhecimento que acompanha seu código em `.cordel/`. Em monorepos ou workspaces com
+demandas transversais, a `.cordel/` pode ficar na raiz comum e governar vários
+repositórios declarados em `project.repositories`:
 
 ```text
 .cordel/
@@ -19,6 +21,13 @@ adaptador e o conhecimento que acompanha seu código em `.cordel/`:
 
 Não copie a implementação completa do Cordel para cada serviço. `cordel_version` registra
 a versão esperada e permite evoluir o pacote separadamente dos projetos consumidores.
+Também não duplique uma demanda transversal nas `.cordel/` de vários serviços: escolha
+uma autoridade agregadora e vincule as evidências locais pelos caminhos dos repositórios.
+
+Configurações aninhadas formam uma relação top-down. A agregadora pode referenciar os
+repositórios que governa, mas uma configuração interna não pode depender por caminho de
+arquivos da agregadora. Cada raiz Cordel confina suas próprias fontes e artefatos locais,
+de modo que o repositório interno possa ser clonado e validado isoladamente.
 
 ## Ciclo de vida documental
 
@@ -48,9 +57,10 @@ sistemas especializados. Registre cada fonte em `project.json` com:
 }
 ```
 
-Uma fonte `path` é validada dentro do workspace; uma fonte `url` permanece sob autoridade
-do sistema e responsável declarados. MCP pode oferecer acesso à fonte externa, mas é um
-mecanismo de integração, não uma nova fonte da verdade.
+Uma fonte `path` é validada dentro da raiz que contém a `.cordel/` da configuração
+corrente, mesmo quando ela está aninhada em um workspace maior. Uma fonte `url` permanece
+sob autoridade do sistema e responsável declarados. MCP pode oferecer acesso à fonte
+externa, mas é um mecanismo de integração, não uma nova fonte da verdade.
 
 ## Política para times
 

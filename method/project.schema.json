@@ -13,7 +13,11 @@
       "properties": {
         "name": {"type": "string", "minLength": 1},
         "language": {"type": "string"},
-        "repositories": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        "repositories": {
+          "description": "Caminhos relativos dos repositórios governados por esta configuração, sempre confinados à raiz que contém a .cordel corrente. A relação entre configurações aninhadas é top-down; projetos internos não referenciam diretórios ancestrais.",
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
       }
     },
     "sources": {
@@ -48,6 +52,7 @@
   },
   "$defs": {
     "source": {
+      "description": "Fonte da verdade. Quando kind é path, location é relativa e confinada à raiz que contém a .cordel corrente.",
       "type": "object",
       "required": ["kind", "location", "owner"],
       "properties": {
