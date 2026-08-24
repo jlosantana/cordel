@@ -84,6 +84,12 @@ Em um workspace agregador ou monorepo, execute `init` na raiz comum e liste em
 `.cordel/` pode manter necessidades, decisões, specs e evidências transversais, enquanto
 o código e as provas locais continuam endereçados pelo caminho de cada repositório.
 
+Se um repositório interno também tiver sua própria `.cordel/`, ela deve funcionar de
+forma autônoma: caminhos locais permanecem dentro da raiz desse repositório e nunca sobem
+com `..` até a configuração agregadora. A agregadora pode apontar para projetos internos
+(top-down); projetos internos relacionam requisitos transversais por identificador ou URL,
+sem referências de filesystem bottom-up.
+
 Por padrão, `init` integra Codex e Claude. Use `--codex`, `--claude` ou `--all` para
 escolher os arquivos de agentes; use `--no-agent-files` quando essa integração for
 gerenciada por outra ferramenta. Execuções posteriores atualizam somente o bloco entre

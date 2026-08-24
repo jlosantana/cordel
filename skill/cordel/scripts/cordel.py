@@ -90,7 +90,10 @@ def ensure_inside(root: Path, candidate: Path) -> Path:
     try:
         resolved.relative_to(resolved_root)
     except ValueError as exc:
-        raise ValueError(f"caminho fora da raiz do projeto: {candidate}") from exc
+        raise ValueError(
+            f"caminho fora da raiz Cordel corrente: {candidate}; "
+            "referências a diretórios ancestrais não são permitidas"
+        ) from exc
     return resolved
 
 

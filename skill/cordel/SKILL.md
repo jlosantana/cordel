@@ -23,6 +23,12 @@ Se a configuração não existir e o usuário pediu adoção do Cordel, use
 Se a configuração não existir numa análise comum, use as convenções documentadas pelo
 próprio projeto e informe quais partes não puderam ser verificadas pelo método.
 
+Considere como raiz da configuração o diretório que contém a `.cordel/` selecionada.
+Resolva todos os caminhos locais contra essa raiz e nunca contra uma raiz agregadora
+ancestral. Uma configuração interna deve continuar válida quando seu repositório for
+clonado isoladamente; para relacioná-la a requisitos transversais sob outra autoridade,
+use identificadores estáveis ou fontes `url`, não caminhos `..` até o diretório pai.
+
 Comece por `.cordel/index.md` e carregue somente as fontes pertinentes à demanda. Não use
 conteúdo de `.cordel/local/` como conhecimento compartilhado ou fonte canônica.
 
@@ -50,6 +56,8 @@ Leia apenas os workflows necessários à tarefa atual.
 - Marque inferências, incertezas e decisões humanas pendentes.
 - Não altere código funcional antes do gate quando o projeto exige esse gate.
 - Não edite projeções geradas; corrija a fonte ou o gerador.
+- Não crie referências locais bottom-up: cada caminho deve permanecer dentro da raiz da
+  configuração Cordel que o declara.
 - Se surgir escopo novo durante a implementação, interrompa essa parte e volte à triagem.
 
 ## Saída de prontidão

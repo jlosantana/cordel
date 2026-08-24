@@ -40,6 +40,15 @@ perto do código, desde que sejam registrados como fontes `path` no `project.jso
 mantenha configurações Cordel concorrentes para a mesma demanda sem declarar qual delas
 é a autoridade.
 
+Quando um repositório interno também possuir sua própria `.cordel/`, essa configuração
+deve ser autônoma: seus caminhos locais são resolvidos contra a raiz do próprio
+repositório e não podem alcançar a raiz agregadora ou outros diretórios ancestrais. A
+relação válida por filesystem é top-down — a configuração agregadora declara os
+repositórios internos. A configuração interna não faz referências bottom-up com `..`;
+ela deve continuar íntegra quando o repositório for clonado isoladamente. Relacione
+autoridades transversais por identificador estável ou fonte `url`, sem duplicar seu
+conteúdo no projeto interno.
+
 ## 2. Escolher uma demanda real e pequena
 
 Prefira uma mudança com origem conhecida, comportamento atual observável e baixo risco.
