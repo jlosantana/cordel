@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cordel | Aprovação visual da série 01</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;600&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap');
+    :root{--ink:#17130f;--paper:#ead9ad;--paper2:#f5e8c5;--blue:#087f91;--red:#aa3528;--muted:#655b49;--line:#2d271f}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#241d16;font-family:Literata,Georgia,serif}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E")}
+    header,main,footer{max-width:1240px;margin:auto;background:var(--paper2)}
+    header{padding:52px clamp(22px,6vw,78px) 36px;border-bottom:8px double var(--ink);position:relative;overflow:hidden}
+    .eyebrow,.tag,.meta,.state{font:600 12px/1.4 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.1em}
+    .eyebrow{color:var(--red)}h1{font:clamp(48px,9vw,116px)/.86 'Archivo Black',Impact,sans-serif;letter-spacing:-.055em;margin:14px 0 24px;max-width:900px;text-transform:uppercase}
+    header p{font-size:clamp(17px,2vw,22px);line-height:1.55;max-width:790px;margin:0}.stamp{position:absolute;right:-35px;top:35px;width:260px;height:260px;border:18px solid var(--ink);transform:rotate(8deg);opacity:.055}.stamp:after{content:"";position:absolute;inset:40px;border:8px double var(--ink)}
+    .rules{padding:28px clamp(22px,6vw,78px);display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink)}
+    .rule{background:var(--paper);padding:21px}.rule b{display:block;font:18px/1.1 'Archivo Black',sans-serif;margin-bottom:8px}.rule span{font-size:13px;line-height:1.45;color:var(--muted)}
+    .intro{padding:45px clamp(22px,6vw,78px) 26px;display:flex;gap:30px;align-items:end;justify-content:space-between}.intro h2{font:clamp(31px,5vw,62px)/.95 'Archivo Black',sans-serif;text-transform:uppercase;margin:0}.intro p{max-width:490px;margin:0;line-height:1.55}
+    .grid{padding:20px clamp(18px,4vw,48px) 70px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+    article{border:3px solid var(--ink);background:var(--paper);box-shadow:7px 7px 0 var(--ink);display:grid;grid-template-columns:minmax(220px,.92fr) 1.08fr;min-height:420px}
+    .proof{position:relative;min-height:320px;border-right:3px solid var(--ink);overflow:hidden;background:var(--paper2)}
+    .proof svg{display:block;width:100%;height:100%;min-height:420px}.proof:after{content:"RASCUNHO DE COMPOSIÇÃO";position:absolute;left:12px;bottom:11px;color:var(--red);font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.08em;background:var(--paper2);padding:4px 6px;border:1px solid var(--red)}
+    .copy{padding:24px;display:flex;flex-direction:column}.top{display:flex;justify-content:space-between;gap:15px}.state{color:var(--red)}h3{font:28px/1.02 'Archivo Black',sans-serif;text-transform:uppercase;margin:35px 0 22px}.pair{border-top:2px solid var(--ink);padding:12px 0}.pair span{display:block;color:var(--red);font:600 10px 'IBM Plex Mono',monospace;text-transform:uppercase;margin-bottom:5px}.pair p{margin:0;font-size:14px;line-height:1.48}.visual{margin-top:auto;padding-top:18px;color:var(--muted);font-size:12px;line-height:1.5}.visual b{color:var(--ink)}
+    .ink{fill:var(--ink);stroke:var(--ink)}.paper{fill:var(--paper2)}.blue{fill:var(--blue);stroke:var(--blue)}.none{fill:none;stroke:var(--ink);stroke-width:8;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke:var(--ink);stroke-width:3}.hatch{stroke:var(--ink);stroke-width:2}.dash{stroke-dasharray:9 8}
+    footer{padding:30px clamp(22px,6vw,78px) 50px;border-top:8px double var(--ink);display:flex;justify-content:space-between;gap:25px}footer p{max-width:760px;margin:0;line-height:1.55}.approve{font:20px 'Archivo Black',sans-serif;text-transform:uppercase;color:var(--blue)}
+    @media(max-width:920px){.rules{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}article{grid-template-columns:1fr 1.2fr}}
+    @media(max-width:620px){article{grid-template-columns:1fr}.proof{border-right:0;border-bottom:3px solid var(--ink)}.proof svg{min-height:330px}.intro,footer{display:block}.intro p{margin-top:18px}.rules{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header><div class="stamp"></div><div class="eyebrow">Série 01 · problema × solução · proposta para aprovação</div><h1>Cordel<br>em prática</h1><p>Antes da imagem final, validamos a linguagem. A proposta leva a engenharia de software para o universo visual dos folhetos: xilogravura, papel, narrativa popular e contraste de impressão.</p></header>
+  <main>
+    <section class="rules" aria-label="Direção visual">
+      <div class="rule"><b>Matriz</b><span>Xilogravura de folheto, com entalhe aparente e narrativa visual.</span></div>
+      <div class="rule"><b>Paleta</b><span>Preto sobre papel cru. Azul em um único detalhe de apoio.</span></div>
+      <div class="rule"><b>Síntese</b><span>Um símbolo central, poucos elementos e bastante papel aparente.</span></div>
+      <div class="rule"><b>Limite</b><span>Sem cordas, caricatura regional, 3D ou imitação de artista específico.</span></div>
+    </section>
+    <section class="intro"><h2>Oito capas,<br>uma conversa</h2><p>Os desenhos abaixo são mapas de composição feitos em HTML e SVG. Eles validam a ideia, não antecipam o acabamento da xilogravura final.</p></section>
+    <section class="grid" id="posts"></section>
+  </main>
+  <footer><p>Para aprovar, você pode indicar “série aprovada” ou comentar IDs específicos, por exemplo: “SOCIAL-03: trocar a porteira por uma banca de feira”. Só depois dessa validação as imagens serão geradas.</p><div class="approve">Aguardando autorização</div></footer>
+  <script>
+    const posts=[
+      ['SOCIAL-01','A IA também acelera o erro','Velocidade reduz o tempo para implementar, mas também amplia uma premissa errada.','Rastreabilidade e decisão explícita antes da mudança.','Uma seta veloz encontra uma bifurcação: o caminho escolhido termina rompido.','cart'],
+      ['SOCIAL-02','Resposta plausível não é evidência','Uma explicação convincente pode não ter sustentação no repositório.','Separar alegação, inferência e evidência verificável.','Uma ponte ornamentada termina no vazio; a outra se apoia em estacas.','bridge'],
+      ['SOCIAL-03','Necessidade não é autorização','Entender o pedido não dá ao agente permissão automática para alterar o sistema.','Gate humano define quando a execução pode começar.','Um documento para diante de uma porteira fechada.','gate'],
+      ['SOCIAL-04','AS-IS antes do TO-BE','Projetar o futuro sem conhecer o comportamento atual cria regressões elegantes.','Inspeção do sistema existente antes da proposta.','Artesão examina uma máquina antes de desenhar sua extensão.','inspect'],
+      ['SOCIAL-05','Implementado não é verificado','Código pronto e teste executado ainda não provam o resultado esperado.','Evidência liga o comportamento observado à especificação.','Máquina parece pronta, mas falta o pino final; a prova espera ao lado.','proof'],
+      ['SOCIAL-06','Contexto maior nem sempre é melhor','Acumular arquivos e instruções pode esconder o que realmente decide a tarefa.','Selecionar contexto pertinente, rastreável e atualizado.','Um funil reduz muitas páginas a três referências úteis.','select'],
+      ['SOCIAL-07','Gate precisa ter significado','Um checkpoint decorativo não limita autonomia nem protege decisões.','Cada gate bloqueia, devolve ou libera com critérios explícitos.','Uma porteira só abre diante de um selo de prova.','gates'],
+      ['SOCIAL-08','Método evolui com uso real','Uma prática vira regra cedo demais quando nasce só de preferência local.','Padrões repetidos e comprovados alimentam o núcleo portátil.','Três matrizes são testadas; apenas a comprovada recebe o carimbo final.','evolve']
+    ];
+    function scene(kind){
+      const common='<rect class="paper" width="360" height="420"/><path class="thin" d="M0 42h360M0 380h360"/><g class="hatch" opacity=".35">'+Array.from({length:13},(_,i)=>`<path d="M${i*32-40} 420L${i*32+150} 0"/>`).join('')+'</g>';
+      const art={
+        cart:'<path class="none blue" d="M35 220h145l70 75"/><path class="none" d="M180 220l72-74M236 285l28 28m-2-3 28-5M248 143l26-28m-2 2 7 32"/><path class="ink" d="M112 188l68 32-68 32z"/>',
+        bridge:'<path class="none" d="M25 330q65-95 132-5M203 325q62-90 132 0"/><path class="none blue" d="M20 285h135M205 285h120"/><path class="none dash" d="M155 285h50"/><path class="ink" d="M55 285l12-88 12 88zm64 0 12-88 12 88zm122 0 12-88 12 88zm58 0 12-88 12 88z"/>',
+        gate:'<path class="none" d="M78 335V120M282 335V120M78 145h204M145 145v190M215 145v190"/><rect class="blue" x="30" y="230" width="86" height="108"/><path class="paper" d="M45 250h56v8H45zm0 22h42v8H45z"/><circle class="ink" cx="180" cy="245" r="30"/><path class="paper" d="M167 232h26v29h-26z"/>',
+        inspect:'<path class="none" d="M35 315h290M74 315V205h205v110M110 260h132"/><circle class="blue" cx="177" cy="260" r="48"/><path class="none" d="M190 115l-30 73m0-73 30 73M145 105h60"/><path class="thin dash" d="M40 180q135-95 280 0"/>',
+        proof:'<rect class="none" x="72" y="122" width="216" height="175"/><circle class="none" cx="180" cy="210" r="54"/><path class="none" d="M180 156v108M126 210h108"/><circle class="blue" cx="270" cy="305" r="38"/><path class="paper" d="M249 305l14 14 29-36 8 8-37 46-22-23z"/>',
+        select:'<path class="ink" d="M55 105h250l-92 125v80l-66 30V230z"/><path class="paper" d="M82 130h196l-18 25H100zm38 45h120l-18 25h-84z"/><path class="blue" d="M160 245h40v63l-40 17z"/>',
+        gates:'<path class="none" d="M75 335V115M285 335V115M75 140h210M145 140v195M215 140v195"/><circle class="blue" cx="180" cy="225" r="46"/><path class="paper" d="M154 225l18 18 38-48 10 10-48 60-29-29z"/>',
+        evolve:'<rect class="none" x="35" y="135" width="78" height="110"/><rect class="none" x="141" y="135" width="78" height="110"/><rect class="blue" x="247" y="135" width="78" height="110"/><path class="none" d="M54 190l20-20 20 20-20 20zm106 0 20-20 20 20-20 20z"/><path class="paper" d="M266 190l20-20 20 20-20 20z"/><path class="none" d="M250 300h72M265 320h42"/>'
+      };return `<svg viewBox="0 0 360 420" role="img" aria-label="Rascunho vetorial da composição">${common}${art[kind]}</svg>`;
+    }
+    document.querySelector('#posts').innerHTML=posts.map(([id,title,problem,solution,visual,kind])=>`<article><div class="proof">${scene(kind)}</div><div class="copy"><div class="top"><span class="tag">${id}</span><span class="state">aguarda aprovação</span></div><h3>${title}</h3><div class="pair"><span>Problema</span><p>${problem}</p></div><div class="pair"><span>Resposta do Cordel</span><p>${solution}</p></div><p class="visual"><b>Cena proposta:</b> ${visual}</p></div></article>`).join('');
+  </script>
+</body>
+</html>

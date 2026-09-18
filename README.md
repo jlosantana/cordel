@@ -107,6 +107,14 @@ Depois, consulte os workflows em
 e os modelos em
 [`skill/cordel/assets/templates/`](skill/cordel/assets/templates/).
 
+Para conduzir um treinamento prático, consulte a
+[`ementa do curso Cordel na prática`](course/ementa.md), organizada em 24 horas com um
+projeto-laboratório de ponta a ponta. A
+[`versão HTML navegável`](course/ementa.html) apresenta identificadores estáveis para a
+evolução de cada tópico. A
+[`apresentação central`](course/apresentacao/cordel-na-pratica.pptx) reúne o fio condutor dos
+oito encontros e referencia os conteúdos detalhados nas notas do apresentador.
+
 ## Organização do repositório
 
 - `method/`: manifesto, conceitos, fundamentos de IA, catálogo, rastreabilidade, adoção e schema;

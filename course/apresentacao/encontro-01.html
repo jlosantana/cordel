@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Encontro 1 — Como um agente funciona e por que erra">
+<title>Encontro 1 — Como um agente funciona e por que erra</title>
+<!-- Projeção gerada por course/scripts/build_deck.py. Não editar à mão. -->
+<style>
+:root{
+  --ink:#13243a; --ink-soft:#43566e; --paper:#f6f8fb; --surface:#fff;
+  --line:#d8e0e9; --blue:#164b73; --blue-deep:#092c48; --cyan:#1c8ea0;
+  --cyan-pale:#dff5f4; --yellow:#f2bd43; --yellow-pale:#fff5d8;
+  --yellow-ink:#96700f; --red:#bb4d4a; --red-pale:#fbeeee; --mist:#c7d8e6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#0b1a2a}
+body{font-family:"Segoe UI Variable Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);-webkit-font-smoothing:antialiased}
+
+#stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;
+  transform-origin:center center;background:var(--paper);
+  box-shadow:0 30px 90px rgba(0,0,0,.45)}
+
+.slide{position:absolute;inset:0;padding:46px 60px 54px;background:var(--paper);
+  display:none;flex-direction:column;justify-content:center;overflow:hidden}
+.slide.on{display:flex}
+.slide.dark{background:var(--blue-deep);color:#fff;padding-left:94px}
+.slide.dark::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;
+  background:var(--cyan)}
+.slide.divider-yellow::before{background:var(--yellow)}
+.slide.divider-red::before{background:var(--red)}
+
+.s-head{border-left:6px solid var(--cyan);padding-left:20px;margin:0 0 20px}
+.s-head.accent-blue{border-color:var(--blue)}
+.s-head.accent-yellow{border-color:var(--yellow)}
+.s-head.accent-red{border-color:var(--red)}
+.eyebrow{margin:0 0 6px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  font-weight:700;color:var(--cyan)}
+.accent-blue .eyebrow{color:var(--blue)}
+.accent-yellow .eyebrow{color:var(--yellow-ink)}
+.accent-red .eyebrow{color:var(--red)}
+.s-head h2{margin:0;font-size:33px;font-weight:600;line-height:1.12;
+  letter-spacing:-.01em}
+.intro{margin:0 0 16px;font-size:15px;color:var(--ink-soft);line-height:1.45}
+.s-foot{position:absolute;left:60px;right:60px;bottom:24px;margin:0;
+  font-size:11px;color:#8a9bad}
+
+/* capas e divisores */
+.cover-body{max-width:960px}
+.cover-body .eyebrow{color:var(--cyan);font-size:13px;margin-bottom:18px}
+.divider-yellow .cover-body .eyebrow{color:var(--yellow)}
+.divider-red .cover-body .eyebrow{color:var(--red)}
+.cover-body h1{margin:0 0 20px;font-size:52px;line-height:1.06;font-weight:600;
+  letter-spacing:-.02em}
+.cover-body .lead{margin:0;font-size:20px;line-height:1.45;color:var(--mist)}
+.tese-capa{margin:0;font-size:20px;line-height:1.45;color:var(--mist);
+  padding-left:18px;border-left:3px solid rgba(255,255,255,.22);max-width:860px}
+.divider-foot{margin:32px 0 0;font-size:14px}
+.tone-cyan{color:var(--cyan)}.tone-yellow{color:var(--yellow)}.tone-red{color:var(--red)}
+.chips{display:flex;gap:34px;list-style:none;margin:42px 0 0;padding:0}
+.chips li{font-size:13px;color:var(--mist);padding-left:12px;
+  border-left:4px solid var(--cyan)}
+.chips li.tone-yellow{border-color:var(--yellow)}
+.chips li.tone-red{border-color:var(--red)}
+
+/* frase de impacto */
+.statement{max-width:1020px}
+.statement p{margin:0;font-size:36px;line-height:1.3;font-weight:600;
+  letter-spacing:-.01em;color:#fff}
+.statement-foot{margin:26px 0 0!important;font-size:14px!important;
+  font-weight:400!important;color:var(--mist)!important}
+
+/* conceito */
+.principio{margin:0 0 22px;font-size:25px;line-height:1.35;font-weight:600;
+  color:var(--ink);max-width:1080px}
+.pratica{border-left:5px solid var(--cyan);padding:2px 0 2px 20px;max-width:1080px}
+.pratica.accent-blue{border-color:var(--blue)}
+.pratica.accent-yellow{border-color:var(--yellow)}
+.pratica.accent-red{border-color:var(--red)}
+.pratica b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cyan);margin-bottom:5px}
+.pratica.accent-blue b{color:var(--blue)}
+.pratica.accent-yellow b{color:var(--yellow-ink)}
+.pratica.accent-red b{color:var(--red)}
+.pratica p{margin:0;font-size:17px;line-height:1.5;color:var(--ink-soft)}
+.exemplo{margin:20px 0 0;padding:13px 18px;background:var(--surface);
+  border:1px solid var(--line);font-size:15px;line-height:1.45;color:var(--ink-soft);
+  max-width:1080px}
+
+/* listas */
+.simples{margin:0;padding-left:26px;font-size:19px;line-height:1.65;color:var(--ink)}
+.simples li{margin-bottom:9px;padding-left:6px}
+.simples li::marker{color:var(--cyan);font-weight:700}
+.simples.tone-blue li::marker{color:var(--blue)}
+.simples.tone-yellow li::marker{color:var(--yellow-ink)}
+.simples.tone-red li::marker{color:var(--red)}
+
+.dgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  gap:11px 40px}
+.dgrid.one{grid-template-columns:1fr;gap:13px}
+.dgrid li{border-left:4px solid var(--cyan);padding-left:14px;font-size:15px}
+.dgrid li.tone-blue{border-color:var(--blue)}
+.dgrid li.tone-yellow{border-color:var(--yellow)}
+.dgrid li.tone-red{border-color:var(--red)}
+.dgrid li b{display:block;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--cyan);margin-bottom:1px}
+.dgrid li.tone-blue b{color:var(--blue)}
+.dgrid li.tone-yellow b{color:var(--yellow-ink)}
+.dgrid li.tone-red b{color:var(--red)}
+
+.qgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  gap:13px 40px}
+.qgrid li{border-left:4px solid var(--cyan);padding-left:14px}
+.qgrid .tag{display:block;font-size:11px;font-weight:700;color:var(--cyan);
+  letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.qgrid .txt{font-size:16px}
+
+/* laboratório */
+.etapa-head{display:flex;gap:20px;align-items:flex-start;border-left:0;padding-left:0}
+.etapa-num{flex:0 0 66px;height:66px;line-height:66px;text-align:center;
+  font-size:30px;font-weight:700;color:#fff;background:var(--blue)}
+.etapa-num.tone-cyan{background:var(--cyan)}
+.etapa-num.tone-red{background:var(--red)}
+.etapa-head h2{font-size:31px}
+.passos{margin:0 0 18px;padding-left:24px;font-size:18px;line-height:1.55;
+  color:var(--ink)}
+.passos li{margin-bottom:8px}
+.passos li::marker{color:var(--blue)}
+
+/* demonstração */
+.demo{list-style:none;margin:0 0 20px;padding:0}
+.demo li{display:flex;gap:18px;align-items:baseline;margin-bottom:12px}
+.demo-t{flex:0 0 78px;font-size:13px;font-weight:700;color:var(--cyan);
+  text-align:right;font-variant-numeric:tabular-nums}
+.demo-b{font-size:17px;line-height:1.45;color:var(--ink-soft)}
+.demo-b b{display:block;color:var(--ink);font-size:18px;margin-bottom:1px}
+.observar{background:var(--cyan-pale);padding:15px 20px}
+.observar b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--blue);margin-bottom:6px}
+.observar ul{margin:0;padding-left:20px;font-size:15px;line-height:1.55;
+  color:var(--blue)}
+
+/* equívocos */
+.equivocos{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:16px 34px}
+.equivocos li{border-left:4px solid var(--red);padding-left:16px}
+.equivocos .mito{margin:0 0 4px;font-size:16px;font-weight:600;color:var(--red)}
+.equivocos .fato{margin:0;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+
+/* checklist */
+.checklist{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:10px 40px}
+.checklist li{position:relative;padding-left:30px;font-size:16px;line-height:1.4}
+.checklist li::before{content:"";position:absolute;left:0;top:2px;width:16px;
+  height:16px;border:2px solid var(--cyan)}
+.checklist.tone-blue li::before{border-color:var(--blue)}
+
+/* cartões e blocos */
+.card{background:var(--surface);border:1px solid var(--line);
+  border-top:5px solid var(--cyan);padding:16px 20px 14px}
+.card.accent-blue{border-top-color:var(--blue)}
+.card.accent-yellow{border-top-color:var(--yellow)}
+.card.accent-red{border-top-color:var(--red)}
+.card h3{margin:0 0 9px;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--cyan)}
+.card.accent-blue h3{color:var(--blue)}
+.card.accent-yellow h3{color:var(--yellow-ink)}
+.card.accent-red h3{color:var(--red)}
+.card p{margin:0 0 6px;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+.card p:last-child{margin-bottom:0}
+.card p.mid{margin-top:10px;font-size:10px;color:#a3b4c4;font-weight:700;
+  letter-spacing:.05em}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+
+.blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.block{background:var(--surface);border:1px solid var(--line);
+  border-top:5px solid var(--cyan);padding:18px 20px;display:flex;flex-direction:column}
+.block.accent-yellow{border-top-color:var(--yellow)}
+.block.accent-red{border-top-color:var(--red)}
+.block-name{margin:0;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--cyan);min-height:2.6em;line-height:1.3}
+.block.accent-yellow .block-name{color:var(--yellow-ink)}
+.block.accent-red .block-name{color:var(--red)}
+.block-when{margin:0 0 14px;font-size:12px;color:var(--ink-soft)}
+.block h3{margin:0 0 14px;font-size:19px;line-height:1.25;font-weight:600}
+.block ul{margin:0;padding-left:16px;font-size:14px;color:var(--ink-soft);
+  line-height:1.6}
+.block-tool{margin:auto 0 0;padding-top:14px;font-size:12px;font-style:italic;
+  color:var(--cyan)}
+.block.accent-yellow .block-tool{color:var(--yellow-ink)}
+.block.accent-red .block-tool{color:var(--red)}
+
+.olist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.olist li{display:flex;gap:18px;align-items:flex-start}
+.oid{flex:0 0 74px;text-align:center;padding:8px 0;font-size:13px;font-weight:700;
+  color:#fff;background:var(--cyan)}
+.oid.tone-blue{background:var(--blue)}
+.obody{padding-top:1px;font-size:16px;line-height:1.35}
+.obody b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--cyan);margin-bottom:2px;font-weight:700}
+.olist.accent-blue .obody b{color:var(--blue)}
+
+.chain{list-style:none;display:grid;grid-template-columns:repeat(9,1fr);gap:8px;
+  margin:0 0 20px;padding:0}
+.chain li{background:var(--surface);border:1px solid var(--line);
+  border-top:4px solid var(--cyan);padding:11px 6px;font-size:11px;text-align:center;
+  line-height:1.25;color:var(--ink)}
+.chain li.tone-yellow{border-top-color:var(--yellow)}
+.chain li.tone-red{border-top-color:var(--red)}
+
+/* tabelas */
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--blue);color:#fff;text-align:left;padding:9px 12px;
+  font-size:12px;font-weight:700}
+tbody td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink-soft);
+  line-height:1.35;vertical-align:top}
+tbody tr:nth-child(even){background:#fbfcfe}
+td.key{font-weight:700;color:var(--ink);white-space:nowrap}
+table.vazia tbody td{height:36px;border:1px solid var(--line);background:var(--surface)}
+table.vazia tbody tr:nth-child(even){background:none}
+table.vazia thead th{background:var(--cyan)}
+table.roteiro{font-size:15px}
+table.roteiro td{padding:7px 14px}
+table.roteiro tr.mark td{background:var(--cyan-pale);color:var(--blue);font-weight:600}
+table.riscos td:nth-child(2){width:15%}
+table.riscos td:nth-child(3){width:22%}
+table.riscos td:nth-child(4){width:29%}
+table.aval td.key{width:64px}
+table.aval td:nth-child(2){width:30%;font-weight:600;color:var(--ink)}
+
+/* callout */
+.callout{margin:18px 0 0;padding:15px 20px;background:var(--cyan-pale);
+  font-size:15px;font-weight:600;color:var(--blue);line-height:1.4}
+.callout.tone-yellow{background:var(--yellow-pale);color:var(--ink)}
+.callout.tone-red{background:var(--red-pale);color:var(--ink)}
+.callout.big{font-weight:400;color:var(--ink-soft);font-size:14px}
+.callout.big b{display:block;font-size:17px;color:var(--ink);margin-bottom:4px}
+
+/* cromo */
+#chrome{position:fixed;inset:auto 0 0 0;height:4px;background:rgba(255,255,255,.12);
+  z-index:20}
+#bar{height:100%;background:var(--cyan);transition:width .2s}
+#counter{position:fixed;right:16px;bottom:14px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.55);font-variant-numeric:tabular-nums}
+#help{position:fixed;left:16px;bottom:14px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.38)}
+#deckname{position:fixed;left:16px;top:12px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.32)}
+
+#notes{position:fixed;left:0;right:0;bottom:0;height:26vh;overflow:auto;
+  background:#071523;color:#c9d8e6;border-top:2px solid var(--cyan);padding:16px 22px;
+  font-size:14px;line-height:1.55;z-index:30;display:none}
+#notes.on{display:block}
+#notes b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cyan);margin-bottom:6px}
+
+#index{position:fixed;inset:0;background:rgba(7,21,35,.97);z-index:40;display:none;
+  padding:36px 56px;overflow:auto}
+#index.on{display:block}
+#index h2{color:#fff;font-size:19px;margin:0 0 18px;font-weight:600}
+#index ol{list-style:none;margin:0;padding:0;columns:2;column-gap:56px}
+#index li{margin-bottom:6px;break-inside:avoid}
+#index button{background:none;border:0;color:#c9d8e6;font:inherit;font-size:14px;
+  cursor:pointer;text-align:left;padding:3px 0;width:100%}
+#index button:hover,#index button.cur{color:var(--cyan)}
+#index .n{display:inline-block;width:34px;color:#5d7a93;
+  font-variant-numeric:tabular-nums}
+
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible;background:#fff;height:auto}
+  #stage{position:static;transform:none!important;height:auto;box-shadow:none}
+  .slide{display:flex!important;position:relative;width:1280px;height:720px;
+    break-after:page}
+  #chrome,#counter,#help,#notes,#index,#deckname{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="slide dark" data-sid="CAPA" data-notes="Não prometa que o curso ensina a usar uma ferramenta. Ele ensina a trabalhar com agentes. A ferramenta aparece no encontro 5.">
+      <div class="cover-body">
+        <p class="eyebrow">Encontro 1 · Bloco I — Fundamentos</p>
+        <h1>Como um agente funciona
+e por que erra</h1>
+        <p class="tese-capa">A IA encurta o caminho até uma alteração concreta. O trabalho de engenharia precisa garantir que esse caminho continue ligado à necessidade, à decisão e à prova.</p>
+        <p class="divider-foot tone-cyan">qualquer agente, sem método instalado</p>
+      </div></section>
+<section class="slide " data-sid="ROTEIRO" data-notes="Deixe o roteiro visível no intervalo. A turma precisa saber que 70 dos 180 minutos são de laboratório."><header class="s-head accent-cyan"><p class="eyebrow">Encontro 1 · Roteiro</p><h2>O que vamos fazer hoje</h2></header><div class="table-wrap"><table class="roteiro"><thead><tr><th>Tempo</th><th>Atividade</th></tr></thead><tbody><tr><td class="key">0–15</td><td>Apresentação do curso, dos três blocos e da demanda condutora</td></tr><tr><td class="key">15–30</td><td>Respostas espontâneas e discussão inicial</td></tr><tr><td class="key">30–55</td><td>Como o modelo enxerga o problema: contexto, janela, corte de conhecimento</td></tr><tr><td class="key">55–70</td><td>Não determinismo, custo e latência</td></tr><tr><td class="key">70–85</td><td>Produtividade local, plausibilidade e duplo efeito</td></tr><tr><td class="key">85–100</td><td>Demonstração: primeira passagem e três execuções</td></tr><tr><td class="key">100–110</td><td>Intervalo</td></tr><tr><td class="key">110–125</td><td>Laboratório: resposta imediata</td></tr><tr><td class="key">125–140</td><td>Medição de divergência</td></tr><tr><td class="key">140–165</td><td>Auditoria de premissas e sete perguntas</td></tr><tr><td class="key">165–180</td><td>Comparação, entrega e retrospectiva</td></tr></tbody></table></div><p class="s-foot">Fonte: course/topics/MOD-01.md · MOD-01-ROTEIRO</p></section>
+<section class="slide " data-sid="OBJETIVOS" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">Encontro 1 · Objetivos</p><h2>Ao final deste encontro você consegue</h2></header><ol class="simples tone-cyan"><li>Descrever o ciclo de observação e ação de um agente, e o que ele enxerga do seu problema.</li><li>Explicar o efeito prático da janela de contexto sobre trabalhos longos.</li><li>Reconhecer que o resultado não é determinístico — e medir essa variação.</li><li>Identificar tarefas em que o agente reduz esforço ou tempo de forma real.</li><li>Reconhecer premissas não confirmadas em uma resposta tecnicamente plausível.</li><li>Explicar por que código e testes não provam, sozinhos, que o problema certo foi resolvido.</li></ol><p class="s-foot">MOD-01-OBJ · relaciona-se a OA-01 e OA-02</p></section>
+<section class="slide dark" data-sid="TESE" data-notes="Leia em voz alta e deixe no ar. Volte a esta frase no fechamento, depois que a turma tiver visto três respostas diferentes para a mesma pergunta."><div class="statement"><p>A IA encurta o caminho até uma alteração concreta. O trabalho de engenharia é garantir que esse caminho continue ligado à necessidade, à decisão e à prova.</p><p class="statement-foot">MOD-01-TESE</p></div></section>
+<section class="slide " data-sid="DEMANDA" data-notes="Não antecipe as perguntas que a frase esconde. Deixe a turma descobrir na primeira execução. Se alguém já apontar as lacunas, registre no quadro e siga — vai ser útil na etapa 3."><header class="s-head accent-cyan"><p class="eyebrow">Caso condutor</p><h2>Uma frase, oito encontros</h2></header><p class="principio" style="font-size:32px">“O sistema deve avisar quando uma solicitação for aprovada.”</p><p class="intro" style="margin-top:22px">Esta frase atravessa o curso inteiro. Hoje ela vai direto para o agente, sem preparo — para vermos o que acontece.</p><p class="callout tone-cyan">Parece suficiente para implementar uma notificação. Guarde essa impressão: vamos testá-la em quinze minutos.</p><p class="s-foot">Fonte: course/topics/CURSO-03.md · caso condutor</p></section>
+<section class="slide " data-sid="MOD-01-CON-01" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-01 · Conceito 1 de 10</p><h2>O que o modelo enxerga do seu problema</h2></header><p class="principio">O modelo não tem acesso ao seu projeto. Ele recebe um texto e produz uma continuação provável desse texto.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Tudo o que não estiver nesse texto, ou não puder ser buscado por uma ferramenta, não existe para ele. Antes de julgar uma resposta, pergunte o que o agente tinha em mãos quando a produziu.</p></div><p class="exemplo">Um comportamento óbvio para a equipe e não escrito em lugar nenhum é invisível para o agente.</p><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-02" data-notes="NÃO PROJETAR — antecipação para o instrutor. É a razão de existir um índice curto que aponta para fontes em vez de duplicá-las, com carregamento sob demanda."><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-02 · Conceito 2 de 10</p><h2>Janela de contexto</h2></header><p class="principio">Existe um limite para quanto texto entra em uma interação. Quando ele se aproxima, informação antiga é resumida ou descartada — e o agente continua respondendo com a mesma segurança.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Trabalhos longos degradam de forma silenciosa: uma restrição combinada no início deixa de ser respeitada, um arquivo já corrigido volta ao estado anterior, uma decisão é reaberta.</p></div><p class="exemplo">O controle é manter o que importa em arquivo, não na conversa — e recomeçar a sessão apontando para esse arquivo.</p><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-03" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-03 · Conceito 3 de 10</p><h2>Corte de conhecimento</h2></header><p class="principio">O modelo foi treinado até certa data. O que veio depois é desconhecido — e ele não sinaliza a diferença.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Para qualquer afirmação sobre biblioteca, versão, sintaxe ou comportamento de ferramenta, exija a fonte. O que o projeto usa está no arquivo de dependências, não na memória do modelo.</p></div><p class="exemplo">Ele responde sobre a versão que conhece com a mesma naturalidade com que responderia sobre a versão atual.</p><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-04" data-notes="NÃO PROJETAR — antecipação para o instrutor. É por isso que o método registra decisão e evidência em artefatos, e não trata a conversa com o agente como fonte."><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-04 · Conceito 4 de 10</p><h2>Não determinismo</h2></header><p class="principio">A mesma solicitação pode produzir resultados diferentes em execuções diferentes. Não é falha: é como o modelo gera texto.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Um resultado que você não consegue reproduzir não pode ser a base de uma decisão. O que precisa ser estável — a decisão, o critério, o comando — vai para um arquivo versionado.</p></div><p class="exemplo">Duas execuções podem escolher arquivos distintos, estruturas distintas e até conclusões distintas sobre o mesmo código.</p><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-05" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-05 · Conceito 5 de 10</p><h2>Custo e latência</h2></header><p class="principio">Cada execução consome tempo e dinheiro. Uma tarefa com três tentativas e uma revisão longa pode custar mais do que fazer à mão.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Estime antes de delegar: quanto tempo levaria fazer, quanto tempo levará revisar. Quando a revisão for mais cara que a execução, a delegação não compensa.</p></div><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-06" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-06 · Conceito 6 de 10</p><h2>Produtividade local e resultado do sistema</h2></header><p class="principio">Uma tarefa localmente eficiente pode aumentar retrabalho ou risco no fluxo completo.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Produtividade local mede quanto uma etapa ficou mais rápida. Resultado do sistema considera se a mudança atende à necessidade, respeita decisões, não cria impacto indevido e pode ser provada.</p></div><p class="exemplo">“Escrevi o teste em dois minutos” e “a mudança está pronta” são afirmações de naturezas diferentes.</p><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-07" data-notes="NÃO PROJETAR — antecipação para o instrutor. Corresponde à separação entre alegação, inferência, evidência declarada e evidência confirmada. É o tema do encontro 3."><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-07 · Conceito 7 de 10</p><h2>Plausibilidade não é evidência</h2></header><p class="principio">Uma explicação pode parecer completa porque preenche lacunas de modo provável. Coerência interna não é sinal de correção.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Toda afirmação técnica importante precisa ser ligada a uma fonte ou permanecer marcada como inferência. As duas coisas são aceitáveis; a mistura silenciosa das duas, não.</p></div><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-08" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-08 · Conceito 8 de 10</p><h2>O duplo efeito da aceleração</h2></header><p class="principio">Onde a aceleração é maior, o controle precisa ser mais próximo. Não o contrário.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Pesquisa, planejamento, código, testes e documentação ficam mais rápidos. Os mecanismos de falha também: escolher fonte errada, consolidar suposição, implementar escopo indevido, testar a própria interpretação.</p></div><p class="exemplo">O intervalo entre uma premissa errada e uma alteração concreta encurta na mesma proporção.</p><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-09" data-notes="NÃO PROJETAR — antecipação para o instrutor. É a cadeia mínima do método, estudada a partir do encontro 6."><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-09 · Conceito 9 de 10</p><h2>Necessidade, autorização e prova</h2></header><p class="principio">Uma necessidade justifica investigação. Uma decisão autoriza escopo. Uma implementação materializa. Uma evidência sustenta. Nenhuma substitui a outra.</p><div class="pratica accent-cyan"><b>Na prática</b><p>A confusão mais comum e mais cara é tratar necessidade como autorização: alguém pediu, logo está aprovado. O agente reproduz essa confusão porque não tem como perceber a diferença.</p></div><p class="s-foot">Fonte: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-01-CON-10" data-notes="Este quadro fica visível durante o laboratório. A turma vai usá-lo na etapa 4. Não entregue as respostas: várias delas ninguém consegue responder hoje, e perceber isso é o objetivo."><header class="s-head accent-cyan"><p class="eyebrow">MOD-01-CON-10 · Conceito 10 de 10</p><h2>As sete perguntas</h2></header><p class="intro">Voltam em todos os encontros. São o currículo real do curso.</p><ul class="qgrid"><li><span class="tag">Origem</span><span class="txt">Qual necessidade deu origem à mudança?</span></li><li><span class="tag">Natureza</span><span class="txt">O que é fato, relato, inferência ou decisão?</span></li><li><span class="tag">AS-IS</span><span class="txt">O que o sistema realmente faz hoje?</span></li><li><span class="tag">Autoridade</span><span class="txt">Quem autorizou a mudança de escopo?</span></li><li><span class="tag">Observação</span><span class="txt">Como o resultado será observado?</span></li><li><span class="tag">Prova</span><span class="txt">Qual evidência sustentará a conclusão?</span></li><li><span class="tag">Concordância</span><span class="txt">Como fontes, código e testes voltam a concordar?</span></li></ul><p class="s-foot">MOD-01-CON-10 · quadro completo em course/topics/CURSO-03.md</p></section>
+<section class="slide " data-sid="DEMO" data-notes="Não ridicularize a primeira resposta. O valor dela é revelar como uma solicitação insuficiente produz uma solução convincente. A turma costuma esperar variação de redação e encontrar variação de conclusão."><header class="s-head accent-cyan"><p class="eyebrow">Demonstração do instrutor</p><h2>A mesma pergunta, três respostas</h2></header><ol class="demo"><li><span class="demo-t">8 min</span><span class="demo-b"><b>Primeira passagem</b>Peça um plano de implementação. Não forneça requisito, canal, destinatário, estado nem política. Preserve a resposta.</span></li><li><span class="demo-t">7 min</span><span class="demo-b"><b>Três execuções</b>Repita a mesma solicitação, do zero, mais duas vezes. Coloque as três lado a lado.</span></li><li><span class="demo-t">15 min</span><span class="demo-b"><b>Leitura crítica</b>Marque uma das respostas com as quatro categorias do próximo slide.</span></li><li><span class="demo-t">5 min</span><span class="demo-b"><b>Fechamento</b>Mostre que o plano pode ser razoável e ainda depender de várias decisões.</span></li></ol><div class="observar"><b>O que a turma deve observar</b><ul><li>o que variou entre as três: arquivos, canal presumido, estrutura, profundidade</li><li>quantas decisões de negócio o agente tomou sem avisar</li><li>quais afirmações têm fonte e quais são preenchimento provável</li></ul></div><p class="s-foot">MOD-01-DEMO</p></section>
+<section class="slide " data-sid="DEMO-MARCAS" data-notes="Marque ao vivo, na resposta real, e não em um exemplo preparado. Se a turma discordar de uma marca, discuta — a fronteira entre I e F é exatamente o que se está aprendendo a enxergar."><header class="s-head accent-cyan"><p class="eyebrow">Demonstração</p><h2>Quatro marcas para ler qualquer resposta</h2></header><div class="table-wrap"><table class=""><thead><tr><th>Marca</th><th>Significado</th><th>Exemplo nesta resposta</th></tr></thead><tbody><tr><td class="key">F</td><td>Fato sustentado</td><td>arquivo efetivamente localizado</td></tr><tr><td class="key">A</td><td>Alegação recebida</td><td>“o sistema não avisa”</td></tr><tr><td class="key">I</td><td>Inferência</td><td>“o canal deve ser e-mail”</td></tr><tr><td class="key">D</td><td>Decisão necessária</td><td>destinatário e momento do envio</td></tr></tbody></table></div><p class="callout tone-cyan">O problema não é a inferência. É a inferência que atravessa o texto vestida de fato e chega ao código como premissa.</p><p class="s-foot">MOD-01-DEMO · leitura crítica</p></section>
+<section class="slide dark" data-sid="LAB" data-notes="Distribua as demandas antes do intervalo, para os grupos já voltarem lendo. Confirme que cada grupo consegue abrir sessões limpas com rapidez: a etapa 2 depende disso."><div class="cover-body"><p class="eyebrow">Laboratório · 70 minutos</p><h1>Diagnóstico sem método</h1><p class="lead">Grupos de duas ou três pessoas. Uma demanda ambígua por grupo, acesso de leitura ao repositório.<br>O agente pode ler, pesquisar e propor — não deve alterar arquivos.</p></div></section>
+<section class="slide " data-sid="LAB-1" data-notes="Circule ouvindo, sem intervir. Anote quem já começou a refinar o prompt sozinho — vira material para a discussão do encontro 2.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">1</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Resposta imediata</h2></div>
+      </header>
+      <ul class="passos"><li>Peça análise e plano ao agente, como você faria normalmente.</li><li>Guarde a solicitação, as fontes usadas e a resposta.</li><li>Não corrija nada durante esta primeira execução.</li></ul><p class="callout tone-cyan">O objetivo é registrar o comportamento natural do grupo, não o melhor comportamento possível.</p><p class="s-foot">MOD-01-LAB · etapa 1</p></section>
+<section class="slide " data-sid="LAB-2" data-notes="Linhas sugeridas para a tabela: arquivos consultados, causa apontada, solução proposta, decisões assumidas. A pergunta do rodapé é o fecho da etapa — faça em voz alta, para a turma toda.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">2</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Medição de divergência</h2></div>
+      </header>
+      <ul class="passos"><li>Execute a mesma solicitação mais duas vezes, em sessões novas.</li><li>Preencha a tabela comparando as três execuções.</li></ul><div class="table-wrap"><table class="vazia "><thead><tr><th>Aspecto</th><th>Execução 1</th><th>Execução 2</th><th>Execução 3</th><th>Divergiu?</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></div><p class="callout tone-cyan">Qual das três respostas você teria implementado se tivesse executado apenas uma vez?</p><p class="s-foot">MOD-01-LAB · etapa 2</p></section>
+<section class="slide " data-sid="LAB-3" data-notes="O erro típico é classificar tudo como fato porque “está no código”. Peça o endereço: caminho e linha. Sem endereço, é alegação.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">3</span>
+        <div><p class="eyebrow">Laboratório · 25 minutos</p><h2>Auditoria de premissas</h2></div>
+      </header>
+      <ul class="passos"><li>Escolha uma das três respostas.</li><li>Classifique cada afirmação relevante e registre o que falta para sustentá-la.</li></ul><div class="table-wrap"><table class="vazia "><thead><tr><th>Afirmação</th><th>Tipo (F / A / I / D)</th><th>Fonte disponível</th><th>O que falta</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></div><p class="s-foot">MOD-01-LAB · etapa 3</p></section>
+<section class="slide " data-sid="LAB-4" data-notes="É comum um grupo responder duas ou três das sete. Isso é o resultado esperado, não fracasso. Nomeie isso explicitamente antes de seguir.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">4</span>
+        <div><p class="eyebrow">Laboratório · 20 minutos</p><h2>Aplicação das sete perguntas</h2></div>
+      </header>
+      <ul class="passos"><li>Responda cada uma das sete perguntas apenas com o que consegue confirmar.</li><li>Resposta desconhecida vira busca pendente ou decisão pendente — nunca suposição.</li></ul><p class="callout tone-yellow">Quantas das sete vocês conseguem responder agora? Quantas dependem de alguém que não está nesta sala?</p><p class="s-foot">MOD-01-LAB · etapa 4</p></section>
+<section class="slide " data-sid="LAB-5" data-notes="Peça que cada grupo apresente UM item, não os cinco. Quinze minutos não comportam mais que isso, e a repetição entre grupos é o que consolida.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">5</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Comparação e preparação da entrega</h2></div>
+      </header>
+      <ul class="passos"><li>Ganho real oferecido pelo agente.</li><li>Primeira ação que teria sido executada cedo demais.</li><li>Fonte que deveria ter sido consultada.</li><li>Decisão que pertence a uma pessoa.</li><li>Prova que ainda não poderia ser definida.</li></ul><p class="callout tone-cyan">Escolham um exemplo claro para apresentar à turma, preservando as respostas originais como evidência.</p><p class="s-foot">MOD-01-LAB · etapa 5</p></section>
+<section class="slide " data-sid="ENTREGA" data-notes="Cobre a preservação das respostas originais. Sem elas, a auditoria cruzada do encontro 3 não tem material."><header class="s-head accent-cyan"><p class="eyebrow">Encontro 1 · Entrega</p><h2>Diagnóstico inicial</h2></header><ul class="checklist tone-cyan"><li>Demanda recebida e contexto disponível</li><li>As três respostas originais do agente</li><li>Tabela de divergência entre execuções</li><li>Mapa de fatos, relatos, inferências e decisões</li><li>Benefícios observados, ligados a tarefas concretas</li><li>Riscos e perguntas ausentes</li><li>Ação que o grupo considera autorizada neste momento</li><li>Justificativa, sem antecipar conteúdo ainda não visto</li></ul><p class="callout tone-cyan">Este diagnóstico volta nos encontros 3, 6 e 8. Guardem os arquivos originais.</p><p class="s-foot">MOD-01-ENT</p></section>
+<section class="slide " data-sid="EQUIVOCOS" data-notes="Se algum desses apareceu no laboratório, cite o grupo sem expor: “ouvi hoje que...”. Funciona melhor que apresentar como lista abstrata."><header class="s-head accent-cyan"><p class="eyebrow">Encontro 1 · Fechamento</p><h2>Seis leituras erradas deste encontro</h2></header><ul class="equivocos tone-red"><li><p class="mito">“O objetivo é provar que o agente é ruim.”</p><p class="fato">O objetivo é calibrar confiança e controle.</p></li><li><p class="mito">“Toda inferência é proibida.”</p><p class="fato">Inferência identificada é trabalho normal. Disfarçada de fato, é o problema.</p></li><li><p class="mito">“Mais prompt resolveria tudo.”</p><p class="fato">Parte das lacunas depende de fonte, acesso ou decisão. Encontro 2 mostra até onde a condução vai.</p></li><li><p class="mito">“Se compila, está correto.”</p><p class="fato">Compilação não prova necessidade, autorização nem aceite.</p></li><li><p class="mito">“A variação some com temperatura zero.”</p><p class="fato">Reduz, não elimina — e o problema de fundo é decidir sobre um resultado não reproduzido.</p></li><li><p class="mito">“O modelo sabe qual versão da biblioteca usamos.”</p><p class="fato">Ele sabe o que estava no treino, ou o que uma ferramenta buscou agora.</p></li></ul><p class="s-foot">MOD-01-EQUIVOCOS</p></section>
+<section class="slide " data-sid="RETRO" data-notes="Abra o registro acumulativo hoje e mantenha até o encontro 8: tempo por etapa, bloqueios, erros evitados, redescobertas, decisões alteradas."><header class="s-head accent-cyan"><p class="eyebrow">Encontro 1 · Retrospectiva</p><h2>15 minutos, por grupo</h2></header><ol class="simples tone-cyan"><li>Uma decisão que vocês tomaram hoje.</li><li>A evidência que a sustenta — ou a ausência dela.</li><li>Um erro que vocês evitaram por terem parado para olhar.</li><li>Uma incerteza que continua aberta.</li></ol><p class="callout tone-cyan">O registro desta retrospectiva alimenta o encontro 8. Não é conversa: é dado.</p><p class="s-foot">MOD-01 · MET-04</p></section>
+<section class="slide dark" data-sid="PONTE" data-notes="Feche voltando à tese do início. A turma agora viu três respostas diferentes para a mesma pergunta: a frase sobre necessidade, decisão e prova significa outra coisa depois disso."><div class="cover-body"><p class="eyebrow">Encontro 2</p><h1>Condução:<br>da intenção à tarefa executável</h1><p class="lead">Hoje entregamos a intenção ao agente e vimos o que acontece.<br>No próximo encontro, vamos entregar uma tarefa — e refazer exatamente a mesma demanda para comparar.</p><p class="divider-foot tone-cyan">Traga o diagnóstico de hoje. Ele é o ponto de partida.</p></div></section>
+</div>
+
+<div id="chrome"><div id="bar"></div></div>
+<p id="deckname">Encontro 1</p>
+<p id="counter"></p>
+<p id="help">← → navegar · N notas · O índice · F tela cheia · P imprimir</p>
+<div id="notes"></div>
+<div id="index"><h2>Encontro 1 — Como um agente funciona e por que erra</h2><ol><li><button data-go="0"><span class="n">01</span>Capa do encontro</button></li><li><button data-go="1"><span class="n">02</span>Roteiro das 3 horas</button></li><li><button data-go="2"><span class="n">03</span>Objetivos do encontro</button></li><li><button data-go="3"><span class="n">04</span>Tese do encontro</button></li><li><button data-go="4"><span class="n">05</span>A demanda condutora</button></li><li><button data-go="5"><span class="n">06</span>01 · O que o modelo enxerga do seu problema</button></li><li><button data-go="6"><span class="n">07</span>02 · Janela de contexto</button></li><li><button data-go="7"><span class="n">08</span>03 · Corte de conhecimento</button></li><li><button data-go="8"><span class="n">09</span>04 · Não determinismo</button></li><li><button data-go="9"><span class="n">10</span>05 · Custo e latência</button></li><li><button data-go="10"><span class="n">11</span>06 · Produtividade local e resultado do sistema</button></li><li><button data-go="11"><span class="n">12</span>07 · Plausibilidade não é evidência</button></li><li><button data-go="12"><span class="n">13</span>08 · O duplo efeito da aceleração</button></li><li><button data-go="13"><span class="n">14</span>09 · Necessidade, autorização e prova</button></li><li><button data-go="14"><span class="n">15</span>10 · As sete perguntas</button></li><li><button data-go="15"><span class="n">16</span>Demonstração — roteiro</button></li><li><button data-go="16"><span class="n">17</span>Demonstração — as quatro marcas</button></li><li><button data-go="17"><span class="n">18</span>Laboratório — abertura</button></li><li><button data-go="18"><span class="n">19</span>Etapa 1 — Resposta imediata</button></li><li><button data-go="19"><span class="n">20</span>Etapa 2 — Medição de divergência</button></li><li><button data-go="20"><span class="n">21</span>Etapa 3 — Auditoria de premissas</button></li><li><button data-go="21"><span class="n">22</span>Etapa 4 — As sete perguntas</button></li><li><button data-go="22"><span class="n">23</span>Etapa 5 — Comparação e entrega</button></li><li><button data-go="23"><span class="n">24</span>Entrega do encontro</button></li><li><button data-go="24"><span class="n">25</span>Equívocos a evitar</button></li><li><button data-go="25"><span class="n">26</span>Retrospectiva</button></li><li><button data-go="26"><span class="n">27</span>Próximo encontro</button></li></ol></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const notesData=slides.map(s=>s.dataset.notes||'');
+const ids=slides.map(s=>s.dataset.sid);
+const bar=document.getElementById('bar');
+const counter=document.getElementById('counter');
+const notes=document.getElementById('notes');
+const index=document.getElementById('index');
+let i=0;
+
+function fit(){
+  const st=document.getElementById('stage');
+  const aberto=notes.classList.contains('on');
+  const disponivel=aberto?innerHeight*0.74:innerHeight;
+  const k=Math.min(innerWidth/1280,disponivel/720)*(aberto?0.94:0.90);
+  st.style.transform='translate(-50%,-50%) scale('+k+')';
+  st.style.top=aberto?'37%':'50%';
+}
+function show(n,push){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  counter.textContent=(i+1)+' / '+slides.length;
+  notes.innerHTML='<b>Notas do apresentador</b>'+(notesData[i]||'<i>sem notas</i>');
+  [...index.querySelectorAll('button')].forEach((b,k)=>b.classList.toggle('cur',k===i));
+  if(push!==false) history.replaceState(null,'','#'+ids[i]);
+}
+addEventListener('keydown',function(ev){
+  const k=ev.key;
+  if(index.classList.contains('on')&&k!=='o'&&k!=='O'&&k!=='Escape') return;
+  if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'){ev.preventDefault();show(i+1);}
+  else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){ev.preventDefault();show(i-1);}
+  else if(k==='Home'){show(0);}
+  else if(k==='End'){show(slides.length-1);}
+  else if(k==='n'||k==='N'){notes.classList.toggle('on');fit();}
+  else if(k==='o'||k==='O'){index.classList.toggle('on');}
+  else if(k==='Escape'){index.classList.remove('on');}
+  else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+  else if(k==='p'||k==='P'){print();}
+});
+addEventListener('click',function(ev){
+  if(ev.target.closest('#index')||ev.target.closest('#notes'))return;
+  show(i+(ev.clientX<innerWidth*0.25?-1:1));
+});
+addEventListener('resize',fit);
+document.querySelectorAll('#index button').forEach(function(b){
+  b.addEventListener('click',function(){show(+b.dataset.go);index.classList.remove('on');});
+});
+const inicial=ids.indexOf(location.hash.slice(1));
+fit();
+show(inicial>=0?inicial:0,false);
+</script>
+</body>
+</html>

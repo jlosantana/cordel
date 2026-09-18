@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Encontro 2 — Condução: da intenção à tarefa executável">
+<title>Encontro 2 — Condução: da intenção à tarefa executável</title>
+<!-- Projeção gerada por course/scripts/build_deck.py. Não editar à mão. -->
+<style>
+:root{
+  --ink:#13243a; --ink-soft:#43566e; --paper:#f6f8fb; --surface:#fff;
+  --line:#d8e0e9; --blue:#164b73; --blue-deep:#092c48; --cyan:#1c8ea0;
+  --cyan-pale:#dff5f4; --yellow:#f2bd43; --yellow-pale:#fff5d8;
+  --yellow-ink:#96700f; --red:#bb4d4a; --red-pale:#fbeeee; --mist:#c7d8e6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#0b1a2a}
+body{font-family:"Segoe UI Variable Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);-webkit-font-smoothing:antialiased}
+
+#stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;
+  transform-origin:center center;background:var(--paper);
+  box-shadow:0 30px 90px rgba(0,0,0,.45)}
+
+.slide{position:absolute;inset:0;padding:46px 60px 54px;background:var(--paper);
+  display:none;flex-direction:column;justify-content:center;overflow:hidden}
+.slide.on{display:flex}
+.slide.dark{background:var(--blue-deep);color:#fff;padding-left:94px}
+.slide.dark::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;
+  background:var(--cyan)}
+.slide.divider-yellow::before{background:var(--yellow)}
+.slide.divider-red::before{background:var(--red)}
+
+.s-head{border-left:6px solid var(--cyan);padding-left:20px;margin:0 0 20px}
+.s-head.accent-blue{border-color:var(--blue)}
+.s-head.accent-yellow{border-color:var(--yellow)}
+.s-head.accent-red{border-color:var(--red)}
+.eyebrow{margin:0 0 6px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  font-weight:700;color:var(--cyan)}
+.accent-blue .eyebrow{color:var(--blue)}
+.accent-yellow .eyebrow{color:var(--yellow-ink)}
+.accent-red .eyebrow{color:var(--red)}
+.s-head h2{margin:0;font-size:33px;font-weight:600;line-height:1.12;
+  letter-spacing:-.01em}
+.intro{margin:0 0 16px;font-size:15px;color:var(--ink-soft);line-height:1.45}
+.s-foot{position:absolute;left:60px;right:60px;bottom:24px;margin:0;
+  font-size:11px;color:#8a9bad}
+
+/* capas e divisores */
+.cover-body{max-width:960px}
+.cover-body .eyebrow{color:var(--cyan);font-size:13px;margin-bottom:18px}
+.divider-yellow .cover-body .eyebrow{color:var(--yellow)}
+.divider-red .cover-body .eyebrow{color:var(--red)}
+.cover-body h1{margin:0 0 20px;font-size:52px;line-height:1.06;font-weight:600;
+  letter-spacing:-.02em}
+.cover-body .lead{margin:0;font-size:20px;line-height:1.45;color:var(--mist)}
+.tese-capa{margin:0;font-size:20px;line-height:1.45;color:var(--mist);
+  padding-left:18px;border-left:3px solid rgba(255,255,255,.22);max-width:860px}
+.divider-foot{margin:32px 0 0;font-size:14px}
+.tone-cyan{color:var(--cyan)}.tone-yellow{color:var(--yellow)}.tone-red{color:var(--red)}
+.chips{display:flex;gap:34px;list-style:none;margin:42px 0 0;padding:0}
+.chips li{font-size:13px;color:var(--mist);padding-left:12px;
+  border-left:4px solid var(--cyan)}
+.chips li.tone-yellow{border-color:var(--yellow)}
+.chips li.tone-red{border-color:var(--red)}
+
+/* frase de impacto */
+.statement{max-width:1020px}
+.statement p{margin:0;font-size:36px;line-height:1.3;font-weight:600;
+  letter-spacing:-.01em;color:#fff}
+.statement-foot{margin:26px 0 0!important;font-size:14px!important;
+  font-weight:400!important;color:var(--mist)!important}
+
+/* conceito */
+.principio{margin:0 0 22px;font-size:25px;line-height:1.35;font-weight:600;
+  color:var(--ink);max-width:1080px}
+.pratica{border-left:5px solid var(--cyan);padding:2px 0 2px 20px;max-width:1080px}
+.pratica.accent-blue{border-color:var(--blue)}
+.pratica.accent-yellow{border-color:var(--yellow)}
+.pratica.accent-red{border-color:var(--red)}
+.pratica b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cyan);margin-bottom:5px}
+.pratica.accent-blue b{color:var(--blue)}
+.pratica.accent-yellow b{color:var(--yellow-ink)}
+.pratica.accent-red b{color:var(--red)}
+.pratica p{margin:0;font-size:17px;line-height:1.5;color:var(--ink-soft)}
+.exemplo{margin:20px 0 0;padding:13px 18px;background:var(--surface);
+  border:1px solid var(--line);font-size:15px;line-height:1.45;color:var(--ink-soft);
+  max-width:1080px}
+
+/* listas */
+.simples{margin:0;padding-left:26px;font-size:19px;line-height:1.65;color:var(--ink)}
+.simples li{margin-bottom:9px;padding-left:6px}
+.simples li::marker{color:var(--cyan);font-weight:700}
+.simples.tone-blue li::marker{color:var(--blue)}
+.simples.tone-yellow li::marker{color:var(--yellow-ink)}
+.simples.tone-red li::marker{color:var(--red)}
+
+.dgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  gap:11px 40px}
+.dgrid.one{grid-template-columns:1fr;gap:13px}
+.dgrid li{border-left:4px solid var(--cyan);padding-left:14px;font-size:15px}
+.dgrid li.tone-blue{border-color:var(--blue)}
+.dgrid li.tone-yellow{border-color:var(--yellow)}
+.dgrid li.tone-red{border-color:var(--red)}
+.dgrid li b{display:block;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--cyan);margin-bottom:1px}
+.dgrid li.tone-blue b{color:var(--blue)}
+.dgrid li.tone-yellow b{color:var(--yellow-ink)}
+.dgrid li.tone-red b{color:var(--red)}
+
+.qgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  gap:13px 40px}
+.qgrid li{border-left:4px solid var(--cyan);padding-left:14px}
+.qgrid .tag{display:block;font-size:11px;font-weight:700;color:var(--cyan);
+  letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.qgrid .txt{font-size:16px}
+
+/* laboratório */
+.etapa-head{display:flex;gap:20px;align-items:flex-start;border-left:0;padding-left:0}
+.etapa-num{flex:0 0 66px;height:66px;line-height:66px;text-align:center;
+  font-size:30px;font-weight:700;color:#fff;background:var(--blue)}
+.etapa-num.tone-cyan{background:var(--cyan)}
+.etapa-num.tone-red{background:var(--red)}
+.etapa-head h2{font-size:31px}
+.passos{margin:0 0 18px;padding-left:24px;font-size:18px;line-height:1.55;
+  color:var(--ink)}
+.passos li{margin-bottom:8px}
+.passos li::marker{color:var(--blue)}
+
+/* demonstração */
+.demo{list-style:none;margin:0 0 20px;padding:0}
+.demo li{display:flex;gap:18px;align-items:baseline;margin-bottom:12px}
+.demo-t{flex:0 0 78px;font-size:13px;font-weight:700;color:var(--cyan);
+  text-align:right;font-variant-numeric:tabular-nums}
+.demo-b{font-size:17px;line-height:1.45;color:var(--ink-soft)}
+.demo-b b{display:block;color:var(--ink);font-size:18px;margin-bottom:1px}
+.observar{background:var(--cyan-pale);padding:15px 20px}
+.observar b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--blue);margin-bottom:6px}
+.observar ul{margin:0;padding-left:20px;font-size:15px;line-height:1.55;
+  color:var(--blue)}
+
+/* equívocos */
+.equivocos{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:16px 34px}
+.equivocos li{border-left:4px solid var(--red);padding-left:16px}
+.equivocos .mito{margin:0 0 4px;font-size:16px;font-weight:600;color:var(--red)}
+.equivocos .fato{margin:0;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+
+/* checklist */
+.checklist{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:10px 40px}
+.checklist li{position:relative;padding-left:30px;font-size:16px;line-height:1.4}
+.checklist li::before{content:"";position:absolute;left:0;top:2px;width:16px;
+  height:16px;border:2px solid var(--cyan)}
+.checklist.tone-blue li::before{border-color:var(--blue)}
+
+/* cartões e blocos */
+.card{background:var(--surface);border:1px solid var(--line);
+  border-top:5px solid var(--cyan);padding:16px 20px 14px}
+.card.accent-blue{border-top-color:var(--blue)}
+.card.accent-yellow{border-top-color:var(--yellow)}
+.card.accent-red{border-top-color:var(--red)}
+.card h3{margin:0 0 9px;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--cyan)}
+.card.accent-blue h3{color:var(--blue)}
+.card.accent-yellow h3{color:var(--yellow-ink)}
+.card.accent-red h3{color:var(--red)}
+.card p{margin:0 0 6px;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+.card p:last-child{margin-bottom:0}
+.card p.mid{margin-top:10px;font-size:10px;color:#a3b4c4;font-weight:700;
+  letter-spacing:.05em}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+
+.blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.block{background:var(--surface);border:1px solid var(--line);
+  border-top:5px solid var(--cyan);padding:18px 20px;display:flex;flex-direction:column}
+.block.accent-yellow{border-top-color:var(--yellow)}
+.block.accent-red{border-top-color:var(--red)}
+.block-name{margin:0;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--cyan);min-height:2.6em;line-height:1.3}
+.block.accent-yellow .block-name{color:var(--yellow-ink)}
+.block.accent-red .block-name{color:var(--red)}
+.block-when{margin:0 0 14px;font-size:12px;color:var(--ink-soft)}
+.block h3{margin:0 0 14px;font-size:19px;line-height:1.25;font-weight:600}
+.block ul{margin:0;padding-left:16px;font-size:14px;color:var(--ink-soft);
+  line-height:1.6}
+.block-tool{margin:auto 0 0;padding-top:14px;font-size:12px;font-style:italic;
+  color:var(--cyan)}
+.block.accent-yellow .block-tool{color:var(--yellow-ink)}
+.block.accent-red .block-tool{color:var(--red)}
+
+.olist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.olist li{display:flex;gap:18px;align-items:flex-start}
+.oid{flex:0 0 74px;text-align:center;padding:8px 0;font-size:13px;font-weight:700;
+  color:#fff;background:var(--cyan)}
+.oid.tone-blue{background:var(--blue)}
+.obody{padding-top:1px;font-size:16px;line-height:1.35}
+.obody b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--cyan);margin-bottom:2px;font-weight:700}
+.olist.accent-blue .obody b{color:var(--blue)}
+
+.chain{list-style:none;display:grid;grid-template-columns:repeat(9,1fr);gap:8px;
+  margin:0 0 20px;padding:0}
+.chain li{background:var(--surface);border:1px solid var(--line);
+  border-top:4px solid var(--cyan);padding:11px 6px;font-size:11px;text-align:center;
+  line-height:1.25;color:var(--ink)}
+.chain li.tone-yellow{border-top-color:var(--yellow)}
+.chain li.tone-red{border-top-color:var(--red)}
+
+/* tabelas */
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--blue);color:#fff;text-align:left;padding:9px 12px;
+  font-size:12px;font-weight:700}
+tbody td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink-soft);
+  line-height:1.35;vertical-align:top}
+tbody tr:nth-child(even){background:#fbfcfe}
+td.key{font-weight:700;color:var(--ink);white-space:nowrap}
+table.vazia tbody td{height:36px;border:1px solid var(--line);background:var(--surface)}
+table.vazia tbody tr:nth-child(even){background:none}
+table.vazia thead th{background:var(--cyan)}
+table.roteiro{font-size:15px}
+table.roteiro td{padding:7px 14px}
+table.roteiro tr.mark td{background:var(--cyan-pale);color:var(--blue);font-weight:600}
+table.riscos td:nth-child(2){width:15%}
+table.riscos td:nth-child(3){width:22%}
+table.riscos td:nth-child(4){width:29%}
+table.aval td.key{width:64px}
+table.aval td:nth-child(2){width:30%;font-weight:600;color:var(--ink)}
+
+/* callout */
+.callout{margin:18px 0 0;padding:15px 20px;background:var(--cyan-pale);
+  font-size:15px;font-weight:600;color:var(--blue);line-height:1.4}
+.callout.tone-yellow{background:var(--yellow-pale);color:var(--ink)}
+.callout.tone-red{background:var(--red-pale);color:var(--ink)}
+.callout.big{font-weight:400;color:var(--ink-soft);font-size:14px}
+.callout.big b{display:block;font-size:17px;color:var(--ink);margin-bottom:4px}
+
+/* cromo */
+#chrome{position:fixed;inset:auto 0 0 0;height:4px;background:rgba(255,255,255,.12);
+  z-index:20}
+#bar{height:100%;background:var(--cyan);transition:width .2s}
+#counter{position:fixed;right:16px;bottom:14px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.55);font-variant-numeric:tabular-nums}
+#help{position:fixed;left:16px;bottom:14px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.38)}
+#deckname{position:fixed;left:16px;top:12px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.32)}
+
+#notes{position:fixed;left:0;right:0;bottom:0;height:26vh;overflow:auto;
+  background:#071523;color:#c9d8e6;border-top:2px solid var(--cyan);padding:16px 22px;
+  font-size:14px;line-height:1.55;z-index:30;display:none}
+#notes.on{display:block}
+#notes b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cyan);margin-bottom:6px}
+
+#index{position:fixed;inset:0;background:rgba(7,21,35,.97);z-index:40;display:none;
+  padding:36px 56px;overflow:auto}
+#index.on{display:block}
+#index h2{color:#fff;font-size:19px;margin:0 0 18px;font-weight:600}
+#index ol{list-style:none;margin:0;padding:0;columns:2;column-gap:56px}
+#index li{margin-bottom:6px;break-inside:avoid}
+#index button{background:none;border:0;color:#c9d8e6;font:inherit;font-size:14px;
+  cursor:pointer;text-align:left;padding:3px 0;width:100%}
+#index button:hover,#index button.cur{color:var(--cyan)}
+#index .n{display:inline-block;width:34px;color:#5d7a93;
+  font-variant-numeric:tabular-nums}
+
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible;background:#fff;height:auto}
+  #stage{position:static;transform:none!important;height:auto;box-shadow:none}
+  .slide{display:flex!important;position:relative;width:1280px;height:720px;
+    break-after:page}
+  #chrome,#counter,#help,#notes,#index,#deckname{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="slide dark" data-sid="CAPA" data-notes="Abra retomando a divergência medida ontem. A pergunta do dia: quanto daquilo era o modelo e quanto era a tarefa que entregamos a ele?">
+      <div class="cover-body">
+        <p class="eyebrow">Encontro 2 · Bloco I — Fundamentos</p>
+        <h1>Condução: da intenção
+à tarefa executável</h1>
+        <p class="tese-capa">A maior parte do que se atribui à qualidade do modelo é, na verdade, qualidade da tarefa que foi entregue a ele.</p>
+        <p class="divider-foot tone-cyan">qualquer agente, sem método instalado</p>
+      </div></section>
+<section class="slide " data-sid="ROTEIRO" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">Encontro 2 · Roteiro</p><h2>O que vamos fazer hoje</h2></header><div class="table-wrap"><table class="roteiro"><thead><tr><th>Tempo</th><th>Atividade</th></tr></thead><tbody><tr><td class="key">0–10</td><td>Retomada do diagnóstico do encontro 1</td></tr><tr><td class="key">10–35</td><td>Decomposição e especificação de tarefa</td></tr><tr><td class="key">35–55</td><td>Seleção de contexto, exemplos e contraexemplos</td></tr><tr><td class="key">55–70</td><td>Refinar ou reiniciar; autonomia proporcional ao risco</td></tr><tr><td class="key">70–85</td><td>Quando não usar IA</td></tr><tr><td class="key">85–100</td><td>Demonstração das duas conduções</td></tr><tr><td class="key">100–110</td><td>Intervalo</td></tr><tr><td class="key">110–125</td><td>Laboratório: decompor</td></tr><tr><td class="key">125–145</td><td>Especificar</td></tr><tr><td class="key">145–165</td><td>Executar e decidir sobre reinício</td></tr><tr><td class="key">165–180</td><td>Comparar, entregar e retrospectiva</td></tr></tbody></table></div><p class="s-foot">MOD-02-ROTEIRO</p></section>
+<section class="slide " data-sid="OBJETIVOS" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">Encontro 2 · Objetivos</p><h2>Ao final deste encontro você consegue</h2></header><ol class="simples tone-cyan"><li>Decompor uma demanda em tarefas com resultado observável.</li><li>Escrever uma especificação com objetivo, restrições, fora do escopo e critério de pronto.</li><li>Escolher deliberadamente o que entra no contexto — e justificar cada inclusão.</li><li>Usar exemplos e contraexemplos para fixar formato e convenção.</li><li>Decidir entre refinar a sessão atual e reiniciá-la.</li><li>Calibrar autonomia conforme risco e reversibilidade.</li><li>Reconhecer quando a decisão correta é não usar IA.</li></ol><p class="s-foot">MOD-02-OBJ · relaciona-se a OA-02, OA-03 e OA-04</p></section>
+<section class="slide dark" data-sid="TESE" data-notes="Provocação útil: peça que levantem a mão quem já culpou o modelo por um resultado ruim. Depois pergunte o que estava escrito na solicitação."><div class="statement"><p>Uma tarefa mal delimitada não é salva por um modelo melhor.</p><p class="statement-foot">MOD-02-TESE</p></div></section>
+<section class="slide " data-sid="ENQUADRAMENTO" data-notes="Se a turma esperava técnicas de redação de prompt, nomeie a diferença agora. Condução é delimitar trabalho; o texto é consequência."><header class="s-head accent-cyan"><p class="eyebrow">Encontro 2 · Enquadramento</p><h2>Isto não é sobre escrever prompts</h2></header><p class="principio" style="font-size:28px">É uma competência de engenharia: decompor trabalho, declarar fronteiras, escolher o que entra no contexto e decidir quanta autonomia a tarefa merece.</p><p class="callout tone-cyan">É a mesma competência exigida para delegar trabalho a uma pessoa recém-chegada ao time — com uma diferença: essa pessoa pergunta quando não entende, e o agente não.</p><p class="s-foot">MOD-02-INT</p></section>
+<section class="slide " data-sid="MOD-02-CON-01" data-notes="NÃO PROJETAR — antecipação para o instrutor. A unidade de trabalho verificável, do encontro 6, é a forma documentada dessa decomposição."><header class="s-head accent-cyan"><p class="eyebrow">MOD-02-CON-01 · Conceito 1 de 7</p><h2>Decomposição</h2></header><p class="principio">Uma demanda não é uma tarefa. Quebre até que cada parte tenha um resultado que você consegue observar ao final.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Se você não sabe dizer como saberá que a parte terminou, ela ainda não é uma tarefa. Tarefas de investigação e de alteração não se misturam: a primeira produz informação, a segunda produz mudança.</p></div><p class="exemplo">“Fazer o sistema avisar quando aprovar” contém pelo menos quatro tarefas — e o agente resolverá três por suposição para chegar à quarta.</p><p class="s-foot">Fonte: course/topics/MOD-02.md</p></section>
+<section class="slide " data-sid="MOD-02-CON-02" data-notes="NÃO PROJETAR — antecipação para o instrutor. Objetivo observável, escopo, fora do escopo e critérios de aceite são campos da story."><header class="s-head accent-cyan"><p class="eyebrow">MOD-02-CON-02 · Conceito 2 de 7</p><h2>Especificação de tarefa</h2></header><p class="principio">Quatro elementos tornam uma tarefa executável sem invenção: objetivo, restrições, fora do escopo e critério de pronto.</p><div class="pratica accent-cyan"><b>Na prática</b><p>O campo mais negligenciado é o fora do escopo, e é o que mais economiza revisão. O agente tende a “aproveitar e melhorar”: renomear, extrair função, ajustar formatação, corrigir um erro vizinho.</p></div><p class="exemplo">Cada uma dessas iniciativas é plausível e nenhuma foi pedida. Declarar a fronteira custa uma linha.</p><p class="s-foot">Fonte: course/topics/MOD-02.md</p></section>
+<section class="slide " data-sid="MOD-02-CON-03" data-notes="NÃO PROJETAR — antecipação para o instrutor. É a engenharia de contexto: um índice curto que aponta para fontes, com carregamento sob demanda."><header class="s-head accent-cyan"><p class="eyebrow">MOD-02-CON-03 · Conceito 3 de 7</p><h2>Seleção do contexto</h2></header><p class="principio">Contexto útil é pertinente e atual, não volumoso.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Material irrelevante compete por espaço com o que importa e sugere caminhos falsos: um arquivo antigo incluído “por garantia” será tratado como se descrevesse o presente. Para cada item incluído, saiba dizer por que.</p></div><p class="exemplo">Prefira apontar o caminho e deixar o agente ler a fonte a colar um trecho que pode estar desatualizado.</p><p class="s-foot">Fonte: course/topics/MOD-02.md</p></section>
+<section class="slide " data-sid="MOD-02-CON-04" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">MOD-02-CON-04 · Conceito 4 de 7</p><h2>Exemplos e contraexemplos</h2></header><p class="principio">Descrever um formato em palavras é caro e ambíguo. Mostrar um caso pronto é barato e preciso.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Aponte um arquivo existente que já segue o padrão desejado, em vez de descrever o padrão. Para convenções abandonadas, mostre o caso antigo e diga explicitamente que ele não deve ser seguido.</p></div><p class="exemplo">Sem esse aviso, o agente encontrará o arquivo antigo sozinho e o tratará como referência.</p><p class="s-foot">Fonte: course/topics/MOD-02.md</p></section>
+<section class="slide " data-sid="MOD-02-CON-05" data-notes="NÃO PROJETAR — antecipação para o instrutor. É a razão de a decisão e o critério viverem em arquivo: reiniciar a sessão não pode custar o conhecimento acumulado."><header class="s-head accent-cyan"><p class="eyebrow">MOD-02-CON-05 · Conceito 5 de 7</p><h2>Refinar ou reiniciar</h2></header><p class="principio">Quando uma sessão entra em caminho errado, corrigir por cima costuma sair pior que recomeçar.</p><div class="pratica accent-cyan"><b>Na prática</b><p>Refine quando o desvio é pontual. Reinicie quando o entendimento do problema está errado, quando a mesma correção já foi pedida duas vezes, ou quando as restrições iniciais começaram a ser esquecidas.</p></div><p class="exemplo">O sintoma clássico: o agente conserta o que você apontou e reintroduz o problema anterior. Ao reiniciar, leve o que aprendeu — escrito, não de memória.</p><p class="s-foot">Fonte: course/topics/MOD-02.md</p></section>
+<section class="slide " data-sid="MOD-02-CON-06" data-notes="NÃO PROJETAR — antecipação para o instrutor. Esta escala vira a política de permissões e os checkpoints no encontro 4. Aqui ela é decisão de quem conduz, não do ambiente."><header class="s-head accent-cyan"><p class="eyebrow">MOD-02-CON-06 · Conceito 6 de 7</p><h2>Autonomia proporcional ao risco</h2></header><p class="intro">Autonomia não é configuração da ferramenta. É escolha por tarefa, com base em custo do erro e reversibilidade.</p><div class="table-wrap"><table class=""><thead><tr><th>Nível</th><th>Quando usar</th><th>O que o agente faz</th></tr></thead><tbody><tr><td class="key">Consulta</td><td>Dúvida, exploração, leitura</td><td>Responde; nada é alterado</td></tr><tr><td class="key">Proposta</td><td>Alteração de baixo risco</td><td>Propõe a diferença; a pessoa aplica</td></tr><tr><td class="key">Execução com checkpoint</td><td>Trabalho reversível, escopo definido</td><td>Executa em passos, com revisão entre eles</td></tr><tr><td class="key">Execução contínua</td><td>Tarefa mecânica, verificável por comando</td><td>Executa e reporta ao final</td></tr></tbody></table></div><p class="callout tone-cyan">Ação irreversível ou externa não entra em nenhum nível sem confirmação própria.</p><p class="s-foot">MOD-02-CON-06</p></section>
+<section class="slide " data-sid="MOD-02-CON-07" data-notes="O último caso não é sobre capacidade técnica. Uma decisão de negócio delegada a um agente continua sem dono. O caso de confidencialidade volta com força no encontro 4."><header class="s-head accent-cyan"><p class="eyebrow">MOD-02-CON-07 · Conceito 7 de 7</p><h2>Quando não usar IA</h2></header><p class="principio">A delegação compensa quando o custo de executar supera o custo de revisar. Quando se inverte, o agente vira despesa disfarçada de produtividade.</p><ul class="simples tone-cyan"><li>A alteração é menor que o esforço de descrevê-la.</li><li>Você não saberia reconhecer um resultado errado — e aceitar sem revisar não é opção.</li><li>O código é crítico e revisar exigiria a mesma atenção de escrevê-lo.</li><li>Os dados necessários não podem entrar no contexto por confidencialidade.</li><li>A tarefa depende de julgamento que só a pessoa responsável pode exercer.</li></ul><p class="s-foot">MOD-02-CON-07</p></section>
+<section class="slide " data-sid="DEMO" data-notes="O segundo item de observação é o mais importante: parte das lacunas depende de fonte, acesso ou decisão. É a ponte para o encontro 3."><header class="s-head accent-cyan"><p class="eyebrow">Demonstração do instrutor</p><h2>A mesma demanda, duas conduções</h2></header><ol class="demo"><li><span class="demo-t">5 min</span><span class="demo-b"><b>Condução A</b>Repita a solicitação direta do encontro 1. Use a resposta preservada, não execute de novo.</span></li><li><span class="demo-t">15 min</span><span class="demo-b"><b>Condução B</b>Construa em voz alta: decomposição, escolha da primeira tarefa, especificação, seleção de contexto, nível de autonomia, execução.</span></li><li><span class="demo-t">10 min</span><span class="demo-b"><b>Comparação</b>As duas lado a lado. Quanto do ganho veio do modelo e quanto veio da tarefa?</span></li></ol><div class="observar"><b>O que a turma deve observar</b><ul><li>pelo menos uma suposição que a condução B eliminou</li><li>pelo menos uma que ela NÃO eliminou — nem tudo é problema de condução</li><li>quanto tempo a mais custou preparar, e se compensou</li></ul></div><p class="s-foot">MOD-02-DEMO</p></section>
+<section class="slide dark" data-sid="LAB" data-notes="Cada grupo precisa das próprias respostas do encontro 1 em mãos. Sem elas a etapa 5 não fecha."><div class="cover-body"><p class="eyebrow">Laboratório · 70 minutos</p><h1>Refazer com condução deliberada</h1><p class="lead">A mesma demanda do encontro 1. O agente pode ler e propor; alteração de arquivos apenas na etapa 3, e apenas na tarefa escolhida.</p></div></section>
+<section class="slide " data-sid="LAB-1" data-notes="Erro típico: decompor por camada técnica (banco, serviço, tela) em vez de por resultado observável. Aponte quando vir.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">1</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Decompor</h2></div>
+      </header>
+      <ul class="passos"><li>Quebre a demanda em tarefas com resultado observável.</li><li>Classifique cada uma como investigação ou alteração.</li><li>Escolha a primeira tarefa a executar e justifique a ordem.</li></ul><p class="callout tone-cyan">Se você não sabe como saberá que a tarefa terminou, ela ainda não é uma tarefa.</p><p class="s-foot">MOD-02-LAB · etapa 1</p></section>
+<section class="slide " data-sid="LAB-2" data-notes="Cobre o fora do escopo com itens plausíveis. “Não fazer mais nada” não protege: o campo precisa nomear o que um leitor razoável inferiria que faz parte.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">2</span>
+        <div><p class="eyebrow">Laboratório · 20 minutos</p><h2>Especificar</h2></div>
+      </header>
+      <ul class="passos"><li>Preencha a especificação da tarefa escolhida.</li></ul><div class="table-wrap"><table class="vazia "><thead><tr><th>Campo</th><th>Conteúdo</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></div><p class="callout tone-cyan">Objetivo observável · restrições · fora do escopo · critério de pronto · contexto incluído e por quê · nível de autonomia e por quê</p><p class="s-foot">MOD-02-LAB · etapa 2</p></section>
+<section class="slide " data-sid="LAB-3" data-notes="A última coluna é o coração do exercício: separa o que a condução resolve do que exige fonte, decisão ou verificação. É o que o encontro 3 vai tratar.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">3</span>
+        <div><p class="eyebrow">Laboratório · 25 minutos</p><h2>Executar</h2></div>
+      </header>
+      <ul class="passos"><li>Acione o agente com a especificação.</li><li>Registre cada intervenção necessária e sua causa.</li></ul><div class="table-wrap"><table class="vazia "><thead><tr><th>Intervenção</th><th>Causa</th><th>Era evitável na especificação?</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></div><p class="callout tone-cyan">Causas possíveis: lacuna de contexto · fronteira ausente · decisão de negócio · limite do modelo</p><p class="s-foot">MOD-02-LAB · etapa 3</p></section>
+<section class="slide " data-sid="LAB-4" data-notes="Se nenhum grupo tiver desvio relevante, provoque um: peça uma alteração adicional ambígua e observe o que acontece com as restrições iniciais.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">4</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Refinar ou reiniciar</h2></div>
+      </header>
+      <ul class="passos"><li>Ao surgir o primeiro desvio relevante, decida entre corrigir na sessão e recomeçar com o que aprendeu.</li><li>Registre a decisão com a justificativa.</li><li>Se houver tempo, compare o resultado das duas abordagens.</li></ul><p class="s-foot">MOD-02-LAB · etapa 4</p></section>
+<section class="slide " data-sid="LAB-5" data-notes="">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">5</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Comparar com o encontro 1</h2></div>
+      </header>
+      <ul class="passos"><li>O que a condução deliberada eliminou.</li><li>O que ela não eliminou.</li><li>Quanto tempo custou a mais, e se compensou.</li><li>Em que ponto desta tarefa fazer à mão teria sido melhor.</li></ul><p class="callout tone-yellow">A lista do que ela NÃO eliminou é o insumo do encontro 3. Guardem.</p><p class="s-foot">MOD-02-LAB · etapa 5</p></section>
+<section class="slide " data-sid="ENTREGA" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">Encontro 2 · Entrega</p><h2>Especificação e comparação</h2></header><ul class="checklist tone-cyan"><li>Decomposição da demanda em tarefas observáveis</li><li>Especificação completa da tarefa executada</li><li>Registro das intervenções, com causa e evitabilidade</li><li>Decisão de refinar ou reiniciar, justificada</li><li>Análise comparativa entre condução ingênua e deliberada</li><li>Lista do que a condução não resolve</li><li>Um caso em que não usar IA seria a decisão correta</li></ul><p class="s-foot">MOD-02-ENT</p></section>
+<section class="slide " data-sid="EQUIVOCOS" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">Encontro 2 · Fechamento</p><h2>Sete leituras erradas deste encontro</h2></header><ul class="equivocos tone-red"><li><p class="mito">“Condução é escrever prompts melhores.”</p><p class="fato">É delimitar trabalho. O texto é consequência.</p></li><li><p class="mito">“Especificar demais engessa o agente.”</p><p class="fato">Restrição reduz invenção, não capacidade.</p></li><li><p class="mito">“Fora do escopo é óbvio.”</p><p class="fato">O que é óbvio para quem conhece o projeto é invisível para quem vê só o texto.</p></li><li><p class="mito">“Reiniciar é desperdiçar o que já foi feito.”</p><p class="fato">Desperdício maior é arrastar um entendimento errado por mais dez interações.</p></li><li><p class="mito">“Mais contexto sempre ajuda.”</p><p class="fato">Contexto irrelevante compete com o pertinente e sugere caminhos falsos.</p></li><li><p class="mito">“Autonomia é configuração da ferramenta.”</p><p class="fato">É decisão por tarefa, baseada em risco e reversibilidade.</p></li><li><p class="mito">“Se a condução foi boa, o resultado está certo.”</p><p class="fato">Condução reduz invenção; não substitui verificação. É o encontro seguinte.</p></li></ul><p class="s-foot">MOD-02-EQUIVOCOS</p></section>
+<section class="slide dark" data-sid="PONTE" data-notes="Avise agora que o material será redistribuído. Isso muda o cuidado com que os grupos registram o que fizeram."><div class="cover-body"><p class="eyebrow">Encontro 3</p><h1>Verificação:<br>o que a IA produziu merece crédito?</h1><p class="lead">Hoje reduzimos a invenção do agente. No próximo encontro, vamos auditar o que ele produziu — e cada grupo vai revisar o trabalho de outro grupo.</p><p class="divider-foot tone-cyan">Tragam o código, os testes e a especificação de hoje. Vão para as mãos de outra equipe.</p></div></section>
+</div>
+
+<div id="chrome"><div id="bar"></div></div>
+<p id="deckname">Encontro 2</p>
+<p id="counter"></p>
+<p id="help">← → navegar · N notas · O índice · F tela cheia · P imprimir</p>
+<div id="notes"></div>
+<div id="index"><h2>Encontro 2 — Condução: da intenção à tarefa executável</h2><ol><li><button data-go="0"><span class="n">01</span>Capa do encontro</button></li><li><button data-go="1"><span class="n">02</span>Roteiro das 3 horas</button></li><li><button data-go="2"><span class="n">03</span>Objetivos do encontro</button></li><li><button data-go="3"><span class="n">04</span>Tese do encontro</button></li><li><button data-go="4"><span class="n">05</span>Não é sobre prompt</button></li><li><button data-go="5"><span class="n">06</span>01 · Decomposição</button></li><li><button data-go="6"><span class="n">07</span>02 · Especificação de tarefa</button></li><li><button data-go="7"><span class="n">08</span>03 · Seleção do contexto</button></li><li><button data-go="8"><span class="n">09</span>04 · Exemplos e contraexemplos</button></li><li><button data-go="9"><span class="n">10</span>05 · Refinar ou reiniciar</button></li><li><button data-go="10"><span class="n">11</span>06 · Autonomia proporcional ao risco</button></li><li><button data-go="11"><span class="n">12</span>07 · Quando não usar IA</button></li><li><button data-go="12"><span class="n">13</span>Demonstração — duas conduções</button></li><li><button data-go="13"><span class="n">14</span>Laboratório — abertura</button></li><li><button data-go="14"><span class="n">15</span>Etapa 1 — Decompor</button></li><li><button data-go="15"><span class="n">16</span>Etapa 2 — Especificar</button></li><li><button data-go="16"><span class="n">17</span>Etapa 3 — Executar</button></li><li><button data-go="17"><span class="n">18</span>Etapa 4 — Refinar ou reiniciar</button></li><li><button data-go="18"><span class="n">19</span>Etapa 5 — Comparar</button></li><li><button data-go="19"><span class="n">20</span>Entrega do encontro</button></li><li><button data-go="20"><span class="n">21</span>Equívocos a evitar</button></li><li><button data-go="21"><span class="n">22</span>Próximo encontro</button></li></ol></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const notesData=slides.map(s=>s.dataset.notes||'');
+const ids=slides.map(s=>s.dataset.sid);
+const bar=document.getElementById('bar');
+const counter=document.getElementById('counter');
+const notes=document.getElementById('notes');
+const index=document.getElementById('index');
+let i=0;
+
+function fit(){
+  const st=document.getElementById('stage');
+  const aberto=notes.classList.contains('on');
+  const disponivel=aberto?innerHeight*0.74:innerHeight;
+  const k=Math.min(innerWidth/1280,disponivel/720)*(aberto?0.94:0.90);
+  st.style.transform='translate(-50%,-50%) scale('+k+')';
+  st.style.top=aberto?'37%':'50%';
+}
+function show(n,push){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  counter.textContent=(i+1)+' / '+slides.length;
+  notes.innerHTML='<b>Notas do apresentador</b>'+(notesData[i]||'<i>sem notas</i>');
+  [...index.querySelectorAll('button')].forEach((b,k)=>b.classList.toggle('cur',k===i));
+  if(push!==false) history.replaceState(null,'','#'+ids[i]);
+}
+addEventListener('keydown',function(ev){
+  const k=ev.key;
+  if(index.classList.contains('on')&&k!=='o'&&k!=='O'&&k!=='Escape') return;
+  if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'){ev.preventDefault();show(i+1);}
+  else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){ev.preventDefault();show(i-1);}
+  else if(k==='Home'){show(0);}
+  else if(k==='End'){show(slides.length-1);}
+  else if(k==='n'||k==='N'){notes.classList.toggle('on');fit();}
+  else if(k==='o'||k==='O'){index.classList.toggle('on');}
+  else if(k==='Escape'){index.classList.remove('on');}
+  else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+  else if(k==='p'||k==='P'){print();}
+});
+addEventListener('click',function(ev){
+  if(ev.target.closest('#index')||ev.target.closest('#notes'))return;
+  show(i+(ev.clientX<innerWidth*0.25?-1:1));
+});
+addEventListener('resize',fit);
+document.querySelectorAll('#index button').forEach(function(b){
+  b.addEventListener('click',function(){show(+b.dataset.go);index.classList.remove('on');});
+});
+const inicial=ids.indexOf(location.hash.slice(1));
+fit();
+show(inicial>=0?inicial:0,false);
+</script>
+</body>
+</html>

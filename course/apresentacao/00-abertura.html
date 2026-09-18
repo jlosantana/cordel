@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Abertura — Engenharia de software com agentes de IA">
+<title>Abertura — Engenharia de software com agentes de IA</title>
+<!-- Projeção gerada por course/scripts/build_deck.py. Não editar à mão. -->
+<style>
+:root{
+  --ink:#13243a; --ink-soft:#43566e; --paper:#f6f8fb; --surface:#fff;
+  --line:#d8e0e9; --blue:#164b73; --blue-deep:#092c48; --cyan:#1c8ea0;
+  --cyan-pale:#dff5f4; --yellow:#f2bd43; --yellow-pale:#fff5d8;
+  --yellow-ink:#96700f; --red:#bb4d4a; --red-pale:#fbeeee; --mist:#c7d8e6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#0b1a2a}
+body{font-family:"Segoe UI Variable Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);-webkit-font-smoothing:antialiased}
+
+#stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;
+  transform-origin:center center;background:var(--paper);
+  box-shadow:0 30px 90px rgba(0,0,0,.45)}
+
+.slide{position:absolute;inset:0;padding:46px 60px 54px;background:var(--paper);
+  display:none;flex-direction:column;justify-content:center;overflow:hidden}
+.slide.on{display:flex}
+.slide.dark{background:var(--blue-deep);color:#fff;padding-left:94px}
+.slide.dark::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;
+  background:var(--cyan)}
+.slide.divider-yellow::before{background:var(--yellow)}
+.slide.divider-red::before{background:var(--red)}
+
+.s-head{border-left:6px solid var(--cyan);padding-left:20px;margin:0 0 20px}
+.s-head.accent-blue{border-color:var(--blue)}
+.s-head.accent-yellow{border-color:var(--yellow)}
+.s-head.accent-red{border-color:var(--red)}
+.eyebrow{margin:0 0 6px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  font-weight:700;color:var(--cyan)}
+.accent-blue .eyebrow{color:var(--blue)}
+.accent-yellow .eyebrow{color:var(--yellow-ink)}
+.accent-red .eyebrow{color:var(--red)}
+.s-head h2{margin:0;font-size:33px;font-weight:600;line-height:1.12;
+  letter-spacing:-.01em}
+.intro{margin:0 0 16px;font-size:15px;color:var(--ink-soft);line-height:1.45}
+.s-foot{position:absolute;left:60px;right:60px;bottom:24px;margin:0;
+  font-size:11px;color:#8a9bad}
+
+/* capas e divisores */
+.cover-body{max-width:960px}
+.cover-body .eyebrow{color:var(--cyan);font-size:13px;margin-bottom:18px}
+.divider-yellow .cover-body .eyebrow{color:var(--yellow)}
+.divider-red .cover-body .eyebrow{color:var(--red)}
+.cover-body h1{margin:0 0 20px;font-size:52px;line-height:1.06;font-weight:600;
+  letter-spacing:-.02em}
+.cover-body .lead{margin:0;font-size:20px;line-height:1.45;color:var(--mist)}
+.tese-capa{margin:0;font-size:20px;line-height:1.45;color:var(--mist);
+  padding-left:18px;border-left:3px solid rgba(255,255,255,.22);max-width:860px}
+.divider-foot{margin:32px 0 0;font-size:14px}
+.tone-cyan{color:var(--cyan)}.tone-yellow{color:var(--yellow)}.tone-red{color:var(--red)}
+.chips{display:flex;gap:34px;list-style:none;margin:42px 0 0;padding:0}
+.chips li{font-size:13px;color:var(--mist);padding-left:12px;
+  border-left:4px solid var(--cyan)}
+.chips li.tone-yellow{border-color:var(--yellow)}
+.chips li.tone-red{border-color:var(--red)}
+
+/* frase de impacto */
+.statement{max-width:1020px}
+.statement p{margin:0;font-size:36px;line-height:1.3;font-weight:600;
+  letter-spacing:-.01em;color:#fff}
+.statement-foot{margin:26px 0 0!important;font-size:14px!important;
+  font-weight:400!important;color:var(--mist)!important}
+
+/* conceito */
+.principio{margin:0 0 22px;font-size:25px;line-height:1.35;font-weight:600;
+  color:var(--ink);max-width:1080px}
+.pratica{border-left:5px solid var(--cyan);padding:2px 0 2px 20px;max-width:1080px}
+.pratica.accent-blue{border-color:var(--blue)}
+.pratica.accent-yellow{border-color:var(--yellow)}
+.pratica.accent-red{border-color:var(--red)}
+.pratica b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cyan);margin-bottom:5px}
+.pratica.accent-blue b{color:var(--blue)}
+.pratica.accent-yellow b{color:var(--yellow-ink)}
+.pratica.accent-red b{color:var(--red)}
+.pratica p{margin:0;font-size:17px;line-height:1.5;color:var(--ink-soft)}
+.exemplo{margin:20px 0 0;padding:13px 18px;background:var(--surface);
+  border:1px solid var(--line);font-size:15px;line-height:1.45;color:var(--ink-soft);
+  max-width:1080px}
+
+/* listas */
+.simples{margin:0;padding-left:26px;font-size:19px;line-height:1.65;color:var(--ink)}
+.simples li{margin-bottom:9px;padding-left:6px}
+.simples li::marker{color:var(--cyan);font-weight:700}
+.simples.tone-blue li::marker{color:var(--blue)}
+.simples.tone-yellow li::marker{color:var(--yellow-ink)}
+.simples.tone-red li::marker{color:var(--red)}
+
+.dgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  gap:11px 40px}
+.dgrid.one{grid-template-columns:1fr;gap:13px}
+.dgrid li{border-left:4px solid var(--cyan);padding-left:14px;font-size:15px}
+.dgrid li.tone-blue{border-color:var(--blue)}
+.dgrid li.tone-yellow{border-color:var(--yellow)}
+.dgrid li.tone-red{border-color:var(--red)}
+.dgrid li b{display:block;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--cyan);margin-bottom:1px}
+.dgrid li.tone-blue b{color:var(--blue)}
+.dgrid li.tone-yellow b{color:var(--yellow-ink)}
+.dgrid li.tone-red b{color:var(--red)}
+
+.qgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  gap:13px 40px}
+.qgrid li{border-left:4px solid var(--cyan);padding-left:14px}
+.qgrid .tag{display:block;font-size:11px;font-weight:700;color:var(--cyan);
+  letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.qgrid .txt{font-size:16px}
+
+/* laboratório */
+.etapa-head{display:flex;gap:20px;align-items:flex-start;border-left:0;padding-left:0}
+.etapa-num{flex:0 0 66px;height:66px;line-height:66px;text-align:center;
+  font-size:30px;font-weight:700;color:#fff;background:var(--blue)}
+.etapa-num.tone-cyan{background:var(--cyan)}
+.etapa-num.tone-red{background:var(--red)}
+.etapa-head h2{font-size:31px}
+.passos{margin:0 0 18px;padding-left:24px;font-size:18px;line-height:1.55;
+  color:var(--ink)}
+.passos li{margin-bottom:8px}
+.passos li::marker{color:var(--blue)}
+
+/* demonstração */
+.demo{list-style:none;margin:0 0 20px;padding:0}
+.demo li{display:flex;gap:18px;align-items:baseline;margin-bottom:12px}
+.demo-t{flex:0 0 78px;font-size:13px;font-weight:700;color:var(--cyan);
+  text-align:right;font-variant-numeric:tabular-nums}
+.demo-b{font-size:17px;line-height:1.45;color:var(--ink-soft)}
+.demo-b b{display:block;color:var(--ink);font-size:18px;margin-bottom:1px}
+.observar{background:var(--cyan-pale);padding:15px 20px}
+.observar b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--blue);margin-bottom:6px}
+.observar ul{margin:0;padding-left:20px;font-size:15px;line-height:1.55;
+  color:var(--blue)}
+
+/* equívocos */
+.equivocos{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:16px 34px}
+.equivocos li{border-left:4px solid var(--red);padding-left:16px}
+.equivocos .mito{margin:0 0 4px;font-size:16px;font-weight:600;color:var(--red)}
+.equivocos .fato{margin:0;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+
+/* checklist */
+.checklist{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:10px 40px}
+.checklist li{position:relative;padding-left:30px;font-size:16px;line-height:1.4}
+.checklist li::before{content:"";position:absolute;left:0;top:2px;width:16px;
+  height:16px;border:2px solid var(--cyan)}
+.checklist.tone-blue li::before{border-color:var(--blue)}
+
+/* cartões e blocos */
+.card{background:var(--surface);border:1px solid var(--line);
+  border-top:5px solid var(--cyan);padding:16px 20px 14px}
+.card.accent-blue{border-top-color:var(--blue)}
+.card.accent-yellow{border-top-color:var(--yellow)}
+.card.accent-red{border-top-color:var(--red)}
+.card h3{margin:0 0 9px;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--cyan)}
+.card.accent-blue h3{color:var(--blue)}
+.card.accent-yellow h3{color:var(--yellow-ink)}
+.card.accent-red h3{color:var(--red)}
+.card p{margin:0 0 6px;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+.card p:last-child{margin-bottom:0}
+.card p.mid{margin-top:10px;font-size:10px;color:#a3b4c4;font-weight:700;
+  letter-spacing:.05em}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+
+.blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.block{background:var(--surface);border:1px solid var(--line);
+  border-top:5px solid var(--cyan);padding:18px 20px;display:flex;flex-direction:column}
+.block.accent-yellow{border-top-color:var(--yellow)}
+.block.accent-red{border-top-color:var(--red)}
+.block-name{margin:0;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--cyan);min-height:2.6em;line-height:1.3}
+.block.accent-yellow .block-name{color:var(--yellow-ink)}
+.block.accent-red .block-name{color:var(--red)}
+.block-when{margin:0 0 14px;font-size:12px;color:var(--ink-soft)}
+.block h3{margin:0 0 14px;font-size:19px;line-height:1.25;font-weight:600}
+.block ul{margin:0;padding-left:16px;font-size:14px;color:var(--ink-soft);
+  line-height:1.6}
+.block-tool{margin:auto 0 0;padding-top:14px;font-size:12px;font-style:italic;
+  color:var(--cyan)}
+.block.accent-yellow .block-tool{color:var(--yellow-ink)}
+.block.accent-red .block-tool{color:var(--red)}
+
+.olist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.olist li{display:flex;gap:18px;align-items:flex-start}
+.oid{flex:0 0 74px;text-align:center;padding:8px 0;font-size:13px;font-weight:700;
+  color:#fff;background:var(--cyan)}
+.oid.tone-blue{background:var(--blue)}
+.obody{padding-top:1px;font-size:16px;line-height:1.35}
+.obody b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--cyan);margin-bottom:2px;font-weight:700}
+.olist.accent-blue .obody b{color:var(--blue)}
+
+.chain{list-style:none;display:grid;grid-template-columns:repeat(9,1fr);gap:8px;
+  margin:0 0 20px;padding:0}
+.chain li{background:var(--surface);border:1px solid var(--line);
+  border-top:4px solid var(--cyan);padding:11px 6px;font-size:11px;text-align:center;
+  line-height:1.25;color:var(--ink)}
+.chain li.tone-yellow{border-top-color:var(--yellow)}
+.chain li.tone-red{border-top-color:var(--red)}
+
+/* tabelas */
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--blue);color:#fff;text-align:left;padding:9px 12px;
+  font-size:12px;font-weight:700}
+tbody td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink-soft);
+  line-height:1.35;vertical-align:top}
+tbody tr:nth-child(even){background:#fbfcfe}
+td.key{font-weight:700;color:var(--ink);white-space:nowrap}
+table.vazia tbody td{height:36px;border:1px solid var(--line);background:var(--surface)}
+table.vazia tbody tr:nth-child(even){background:none}
+table.vazia thead th{background:var(--cyan)}
+table.roteiro{font-size:15px}
+table.roteiro td{padding:7px 14px}
+table.roteiro tr.mark td{background:var(--cyan-pale);color:var(--blue);font-weight:600}
+table.riscos td:nth-child(2){width:15%}
+table.riscos td:nth-child(3){width:22%}
+table.riscos td:nth-child(4){width:29%}
+table.aval td.key{width:64px}
+table.aval td:nth-child(2){width:30%;font-weight:600;color:var(--ink)}
+
+/* callout */
+.callout{margin:18px 0 0;padding:15px 20px;background:var(--cyan-pale);
+  font-size:15px;font-weight:600;color:var(--blue);line-height:1.4}
+.callout.tone-yellow{background:var(--yellow-pale);color:var(--ink)}
+.callout.tone-red{background:var(--red-pale);color:var(--ink)}
+.callout.big{font-weight:400;color:var(--ink-soft);font-size:14px}
+.callout.big b{display:block;font-size:17px;color:var(--ink);margin-bottom:4px}
+
+/* cromo */
+#chrome{position:fixed;inset:auto 0 0 0;height:4px;background:rgba(255,255,255,.12);
+  z-index:20}
+#bar{height:100%;background:var(--cyan);transition:width .2s}
+#counter{position:fixed;right:16px;bottom:14px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.55);font-variant-numeric:tabular-nums}
+#help{position:fixed;left:16px;bottom:14px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.38)}
+#deckname{position:fixed;left:16px;top:12px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.32)}
+
+#notes{position:fixed;left:0;right:0;bottom:0;height:26vh;overflow:auto;
+  background:#071523;color:#c9d8e6;border-top:2px solid var(--cyan);padding:16px 22px;
+  font-size:14px;line-height:1.55;z-index:30;display:none}
+#notes.on{display:block}
+#notes b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cyan);margin-bottom:6px}
+
+#index{position:fixed;inset:0;background:rgba(7,21,35,.97);z-index:40;display:none;
+  padding:36px 56px;overflow:auto}
+#index.on{display:block}
+#index h2{color:#fff;font-size:19px;margin:0 0 18px;font-weight:600}
+#index ol{list-style:none;margin:0;padding:0;columns:2;column-gap:56px}
+#index li{margin-bottom:6px;break-inside:avoid}
+#index button{background:none;border:0;color:#c9d8e6;font:inherit;font-size:14px;
+  cursor:pointer;text-align:left;padding:3px 0;width:100%}
+#index button:hover,#index button.cur{color:var(--cyan)}
+#index .n{display:inline-block;width:34px;color:#5d7a93;
+  font-variant-numeric:tabular-nums}
+
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible;background:#fff;height:auto}
+  #stage{position:static;transform:none!important;height:auto;box-shadow:none}
+  .slide{display:flex!important;position:relative;width:1280px;height:720px;
+    break-after:page}
+  #chrome,#counter,#help,#notes,#index,#deckname{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="slide dark" data-sid="CAPA" data-notes="Deck gerado por course/scripts/build_deck.py a partir de course/ementa.md. Não edite o HTML à mão.">
+      <div class="cover-body">
+        <p class="eyebrow">Curso · 24 horas · 8 encontros</p>
+        <h1>Engenharia de software<br>com agentes de IA</h1>
+        <p class="lead">Contexto, decisão e evidência.<br>Aplicando o método Cordel.</p>
+        <ul class="chips">
+          <li class="tone-cyan">3 blocos</li>
+          <li class="tone-yellow">1 projeto-laboratório</li>
+          <li class="tone-red">princípio antes da ferramenta</li>
+        </ul>
+      </div></section>
+<section class="slide " data-sid="CURSO-03" data-notes="Estas sete perguntas são o currículo real. Volte a elas ao abrir cada encontro. No MOD-01 elas são usadas SEM nomear o Cordel."><header class="s-head accent-cyan"><p class="eyebrow">CURSO-03 · Problema orientador</p><h2>As sete perguntas que o curso responde</h2></header>
+      <p class="intro">A IA reduz o custo de pesquisar, planejar, escrever e testar.
+      O mesmo ganho reduz o intervalo entre uma premissa errada e uma alteração concreta.</p>
+      <ul class="qgrid"><li><span class="tag">Origem · PROB-01</span><span class="txt">Qual necessidade deu origem à mudança?</span></li><li><span class="tag">Natureza · PROB-02</span><span class="txt">O que é fato, relato, inferência ou decisão?</span></li><li><span class="tag">AS-IS · PROB-03</span><span class="txt">O que o sistema realmente faz hoje?</span></li><li><span class="tag">Autoridade · PROB-04</span><span class="txt">Quem autorizou a mudança de escopo?</span></li><li><span class="tag">Observação · PROB-05</span><span class="txt">Como o resultado esperado será observado?</span></li><li><span class="tag">Prova · PROB-06</span><span class="txt">Qual evidência sustenta a conclusão?</span></li><li><span class="tag">Concordância · PROB-07</span><span class="txt">Como fontes, código e testes voltam a concordar?</span></li></ul>
+      <p class="callout tone-cyan">O Cordel é uma resposta possível a essas perguntas — não a única. Quem conclui o curso deve saber respondê-las em um time que não o use.</p>
+      <p class="s-foot">Detalhe: course/topics/CURSO-03.md</p></section>
+<section class="slide " data-sid="BLO-00" data-notes="O Cordel só entra no encontro 5. Não antecipe: a partir do momento em que a turma sabe que existe resposta pronta, para de construir a sua."><header class="s-head accent-cyan"><p class="eyebrow">BLO-00 · Estrutura</p><h2>Três blocos, três perguntas</h2></header>
+      <div class="blocks">
+        <article class="block accent-cyan">
+          <p class="block-name">Bloco I — Fundamentos</p>
+          <p class="block-when">Encontros 1 a 3</p>
+          <h3>Como se trabalha com um agente sem se enganar?</h3>
+          <ul><li>Como o agente funciona e por que erra</li><li>Condução da tarefa</li><li>Verificação do que a IA produziu</li></ul>
+          <p class="block-tool">qualquer agente, sem método instalado</p>
+        </article>
+        <article class="block accent-yellow">
+          <p class="block-name">Bloco II — Controle e método</p>
+          <p class="block-when">Encontros 4 a 6</p>
+          <h3>Como transformar isso em prática de time?</h3>
+          <ul><li>Harness, permissões e segurança</li><li>Cordel como implementação</li><li>Da demanda à unidade autorizada</li></ul>
+          <p class="block-tool">harness explícito e Cordel</p>
+        </article>
+        <article class="block accent-red">
+          <p class="block-name">Bloco III — Prova e transferência</p>
+          <p class="block-when">Encontros 7 e 8</p>
+          <h3>Como provar o resultado e levar ao meu time?</h3>
+          <ul><li>Implementação assistida e prova</li><li>Transferência e evolução</li></ul>
+          <p class="block-tool">Cordel e o contexto real de cada pessoa</p>
+        </article></div>
+      <p class="callout tone-cyan">A entrega que liga os blocos é o protocolo mínimo: uma página escrita por cada grupo no encontro 3, confrontada com o Cordel no encontro 5.</p>
+      <p class="s-foot">Detalhe: course/topics/CURSO-05.md</p></section>
+<section class="slide " data-sid="CURSO-01" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">CURSO-01 · Identificação</p><h2>O curso em uma página</h2></header><div class="grid-3"><article class="card accent-cyan"><h3>Carga horária</h3><p>24 horas, em 8 encontros de 3 horas.</p></article><article class="card accent-blue"><h3>Formato</h3><p>Prático, presencial ou remoto: exposição curta, demonstração, laboratório e retrospectiva.</p></article><article class="card accent-cyan"><h3>Público-alvo</h3><p>Desenvolvimento, liderança técnica, arquitetura, qualidade e produto.</p></article><article class="card accent-blue"><h3>Pré-requisitos</h3><p>Desenvolvimento, Git, leitura de código e testes. IA em profundidade não é necessária.</p></article><article class="card accent-cyan"><h3>Projeto-laboratório</h3><p>Aplicação pequena, versionada e executável, com demandas deliberadamente incompletas.</p></article><article class="card accent-blue"><h3>Ferramenta</h3><p>O Cordel entra no 5º encontro. Os quatro primeiros usam qualquer agente, sem método instalado.</p></article></div><p class="s-foot">Detalhe: course/ementa.md</p></section>
+<section class="slide " data-sid="CURSO-04-1" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">CURSO-04 · Objetivos de aprendizagem 1 de 2</p><h2>Competência primeiro, ferramenta depois</h2></header>
+          <p class="intro">Cada objetivo é independente de ferramenta. Onde o Cordel
+          oferece uma implementação direta, ela aparece entre parênteses.</p>
+          <ul class="olist accent-cyan"><li><span class="oid tone-cyan">OA-01</span><span class="obody"><b>Mecânica</b>Explicar como um agente transforma uma solicitação em ação, e por que o resultado não é determinístico.</span></li><li><span class="oid tone-cyan">OA-02</span><span class="obody"><b>Limites</b>Reconhecer onde a IA gera ganho real e quando a decisão correta é não usá-la.</span></li><li><span class="oid tone-cyan">OA-03</span><span class="obody"><b>Condução</b>Decompor a demanda, declarar objetivo, restrições e critério de pronto.</span></li><li><span class="oid tone-cyan">OA-04</span><span class="obody"><b>Autonomia</b>Calibrar autonomia e permissões conforme risco e reversibilidade (Cordel: harness).</span></li><li><span class="oid tone-cyan">OA-05</span><span class="obody"><b>Epistemologia</b>Separar fato, relato, inferência, decisão e evidência.</span></li><li><span class="oid tone-cyan">OA-06</span><span class="obody"><b>Verificação</b>Revisar diferenças contra o escopo e projetar um teste capaz de falhar (Cordel: estratégia de prova).</span></li></ul>
+          <p class="s-foot">Detalhe: course/topics/CURSO-04.md</p></section>
+<section class="slide " data-sid="CURSO-04-2" data-notes=""><header class="s-head accent-blue"><p class="eyebrow">CURSO-04 · Objetivos de aprendizagem 2 de 2</p><h2>Competência primeiro, ferramenta depois</h2></header>
+          <p class="intro">Cada objetivo é independente de ferramenta. Onde o Cordel
+          oferece uma implementação direta, ela aparece entre parênteses.</p>
+          <ul class="olist accent-blue"><li><span class="oid tone-blue">OA-07</span><span class="obody"><b>AS-IS</b>Confirmar o comportamento atual em fonte inspecionável antes de propor a mudança.</span></li><li><span class="oid tone-blue">OA-08</span><span class="obody"><b>Origem</b>Localizar a origem da demanda e distinguir necessidade de autorização.</span></li><li><span class="oid tone-blue">OA-09</span><span class="obody"><b>Unidade</b>Transformar o pedido em unidade verificável, com critérios que tenham forma de prova.</span></li><li><span class="oid tone-blue">OA-10</span><span class="obody"><b>Autorização</b>Decidir e registrar, de modo contestável, se há informação suficiente para autorizar.</span></li><li><span class="oid tone-blue">OA-11</span><span class="obody"><b>Segurança</b>Reconhecer instrução hostil em conteúdo lido e exposição de dados e credenciais.</span></li><li><span class="oid tone-blue">OA-12</span><span class="obody"><b>Transferência</b>Reconciliar fontes e levar os controles ao próprio time, com ou sem a ferramenta do curso.</span></li></ul>
+          <p class="s-foot">Detalhe: course/topics/CURSO-04.md</p></section>
+<section class="slide " data-sid="CURSO-05" data-notes="Indicador de que a ordem funcionou: quantos controles cada grupo identificou sozinho antes do encontro 5. Registre por turma."><header class="s-head accent-cyan"><p class="eyebrow">CURSO-05 · Metodologia</p><h2>Uma demanda atravessa os 8 encontros</h2></header>
+      <ol class="chain"><li class="tone-cyan">pedido incompleto</li><li class="tone-cyan">condução deliberada</li><li class="tone-cyan">auditoria</li><li class="tone-cyan">protocolo mínimo</li><li class="tone-yellow">ambiente</li><li class="tone-yellow">método</li><li class="tone-yellow">decisão</li><li class="tone-red">prova</li><li class="tone-red">transferência</li></ol>
+      <div class="grid-4"><article class="card accent-blue"><h3>Conceitos · 45 min</h3><p>Vocabulário e critérios para o problema do dia.</p><p class="mid">MET-01</p></article><article class="card accent-blue"><h3>Demonstração · 30 min</h3><p>O instrutor trabalha em voz alta, com incertezas visíveis.</p><p class="mid">MET-02</p></article><article class="card accent-blue"><h3>Laboratório · 90 min</h3><p>Duplas ou trios, papéis rotativos, decisão do grupo.</p><p class="mid">MET-03</p></article><article class="card accent-blue"><h3>Retrospectiva · 15 min</h3><p>Decisão, evidência, erro evitado e incerteza restante.</p><p class="mid">MET-04</p></article></div>
+      <div class="callout tone-yellow big">
+        <b>Princípio antes da ferramenta</b>
+        Nos três primeiros encontros a turma trabalha sem método instalado e escreve o
+        próprio protocolo mínimo. Antecipar o Cordel destrói o mecanismo pedagógico:
+        a turma para de construir a própria resposta.
+      </div>
+      <p class="s-foot">Detalhe: course/topics/CURSO-05.md</p></section>
+<section class="slide " data-sid="CURSO-06-1" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">CURSO-06 · Riscos e controles 1 de 2</p><h2>O controle vem primeiro; a ferramenta, depois</h2></header><div class="table-wrap"><table class="riscos"><thead><tr><th>ID</th><th>Ganho da IA</th><th>Risco introduzido</th><th>Controle ensinado</th><th>Risco residual</th></tr></thead><tbody><tr><td class="key">RC-01</td><td>Pesquisa rápida</td><td>Fonte errada ou antiga</td><td>Declarar autoridade por fonte e exigir evidência endereçável</td><td>A fonte canônica também pode errar</td></tr><tr><td class="key">RC-02</td><td>Compreensão de legado</td><td>Lacunas preenchidas por suposição</td><td>Confirmar o comportamento atual em fonte inspecionável</td><td>Busca negativa não prova ausência</td></tr><tr><td class="key">RC-03</td><td>Geração de código</td><td>Problema errado implementado depressa</td><td>Decisão humana e unidade verificável antes do código</td><td>Gate ruim formaliza premissa ruim</td></tr><tr><td class="key">RC-04</td><td>Detalhamento</td><td>Solução tratada como autorização</td><td>Distinguir necessidade, requisito, unidade e detalhamento</td><td>Ambiguidade exige decisão humana</td></tr><tr><td class="key">RC-05</td><td>Geração de testes</td><td>Teste confirma o próprio agente</td><td>Projetar a prova antes do código e garantir que possa falhar</td><td>Oráculos exigem julgamento</td></tr><tr><td class="key">RC-06</td><td>Documentação</td><td>Propagação de informação falsa</td><td>Fonte única por fato e projeções regeneradas</td><td>Conhecimento envelhece sem responsável</td></tr><tr><td class="key">RC-07</td><td>Integrações</td><td>Ação externa sem autoridade</td><td>Permissão mínima por etapa e confirmação para operação mutável</td><td>Depende da configuração do harness</td></tr></tbody></table></div><p class="s-foot">Detalhe: course/topics/CURSO-06.md · catálogo completo RC-01 a RC-13</p></section>
+<section class="slide " data-sid="CURSO-06-2" data-notes=""><header class="s-head accent-red"><p class="eyebrow">CURSO-06 · Riscos e controles 2 de 2</p><h2>O controle vem primeiro; a ferramenta, depois</h2></header><div class="table-wrap"><table class="riscos"><thead><tr><th>ID</th><th>Ganho da IA</th><th>Risco introduzido</th><th>Controle ensinado</th><th>Risco residual</th></tr></thead><tbody><tr><td class="key">RC-08</td><td>Procedimentos reutilizáveis</td><td>Skill obsoleta ou específica demais</td><td>Separar julgamento de execução determinística e versionar</td><td>Skills exigem avaliação e manutenção</td></tr><tr><td class="key">RC-09</td><td>Autonomia</td><td>Deriva de objetivo e automação de erro</td><td>Passos observáveis e interrupção no escopo novo</td><td>Agentes seguem não determinísticos</td></tr><tr><td class="key">RC-10</td><td>Síntese de status</td><td>Artefato tratado como prova</td><td>Promover estado só com evidência acessível e pertinente</td><td>Evidência pode envelhecer</td></tr><tr><td class="key">RC-11</td><td>Produção em volume</td><td>A revisão passa a confirmar aparência</td><td>Revisar a diferença contra o escopo, em passos pequenos</td><td>Revisão cansa; lotes grandes derrotam o revisor</td></tr><tr><td class="key">RC-12</td><td>Leitura de conteúdo externo</td><td>Instrução hostil no que o agente lê</td><td>Tratar conteúdo lido como dado e reduzir o alcance da ação</td><td>Recusa observada uma vez não é garantia</td></tr><tr><td class="key">RC-13</td><td>Uso de dados reais</td><td>Exposição de dados e credenciais</td><td>Definir antes o que não entra no contexto, com alternativa</td><td>Exposição é irreversível; rotacionar credencial</td></tr></tbody></table></div><p class="s-foot">Detalhe: course/topics/CURSO-06.md · catálogo completo RC-01 a RC-13</p></section>
+<section class="slide dark divider-cyan" data-sid="BLOCO-I" data-notes="">
+          <div class="cover-body">
+            <p class="eyebrow">Bloco I — Fundamentos</p>
+            <h1>Fundamentos</h1>
+            <p class="lead">Como se trabalha com um agente sem se enganar?<br>Nenhum método instalado. A turma constrói o próprio protocolo.</p>
+            <p class="divider-foot tone-cyan">Encontros 1 a 3 · qualquer agente, sem método instalado</p>
+          </div></section>
+<section class="slide " data-sid="MOD-01" data-notes="Pergunta de fechamento do laboratório: qual das três respostas você teria implementado se tivesse executado apenas uma vez?"><header class="s-head accent-cyan"><p class="eyebrow">MOD-01 · Encontro 1 · Bloco I — Fundamentos</p><h2>Como um agente funciona e por que erra</h2></header><article class="card accent-cyan"><h3>Conceitos</h3><p>O que o modelo enxerga do problema · janela de contexto · corte de conhecimento</p><p>Não determinismo · custo e latência · produtividade local versus resultado do sistema</p><p>Plausibilidade não é evidência · o duplo efeito da aceleração · as sete perguntas</p></article><div class="grid-2"><article class="card accent-blue"><h3>Prática</h3><p>Responder a uma demanda ambígua sem método e sem preparo.</p><p>Executar a mesma solicitação três vezes e medir a divergência.</p><p>Auditar as premissas de uma das respostas.</p></article><article class="card accent-cyan"><h3>Entrega</h3><p>Diagnóstico com benefícios, riscos e perguntas ausentes.</p><p>Tabela de divergência entre execuções.</p><p>Ação que o grupo considera autorizada agora.</p></article></div><p class="s-foot">Detalhe: course/topics/MOD-01.md</p></section>
+<section class="slide " data-sid="MOD-02" data-notes="O campo mais negligenciado é o fora do escopo, e é o que mais economiza revisão. Insista nele."><header class="s-head accent-cyan"><p class="eyebrow">MOD-02 · Encontro 2 · Bloco I — Fundamentos</p><h2>Condução: da intenção à tarefa executável</h2></header><article class="card accent-cyan"><h3>Conceitos</h3><p>Decomposição · especificação de tarefa: objetivo, restrições, fora do escopo, critério de pronto</p><p>Seleção de contexto · exemplos e contraexemplos · refinar ou reiniciar a sessão</p><p>Autonomia proporcional ao risco · quando não usar IA</p></article><div class="grid-2"><article class="card accent-blue"><h3>Prática</h3><p>Refazer a demanda do encontro 1 com condução deliberada.</p><p>Registrar cada intervenção, sua causa e se era evitável.</p></article><article class="card accent-cyan"><h3>Entrega</h3><p>Especificação da tarefa e comparação com a condução ingênua.</p><p>Um caso concreto em que não usar IA seria melhor.</p></article></div><p class="s-foot">Detalhe: course/topics/MOD-02.md</p></section>
+<section class="slide " data-sid="MOD-03" data-notes="Entrega mais importante do Bloco I. Recolha os protocolos e devolva intactos no encontro 5."><header class="s-head accent-cyan"><p class="eyebrow">MOD-03 · Encontro 3 · Bloco I — Fundamentos</p><h2>Verificação: o que a IA produziu merece crédito?</h2></header><article class="card accent-cyan"><h3>Conceitos</h3><p>Fato, relato, inferência, decisão e evidência · confirmar o comportamento atual</p><p>Evidência pertinente · busca negativa · leitura da diferença contra o escopo</p><p>Padrões típicos de erro do agente · teste adversarial: este teste consegue falhar?</p></article><div class="grid-2"><article class="card accent-blue"><h3>Prática</h3><p>Auditar o trabalho de OUTRO grupo: classificar e revisar a diferença.</p><p>Introduzir defeitos reais e verificar se os testes acusam.</p></article><article class="card accent-cyan"><h3>Entrega</h3><p>Relatório de auditoria com o que foi alterado fora do escopo.</p><p>PROTOCOLO MÍNIMO: até doze controles, cada um com o problema que o justifica.</p></article></div><p class="s-foot">Detalhe: course/topics/MOD-03.md</p></section>
+<section class="slide dark divider-yellow" data-sid="BLOCO-II" data-notes="">
+          <div class="cover-body">
+            <p class="eyebrow">Bloco II — Controle e método</p>
+            <h1>Controle e método</h1>
+            <p class="lead">Como transformar esses controles em prática repetível de time?<br>O ambiente primeiro; o Cordel a partir do encontro 5.</p>
+            <p class="divider-foot tone-yellow">Encontros 4 a 6 · harness explícito e Cordel</p>
+          </div></section>
+<section class="slide " data-sid="MOD-04" data-notes="Ambiente isolado, sem rede nem escrita externa. Alinhe o cenário adversarial com a área de segurança do cliente antes de executá-lo."><header class="s-head accent-yellow"><p class="eyebrow">MOD-04 · Encontro 4 · Bloco II — Controle e método</p><h2>Harness, permissões e segurança</h2></header><article class="card accent-yellow"><h3>Conceitos</h3><p>Modelo, agente, ferramenta, skill, script, MCP e harness · engenharia de contexto</p><p>Permissões e guardrails · observabilidade e evals · risco residual</p><p>Instrução hostil em conteúdo lido · dados que não podem entrar no contexto</p></article><div class="grid-2"><article class="card accent-blue"><h3>Prática</h3><p>Desenhar o harness: inventário, fluxo e política de operações e dados.</p><p>Cenário adversarial: instrução hostil plantada em um arquivo do projeto.</p></article><article class="card accent-cyan"><h3>Entrega</h3><p>Mapa do ambiente e política mínima de permissões.</p><p>Lista de dados vedados ao contexto e o que o adversarial mudou nela.</p></article></div><p class="s-foot">Detalhe: course/topics/MOD-04.md</p></section>
+<section class="slide " data-sid="MOD-05" data-notes="Conduza a comparação em três categorias: o que a turma identificou e o método implementa; o que ela não identificou; o que o método resolve de forma diferente. Não defenda o método."><header class="s-head accent-yellow"><p class="eyebrow">MOD-05 · Encontro 5 · Bloco II — Controle e método</p><h2>Cordel como implementação do protocolo</h2></header><article class="card accent-yellow"><h3>Conceitos</h3><p>Confronto entre o protocolo mínimo e o método · manifesto · fonte da verdade</p><p>Artefato e projeção · tipos de trabalho · ciclo de vida documental</p><p>Núcleo portátil e adaptador do projeto · o que o método NÃO resolve</p></article><div class="grid-2"><article class="card accent-blue"><h3>Prática</h3><p>Mapear cada controle do próprio protocolo contra as peças do Cordel.</p><p>Inicializar, preencher o adaptador, organizar o índice e obter GO.</p></article><article class="card accent-cyan"><h3>Entrega</h3><p>Adaptador versionável e inventário de fontes.</p><p>Protocolo anotado: o que a ferramenta cobre e o que segue humano.</p></article></div><p class="s-foot">Detalhe: course/topics/MOD-05.md</p></section>
+<section class="slide " data-sid="MOD-06" data-notes="Funde dois encontros da versão anterior. O dossiê parcial existe para caber no tempo — calibre: entregar demais esvazia a investigação."><header class="s-head accent-yellow"><p class="eyebrow">MOD-06 · Encontro 6 · Bloco II — Controle e método</p><h2>Da demanda à unidade autorizada</h2></header><article class="card accent-yellow"><h3>Conceitos</h3><p>Origem · filtros de triagem · investigação · busca negativa · promoção de descoberta</p><p>Decisão antes da unidade · objetivo observável · escopo e fora do escopo · critérios</p><p>Estratégia de prova · impactos · quando criar spec · gate com três resultados</p></article><div class="grid-2"><article class="card accent-blue"><h3>Prática</h3><p>Confirmar o AS-IS a partir de um dossiê parcial e aplicar os filtros.</p><p>Simular a decisão de produto e preparar a unidade, com prova por critério.</p></article><article class="card accent-cyan"><h3>Entrega</h3><p>Triagem, AS-IS confirmado e unidade rastreável.</p><p>Gate: BLOQUEADO, PRONTO PARA ESPECIFICAR ou PRONTO PARA IMPLEMENTAR.</p></article></div><p class="s-foot">Detalhe: course/topics/MOD-06.md</p></section>
+<section class="slide dark divider-red" data-sid="BLOCO-III" data-notes="">
+          <div class="cover-body">
+            <p class="eyebrow">Bloco III — Prova e transferência</p>
+            <h1>Prova e transferência</h1>
+            <p class="lead">Como provar o resultado e levar isso para o meu time?<br>A pergunta que decide se o curso valeu.</p>
+            <p class="divider-foot tone-red">Encontros 7 e 8 · Cordel e o contexto real de cada pessoa</p>
+          </div></section>
+<section class="slide " data-sid="MOD-07" data-notes="Encontro mais apertado do curso. Se a implementação atrasar, a revisão entre grupos vira leitura cruzada de dossiês — mas não corte: é onde a diferença entre implementado e verificado aparece."><header class="s-head accent-red"><p class="eyebrow">MOD-07 · Encontro 7 · Bloco III — Prova e transferência</p><h2>Implementação assistida e prova</h2></header><article class="card accent-red"><h3>Conceitos</h3><p>Contexto de execução · plano incremental e checkpoints · escopo emergente</p><p>Evidência suficiente · vereditos · implementado versus verificado · reconciliação</p><p>Revisão independente · articulação com branch, pull request e CI</p></article><div class="grid-2"><article class="card accent-blue"><h3>Prática</h3><p>Implementar em checkpoints e separar uma mudança de escopo surpresa.</p><p>Executar a prova, revisar o dossiê de outro grupo e reconciliar.</p></article><article class="card accent-cyan"><h3>Entrega</h3><p>Alteração funcional, dossiê de evidências e contexto reconciliado.</p><p>Decisão justificada entre implementado e verificado.</p></article></div><p class="s-foot">Detalhe: course/topics/MOD-07.md</p></section>
+<section class="slide " data-sid="MOD-08" data-notes="O teste de transferência contém informação sobre o time de origem de cada pessoa. Em turma fechada de cliente, o padrão é que fique com quem escreveu."><header class="s-head accent-red"><p class="eyebrow">MOD-08 · Encontro 8 · Bloco III — Prova e transferência</p><h2>Transferência e evolução</h2></header><article class="card accent-red"><h3>Conceitos</h3><p>Núcleo portátil e adaptador · conhecimento federado · sinais de evolução</p><p>Hipótese e forma de refutação · evals · versionamento · adoção incremental</p><p>Tradução dos controles para as ferramentas do time · o que não se transfere</p></article><div class="grid-2"><article class="card accent-blue"><h3>Prática</h3><p>Propor uma melhoria avaliável, classificada como local ou portátil.</p><p>TESTE DE TRANSFERÊNCIA, individual: traduzir cada controle para o seu time.</p></article><article class="card accent-cyan"><h3>Entrega</h3><p>Proposta com hipótese e forma de refutação; plano de 30 dias.</p><p>Três controles prioritários e o problema que cada um resolve.</p></article></div><p class="s-foot">Detalhe: course/topics/MOD-08.md</p></section>
+<section class="slide " data-sid="LAB-00" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">LAB-00 · Projeto-laboratório</p><h2>Pequeno para caber no curso, real para conter decisões</h2></header><ul class="dgrid"><li class="tone-cyan"><b>Aplicação</b>Dois ou três componentes executáveis.</li><li class="tone-cyan"><b>Contradição</b>Código que contradiz a alegação inicial.</li><li class="tone-cyan"><b>Dados</b>Integração ou persistência simples.</li><li class="tone-cyan"><b>Identidade</b>Identificadores controlados, que ninguém pode inventar.</li><li class="tone-cyan"><b>Testes</b>Suíte parcialmente útil, mas imperfeita.</li><li class="tone-cyan"><b>Projeção</b>Visão gerada divergente da fonte.</li><li class="tone-cyan"><b>AS-IS</b>Documentação com lacuna intencional.</li><li class="tone-cyan"><b>Surpresa</b>Drift ou mudança de escopo durante a implementação.</li><li class="tone-cyan"><b>Origem</b>Requisito válido e decisão histórica.</li><li class="tone-cyan"><b>Adversário</b>Instrução hostil plantada, contida, para o encontro 4.</li><li class="tone-cyan"><b>Ambiguidade</b>Demanda que parece defeito e revela escopo novo.</li><li class="tone-cyan"><b>Confidencialidade</b>Dados fictícios em tudo; nenhuma credencial real.</li></ul><p class="s-foot">Detalhe: course/ementa.md</p></section>
+<section class="slide " data-sid="ART-00" data-notes=""><header class="s-head accent-blue"><p class="eyebrow">ART-00 · Artefatos da turma</p><h2>O rastro que a turma produz nos oito encontros</h2></header><ul class="dgrid"><li class="tone-blue"><b>01 · Diagnóstico</b>Uso ingênuo de IA e divergência entre execuções.</li><li class="tone-blue"><b>06 · Configuração</b>project.json, índice e protocolo anotado.</li><li class="tone-blue"><b>02 · Condução</b>Especificação de tarefa e análise comparativa.</li><li class="tone-blue"><b>07 · Unidade e gate</b>Triagem, AS-IS, story, spec e veredito.</li><li class="tone-blue"><b>03 · Auditoria</b>Revisão da produção do agente e testes quebrados.</li><li class="tone-blue"><b>08 · Código</b>Implementação, testes e diferenças revisadas.</li><li class="tone-blue"><b>04 · Protocolo mínimo</b>Controles indispensáveis, escritos pelo grupo.</li><li class="tone-blue"><b>09 · Prova</b>Relação critério-evidência e contexto reconciliado.</li><li class="tone-blue"><b>05 · Harness</b>Mapa, permissões e dados vedados ao contexto.</li><li class="tone-blue"><b>10 · Transferência</b>Retrospectiva, plano de adoção e três controles.</li></ul><p class="s-foot">Detalhe: course/ementa.md</p></section>
+<section class="slide " data-sid="AVA-00" data-notes=""><header class="s-head accent-cyan"><p class="eyebrow">AVA-00 · Avaliação</p><h2>Avalia-se o rastro, não o volume de código</h2></header><p class="intro">As dimensões são independentes de ferramenta. Os artefatos do Cordel entram como evidência, não como critério.</p><div class="table-wrap"><table class="aval"><thead><tr><th>Peso</th><th>Dimensão</th><th>Evidência esperada</th></tr></thead><tbody><tr><td class="key">20%</td><td>Condução do agente</td><td>Tarefa decomposta, fronteiras declaradas, autonomia proporcional.</td></tr><tr><td class="key">20%</td><td>Verificação do que a IA produziu</td><td>Diferenças revisadas, afirmações classificadas, testes capazes de falhar.</td></tr><tr><td class="key">15%</td><td>Rastreabilidade da decisão</td><td>Origem, AS-IS confirmado, autorização explícita e bloqueios honestos.</td></tr><tr><td class="key">15%</td><td>Implementação e qualidade técnica</td><td>Mudança coerente, testes proporcionais, sem escopo não autorizado.</td></tr><tr><td class="key">15%</td><td>Segurança e limites de operação</td><td>Permissões mínimas, dados sensíveis fora do contexto, reação ao adversarial.</td></tr><tr><td class="key">15%</td><td>Transferência para o próprio contexto</td><td>Controles enunciados sem o vocabulário do Cordel, adaptados ao time real.</td></tr></tbody></table></div><p class="callout tone-yellow">Reproduzir o procedimento do Cordel sem saber explicar qual risco ele mitiga não caracteriza domínio. Manter o gate BLOQUEADO quando faltam condições reais, sim.</p><p class="s-foot">Detalhe: course/topics/CURSO-04.md</p></section>
+<section class="slide " data-sid="CON-00" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">CON-00 · Conclusão e evolução</p><h2>O que fecha o curso — e o que fecha a próxima turma</h2></header><p class="intro">A conclusão é individual; o indicador do Bloco I mede o desenho do curso, não a turma.</p><ul class="dgrid one"><li class="tone-yellow"><b>Participação</b>Participar das decisões e revisões.</li><li class="tone-yellow"><b>Cadeia</b>Entregar o rastro até o fechamento, mesmo parcial ou bloqueado.</li><li class="tone-yellow"><b>Demonstração</b>Explicar ganho, risco e o controle que mudou uma decisão.</li><li class="tone-yellow"><b>Independência</b>Responder às sete perguntas sem o vocabulário do Cordel.</li><li class="tone-yellow"><b>Continuidade</b>Propor adoção preservando núcleo e adaptador.</li><li class="tone-yellow"><b>Indicador do Bloco I</b>Quantos controles cada grupo identificou sozinho antes do encontro 5.</li></ul><p class="s-foot">Detalhe: course/ementa.md · course/topics/CURSO-05.md</p></section>
+<section class="slide dark divider-red" data-sid="FIM" data-notes="Encerre com o teste de transferência do MOD-08, não com um resumo do Cordel.">
+      <div class="cover-body">
+        <p class="eyebrow">Fechamento</p>
+        <h1>O que você leva<br>para o seu time</h1>
+        <p class="lead">Três controles, na ferramenta que o time já usa, cada um ligado
+        a um problema concreto que você viu acontecer neste curso.</p>
+        <p class="divider-foot tone-red">Se o método precisar ser trocado, os controles
+        continuam valendo. É isso que torna o aprendizado portátil.</p>
+      </div></section>
+</div>
+
+<div id="chrome"><div id="bar"></div></div>
+<p id="deckname">Abertura</p>
+<p id="counter"></p>
+<p id="help">← → navegar · N notas · O índice · F tela cheia · P imprimir</p>
+<div id="notes"></div>
+<div id="index"><h2>Abertura — Engenharia de software com agentes de IA</h2><ol><li><button data-go="0"><span class="n">01</span>Capa</button></li><li><button data-go="1"><span class="n">02</span>Problema orientador</button></li><li><button data-go="2"><span class="n">03</span>Os três blocos</button></li><li><button data-go="3"><span class="n">04</span>O curso em uma página</button></li><li><button data-go="4"><span class="n">05</span>Objetivos 1 de 2</button></li><li><button data-go="5"><span class="n">06</span>Objetivos 2 de 2</button></li><li><button data-go="6"><span class="n">07</span>Metodologia</button></li><li><button data-go="7"><span class="n">08</span>Riscos 1 de 2</button></li><li><button data-go="8"><span class="n">09</span>Riscos 2 de 2</button></li><li><button data-go="9"><span class="n">10</span>▸ Bloco I — Fundamentos</button></li><li><button data-go="10"><span class="n">11</span>MOD-01 · Como um agente funciona e por que erra</button></li><li><button data-go="11"><span class="n">12</span>MOD-02 · Condução: da intenção à tarefa executável</button></li><li><button data-go="12"><span class="n">13</span>MOD-03 · Verificação: o que a IA produziu merece crédito?</button></li><li><button data-go="13"><span class="n">14</span>▸ Bloco II — Controle e método</button></li><li><button data-go="14"><span class="n">15</span>MOD-04 · Harness, permissões e segurança</button></li><li><button data-go="15"><span class="n">16</span>MOD-05 · Cordel como implementação do protocolo</button></li><li><button data-go="16"><span class="n">17</span>MOD-06 · Da demanda à unidade autorizada</button></li><li><button data-go="17"><span class="n">18</span>▸ Bloco III — Prova e transferência</button></li><li><button data-go="18"><span class="n">19</span>MOD-07 · Implementação assistida e prova</button></li><li><button data-go="19"><span class="n">20</span>MOD-08 · Transferência e evolução</button></li><li><button data-go="20"><span class="n">21</span>Projeto-laboratório</button></li><li><button data-go="21"><span class="n">22</span>Artefatos da turma</button></li><li><button data-go="22"><span class="n">23</span>Avaliação</button></li><li><button data-go="23"><span class="n">24</span>Conclusão e evolução</button></li><li><button data-go="24"><span class="n">25</span>Fechamento</button></li></ol></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const notesData=slides.map(s=>s.dataset.notes||'');
+const ids=slides.map(s=>s.dataset.sid);
+const bar=document.getElementById('bar');
+const counter=document.getElementById('counter');
+const notes=document.getElementById('notes');
+const index=document.getElementById('index');
+let i=0;
+
+function fit(){
+  const st=document.getElementById('stage');
+  const aberto=notes.classList.contains('on');
+  const disponivel=aberto?innerHeight*0.74:innerHeight;
+  const k=Math.min(innerWidth/1280,disponivel/720)*(aberto?0.94:0.90);
+  st.style.transform='translate(-50%,-50%) scale('+k+')';
+  st.style.top=aberto?'37%':'50%';
+}
+function show(n,push){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  counter.textContent=(i+1)+' / '+slides.length;
+  notes.innerHTML='<b>Notas do apresentador</b>'+(notesData[i]||'<i>sem notas</i>');
+  [...index.querySelectorAll('button')].forEach((b,k)=>b.classList.toggle('cur',k===i));
+  if(push!==false) history.replaceState(null,'','#'+ids[i]);
+}
+addEventListener('keydown',function(ev){
+  const k=ev.key;
+  if(index.classList.contains('on')&&k!=='o'&&k!=='O'&&k!=='Escape') return;
+  if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'){ev.preventDefault();show(i+1);}
+  else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){ev.preventDefault();show(i-1);}
+  else if(k==='Home'){show(0);}
+  else if(k==='End'){show(slides.length-1);}
+  else if(k==='n'||k==='N'){notes.classList.toggle('on');fit();}
+  else if(k==='o'||k==='O'){index.classList.toggle('on');}
+  else if(k==='Escape'){index.classList.remove('on');}
+  else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+  else if(k==='p'||k==='P'){print();}
+});
+addEventListener('click',function(ev){
+  if(ev.target.closest('#index')||ev.target.closest('#notes'))return;
+  show(i+(ev.clientX<innerWidth*0.25?-1:1));
+});
+addEventListener('resize',fit);
+document.querySelectorAll('#index button').forEach(function(b){
+  b.addEventListener('click',function(){show(+b.dataset.go);index.classList.remove('on');});
+});
+const inicial=ids.indexOf(location.hash.slice(1));
+fit();
+show(inicial>=0?inicial:0,false);
+</script>
+</body>
+</html>

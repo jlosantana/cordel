@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Encontro 4 — Harness, permissões e segurança">
+<title>Encontro 4 — Harness, permissões e segurança</title>
+<!-- Projeção gerada por course/scripts/build_deck.py. Não editar à mão. -->
+<style>
+:root{
+  --ink:#13243a; --ink-soft:#43566e; --paper:#f6f8fb; --surface:#fff;
+  --line:#d8e0e9; --blue:#164b73; --blue-deep:#092c48; --cyan:#1c8ea0;
+  --cyan-pale:#dff5f4; --yellow:#f2bd43; --yellow-pale:#fff5d8;
+  --yellow-ink:#96700f; --red:#bb4d4a; --red-pale:#fbeeee; --mist:#c7d8e6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#0b1a2a}
+body{font-family:"Segoe UI Variable Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);-webkit-font-smoothing:antialiased}
+
+#stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;
+  transform-origin:center center;background:var(--paper);
+  box-shadow:0 30px 90px rgba(0,0,0,.45)}
+
+.slide{position:absolute;inset:0;padding:46px 60px 54px;background:var(--paper);
+  display:none;flex-direction:column;justify-content:center;overflow:hidden}
+.slide.on{display:flex}
+.slide.dark{background:var(--blue-deep);color:#fff;padding-left:94px}
+.slide.dark::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;
+  background:var(--cyan)}
+.slide.divider-yellow::before{background:var(--yellow)}
+.slide.divider-red::before{background:var(--red)}
+
+.s-head{border-left:6px solid var(--cyan);padding-left:20px;margin:0 0 20px}
+.s-head.accent-blue{border-color:var(--blue)}
+.s-head.accent-yellow{border-color:var(--yellow)}
+.s-head.accent-red{border-color:var(--red)}
+.eyebrow{margin:0 0 6px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  font-weight:700;color:var(--cyan)}
+.accent-blue .eyebrow{color:var(--blue)}
+.accent-yellow .eyebrow{color:var(--yellow-ink)}
+.accent-red .eyebrow{color:var(--red)}
+.s-head h2{margin:0;font-size:33px;font-weight:600;line-height:1.12;
+  letter-spacing:-.01em}
+.intro{margin:0 0 16px;font-size:15px;color:var(--ink-soft);line-height:1.45}
+.s-foot{position:absolute;left:60px;right:60px;bottom:24px;margin:0;
+  font-size:11px;color:#8a9bad}
+
+/* capas e divisores */
+.cover-body{max-width:960px}
+.cover-body .eyebrow{color:var(--cyan);font-size:13px;margin-bottom:18px}
+.divider-yellow .cover-body .eyebrow{color:var(--yellow)}
+.divider-red .cover-body .eyebrow{color:var(--red)}
+.cover-body h1{margin:0 0 20px;font-size:52px;line-height:1.06;font-weight:600;
+  letter-spacing:-.02em}
+.cover-body .lead{margin:0;font-size:20px;line-height:1.45;color:var(--mist)}
+.tese-capa{margin:0;font-size:20px;line-height:1.45;color:var(--mist);
+  padding-left:18px;border-left:3px solid rgba(255,255,255,.22);max-width:860px}
+.divider-foot{margin:32px 0 0;font-size:14px}
+.tone-cyan{color:var(--cyan)}.tone-yellow{color:var(--yellow)}.tone-red{color:var(--red)}
+.chips{display:flex;gap:34px;list-style:none;margin:42px 0 0;padding:0}
+.chips li{font-size:13px;color:var(--mist);padding-left:12px;
+  border-left:4px solid var(--cyan)}
+.chips li.tone-yellow{border-color:var(--yellow)}
+.chips li.tone-red{border-color:var(--red)}
+
+/* frase de impacto */
+.statement{max-width:1020px}
+.statement p{margin:0;font-size:36px;line-height:1.3;font-weight:600;
+  letter-spacing:-.01em;color:#fff}
+.statement-foot{margin:26px 0 0!important;font-size:14px!important;
+  font-weight:400!important;color:var(--mist)!important}
+
+/* conceito */
+.principio{margin:0 0 22px;font-size:25px;line-height:1.35;font-weight:600;
+  color:var(--ink);max-width:1080px}
+.pratica{border-left:5px solid var(--cyan);padding:2px 0 2px 20px;max-width:1080px}
+.pratica.accent-blue{border-color:var(--blue)}
+.pratica.accent-yellow{border-color:var(--yellow)}
+.pratica.accent-red{border-color:var(--red)}
+.pratica b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cyan);margin-bottom:5px}
+.pratica.accent-blue b{color:var(--blue)}
+.pratica.accent-yellow b{color:var(--yellow-ink)}
+.pratica.accent-red b{color:var(--red)}
+.pratica p{margin:0;font-size:17px;line-height:1.5;color:var(--ink-soft)}
+.exemplo{margin:20px 0 0;padding:13px 18px;background:var(--surface);
+  border:1px solid var(--line);font-size:15px;line-height:1.45;color:var(--ink-soft);
+  max-width:1080px}
+
+/* listas */
+.simples{margin:0;padding-left:26px;font-size:19px;line-height:1.65;color:var(--ink)}
+.simples li{margin-bottom:9px;padding-left:6px}
+.simples li::marker{color:var(--cyan);font-weight:700}
+.simples.tone-blue li::marker{color:var(--blue)}
+.simples.tone-yellow li::marker{color:var(--yellow-ink)}
+.simples.tone-red li::marker{color:var(--red)}
+
+.dgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  gap:11px 40px}
+.dgrid.one{grid-template-columns:1fr;gap:13px}
+.dgrid li{border-left:4px solid var(--cyan);padding-left:14px;font-size:15px}
+.dgrid li.tone-blue{border-color:var(--blue)}
+.dgrid li.tone-yellow{border-color:var(--yellow)}
+.dgrid li.tone-red{border-color:var(--red)}
+.dgrid li b{display:block;font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--cyan);margin-bottom:1px}
+.dgrid li.tone-blue b{color:var(--blue)}
+.dgrid li.tone-yellow b{color:var(--yellow-ink)}
+.dgrid li.tone-red b{color:var(--red)}
+
+.qgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;
+  gap:13px 40px}
+.qgrid li{border-left:4px solid var(--cyan);padding-left:14px}
+.qgrid .tag{display:block;font-size:11px;font-weight:700;color:var(--cyan);
+  letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.qgrid .txt{font-size:16px}
+
+/* laboratório */
+.etapa-head{display:flex;gap:20px;align-items:flex-start;border-left:0;padding-left:0}
+.etapa-num{flex:0 0 66px;height:66px;line-height:66px;text-align:center;
+  font-size:30px;font-weight:700;color:#fff;background:var(--blue)}
+.etapa-num.tone-cyan{background:var(--cyan)}
+.etapa-num.tone-red{background:var(--red)}
+.etapa-head h2{font-size:31px}
+.passos{margin:0 0 18px;padding-left:24px;font-size:18px;line-height:1.55;
+  color:var(--ink)}
+.passos li{margin-bottom:8px}
+.passos li::marker{color:var(--blue)}
+
+/* demonstração */
+.demo{list-style:none;margin:0 0 20px;padding:0}
+.demo li{display:flex;gap:18px;align-items:baseline;margin-bottom:12px}
+.demo-t{flex:0 0 78px;font-size:13px;font-weight:700;color:var(--cyan);
+  text-align:right;font-variant-numeric:tabular-nums}
+.demo-b{font-size:17px;line-height:1.45;color:var(--ink-soft)}
+.demo-b b{display:block;color:var(--ink);font-size:18px;margin-bottom:1px}
+.observar{background:var(--cyan-pale);padding:15px 20px}
+.observar b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--blue);margin-bottom:6px}
+.observar ul{margin:0;padding-left:20px;font-size:15px;line-height:1.55;
+  color:var(--blue)}
+
+/* equívocos */
+.equivocos{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:16px 34px}
+.equivocos li{border-left:4px solid var(--red);padding-left:16px}
+.equivocos .mito{margin:0 0 4px;font-size:16px;font-weight:600;color:var(--red)}
+.equivocos .fato{margin:0;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+
+/* checklist */
+.checklist{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr 1fr;gap:10px 40px}
+.checklist li{position:relative;padding-left:30px;font-size:16px;line-height:1.4}
+.checklist li::before{content:"";position:absolute;left:0;top:2px;width:16px;
+  height:16px;border:2px solid var(--cyan)}
+.checklist.tone-blue li::before{border-color:var(--blue)}
+
+/* cartões e blocos */
+.card{background:var(--surface);border:1px solid var(--line);
+  border-top:5px solid var(--cyan);padding:16px 20px 14px}
+.card.accent-blue{border-top-color:var(--blue)}
+.card.accent-yellow{border-top-color:var(--yellow)}
+.card.accent-red{border-top-color:var(--red)}
+.card h3{margin:0 0 9px;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--cyan)}
+.card.accent-blue h3{color:var(--blue)}
+.card.accent-yellow h3{color:var(--yellow-ink)}
+.card.accent-red h3{color:var(--red)}
+.card p{margin:0 0 6px;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+.card p:last-child{margin-bottom:0}
+.card p.mid{margin-top:10px;font-size:10px;color:#a3b4c4;font-weight:700;
+  letter-spacing:.05em}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+
+.blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.block{background:var(--surface);border:1px solid var(--line);
+  border-top:5px solid var(--cyan);padding:18px 20px;display:flex;flex-direction:column}
+.block.accent-yellow{border-top-color:var(--yellow)}
+.block.accent-red{border-top-color:var(--red)}
+.block-name{margin:0;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--cyan);min-height:2.6em;line-height:1.3}
+.block.accent-yellow .block-name{color:var(--yellow-ink)}
+.block.accent-red .block-name{color:var(--red)}
+.block-when{margin:0 0 14px;font-size:12px;color:var(--ink-soft)}
+.block h3{margin:0 0 14px;font-size:19px;line-height:1.25;font-weight:600}
+.block ul{margin:0;padding-left:16px;font-size:14px;color:var(--ink-soft);
+  line-height:1.6}
+.block-tool{margin:auto 0 0;padding-top:14px;font-size:12px;font-style:italic;
+  color:var(--cyan)}
+.block.accent-yellow .block-tool{color:var(--yellow-ink)}
+.block.accent-red .block-tool{color:var(--red)}
+
+.olist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.olist li{display:flex;gap:18px;align-items:flex-start}
+.oid{flex:0 0 74px;text-align:center;padding:8px 0;font-size:13px;font-weight:700;
+  color:#fff;background:var(--cyan)}
+.oid.tone-blue{background:var(--blue)}
+.obody{padding-top:1px;font-size:16px;line-height:1.35}
+.obody b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--cyan);margin-bottom:2px;font-weight:700}
+.olist.accent-blue .obody b{color:var(--blue)}
+
+.chain{list-style:none;display:grid;grid-template-columns:repeat(9,1fr);gap:8px;
+  margin:0 0 20px;padding:0}
+.chain li{background:var(--surface);border:1px solid var(--line);
+  border-top:4px solid var(--cyan);padding:11px 6px;font-size:11px;text-align:center;
+  line-height:1.25;color:var(--ink)}
+.chain li.tone-yellow{border-top-color:var(--yellow)}
+.chain li.tone-red{border-top-color:var(--red)}
+
+/* tabelas */
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--blue);color:#fff;text-align:left;padding:9px 12px;
+  font-size:12px;font-weight:700}
+tbody td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink-soft);
+  line-height:1.35;vertical-align:top}
+tbody tr:nth-child(even){background:#fbfcfe}
+td.key{font-weight:700;color:var(--ink);white-space:nowrap}
+table.vazia tbody td{height:36px;border:1px solid var(--line);background:var(--surface)}
+table.vazia tbody tr:nth-child(even){background:none}
+table.vazia thead th{background:var(--cyan)}
+table.roteiro{font-size:15px}
+table.roteiro td{padding:7px 14px}
+table.roteiro tr.mark td{background:var(--cyan-pale);color:var(--blue);font-weight:600}
+table.riscos td:nth-child(2){width:15%}
+table.riscos td:nth-child(3){width:22%}
+table.riscos td:nth-child(4){width:29%}
+table.aval td.key{width:64px}
+table.aval td:nth-child(2){width:30%;font-weight:600;color:var(--ink)}
+
+/* callout */
+.callout{margin:18px 0 0;padding:15px 20px;background:var(--cyan-pale);
+  font-size:15px;font-weight:600;color:var(--blue);line-height:1.4}
+.callout.tone-yellow{background:var(--yellow-pale);color:var(--ink)}
+.callout.tone-red{background:var(--red-pale);color:var(--ink)}
+.callout.big{font-weight:400;color:var(--ink-soft);font-size:14px}
+.callout.big b{display:block;font-size:17px;color:var(--ink);margin-bottom:4px}
+
+/* cromo */
+#chrome{position:fixed;inset:auto 0 0 0;height:4px;background:rgba(255,255,255,.12);
+  z-index:20}
+#bar{height:100%;background:var(--cyan);transition:width .2s}
+#counter{position:fixed;right:16px;bottom:14px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.55);font-variant-numeric:tabular-nums}
+#help{position:fixed;left:16px;bottom:14px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.38)}
+#deckname{position:fixed;left:16px;top:12px;z-index:21;font-size:12px;margin:0;
+  color:rgba(255,255,255,.32)}
+
+#notes{position:fixed;left:0;right:0;bottom:0;height:26vh;overflow:auto;
+  background:#071523;color:#c9d8e6;border-top:2px solid var(--cyan);padding:16px 22px;
+  font-size:14px;line-height:1.55;z-index:30;display:none}
+#notes.on{display:block}
+#notes b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cyan);margin-bottom:6px}
+
+#index{position:fixed;inset:0;background:rgba(7,21,35,.97);z-index:40;display:none;
+  padding:36px 56px;overflow:auto}
+#index.on{display:block}
+#index h2{color:#fff;font-size:19px;margin:0 0 18px;font-weight:600}
+#index ol{list-style:none;margin:0;padding:0;columns:2;column-gap:56px}
+#index li{margin-bottom:6px;break-inside:avoid}
+#index button{background:none;border:0;color:#c9d8e6;font:inherit;font-size:14px;
+  cursor:pointer;text-align:left;padding:3px 0;width:100%}
+#index button:hover,#index button.cur{color:var(--cyan)}
+#index .n{display:inline-block;width:34px;color:#5d7a93;
+  font-variant-numeric:tabular-nums}
+
+@media print{
+  @page{size:1280px 720px;margin:0}
+  html,body{overflow:visible;background:#fff;height:auto}
+  #stage{position:static;transform:none!important;height:auto;box-shadow:none}
+  .slide{display:flex!important;position:relative;width:1280px;height:720px;
+    break-after:page}
+  #chrome,#counter,#help,#notes,#index,#deckname{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="slide dark divider-yellow" data-sid="CAPA" data-notes="Abre o Bloco II. Deslocamos o foco do que uma pessoa faz para o que o ambiente permite que aconteça quando ninguém está olhando.">
+      <div class="cover-body">
+        <p class="eyebrow">Encontro 4 · Bloco II — Controle e método</p>
+        <h1>Harness, permissões
+e segurança</h1>
+        <p class="tese-capa">Capacidade não é autorização. Um bom ambiente torna a ação correta fácil de executar e a ação perigosa difícil por acidente.</p>
+        <p class="divider-foot tone-yellow">harness explícito e Cordel</p>
+      </div></section>
+<section class="slide " data-sid="ROTEIRO" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">Encontro 4 · Roteiro</p><h2>O que vamos fazer hoje</h2></header><div class="table-wrap"><table class="roteiro"><thead><tr><th>Tempo</th><th>Atividade</th></tr></thead><tbody><tr><td class="key">0–10</td><td>Retomada: do operador para o ambiente</td></tr><tr><td class="key">10–40</td><td>Modelo, agente, ferramentas, skill, script e MCP</td></tr><tr><td class="key">40–55</td><td>Harness, contexto, permissões e guardrails</td></tr><tr><td class="key">55–70</td><td>Instrução hostil em conteúdo lido</td></tr><tr><td class="key">70–85</td><td>Dados que não podem entrar no contexto</td></tr><tr><td class="key">85–95</td><td>Observabilidade, evals e risco residual</td></tr><tr><td class="key">95–105</td><td>Intervalo</td></tr><tr><td class="key">105–115</td><td>Demonstração dos três ambientes</td></tr><tr><td class="key">115–145</td><td>Inventário, fluxo e política de operações</td></tr><tr><td class="key">145–160</td><td>Política de dados</td></tr><tr><td class="key">160–175</td><td>Cenário adversarial</td></tr><tr><td class="key">175–180</td><td>Revisão cruzada e entrega</td></tr></tbody></table></div><p class="s-foot">MOD-04-ROTEIRO</p></section>
+<section class="slide " data-sid="OBJETIVOS" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">Encontro 4 · Objetivos</p><h2>Ao final deste encontro você consegue</h2></header><ol class="simples tone-yellow"><li>Distinguir modelo, agente, ferramenta, skill, script, MCP e harness.</li><li>Mapear o fluxo entre pedido, contexto, ferramenta, ação e prova.</li><li>Classificar operações em leitura, escrita e publicação.</li><li>Aplicar permissão mínima por etapa, em vez de permissão global.</li><li>Reconhecer instrução hostil embutida em conteúdo lido pelo agente.</li><li>Definir o que não pode entrar no contexto por confidencialidade.</li><li>Identificar risco residual sem apresentar controle como garantia.</li></ol><p class="s-foot">MOD-04-OBJ · relaciona-se a OA-01, OA-04 e OA-11</p></section>
+<section class="slide dark divider-yellow" data-sid="TESE" data-notes="Tudo o que depende de a pessoa lembrar de fazer falha em algum momento. O que está no ambiente, não."><div class="statement"><p>O harness é o único controle que funciona quando ninguém está olhando.</p><p class="statement-foot">MOD-04-TESE</p></div></section>
+<section class="slide " data-sid="MOD-04-VOCAB-1" data-notes="A pergunta de desenho não é “de que o agente precisa?” e sim “o que ele consegue fazer se interpretar errado?”. Uma ferramenta disponível será usada."><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-01 a 03 · Vocabulário</p><h2>Quem raciocina, quem age, quem executa</h2></header><div class="table-wrap"><table class=""><thead><tr><th>Elemento</th><th>O que é</th><th>Limite</th></tr></thead><tbody><tr><td class="key">Modelo</td><td>Interpreta entradas e produz saídas</td><td>Não tem acesso ao repositório nem autoridade para agir</td></tr><tr><td class="key">Agente</td><td>Usa o modelo para perseguir um objetivo, escolher ações, observar e iterar</td><td>A autonomia é a extensão desse ciclo antes de alguém olhar</td></tr><tr><td class="key">Ferramenta</td><td>Capacidade concreta: ler, executar, editar, publicar</td><td>Define o que é possível, não o que é autorizado</td></tr></tbody></table></div><p class="callout tone-cyan">Quando alguém diz “o modelo apagou o arquivo”: o modelo emitiu uma ação, o ambiente permitiu e a ferramenta executou. Três elos, três pontos de controle.</p><p class="s-foot">MOD-04-CON-01 a MOD-04-CON-03</p></section>
+<section class="slide " data-sid="MOD-04-VOCAB-2" data-notes="Sobre MCP: o que o servidor retorna entra no contexto com o mesmo peso do resto — e foi escrito por alguém que você talvez não conheça. Conectar um servidor é decisão de segurança, não de conveniência."><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-04 e 05 · Vocabulário</p><h2>Procedimento, execução e integração</h2></header><div class="table-wrap"><table class=""><thead><tr><th>Elemento</th><th>O que é</th><th>Limite</th></tr></thead><tbody><tr><td class="key">Skill</td><td>Orienta trabalho que exige julgamento</td><td>Não garante que a decisão esteja correta</td></tr><tr><td class="key">Script</td><td>Executa transformação ou validação determinística</td><td>Reproduzível e testável — prefira sempre que couber</td></tr><tr><td class="key">Modelo de documento</td><td>Estrutura inicial a ser preenchida com análise</td><td>Preencher não é analisar</td></tr><tr><td class="key">MCP</td><td>Protocolo que expõe ferramentas, recursos e prompts</td><td>Padroniza a conexão; cada servidor é uma fronteira de confiança</td></tr></tbody></table></div><p class="callout tone-cyan">O que puder ser script deve ser script. Colocar em skill o que era determinístico introduz variação onde ela não agrega nada.</p><p class="s-foot">MOD-04-CON-04 e MOD-04-CON-05</p></section>
+<section class="slide " data-sid="MOD-04-CON-07" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-07 · Conceito 6 de 8</p><h2>Engenharia de contexto</h2></header><p class="principio">Contexto útil é atual, pertinente, rastreável e carregado sob demanda. Volume não substitui autoridade.</p><div class="pratica accent-yellow"><b>Na prática</b><p>Retomada do encontro 2, agora como propriedade do ambiente e não do operador: o que o agente carrega por padrão importa mais do que o que uma pessoa lembra de incluir.</p></div><p class="s-foot">MOD-04-CON-07</p></section>
+<section class="slide " data-sid="MOD-04-CON-06" data-notes="NÃO PROJETAR — antecipação para o instrutor. O adaptador do projeto declara fontes, comandos e políticas: é a parte do harness que fica versionada junto do código."><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-06 · Conceito 3 de 8</p><h2>Harness</h2></header><p class="principio">Infraestrutura que envolve modelo e agente: instruções, contexto, skills, ferramentas, integrações, permissões, sandbox, limites, registros e verificações.</p><div class="pratica accent-yellow"><b>Na prática</b><p>É o único controle que funciona quando ninguém está olhando. Tudo o que depende de a pessoa lembrar de fazer falha em algum momento.</p></div><p class="exemplo">Um bom harness torna ações corretas fáceis de executar e ações perigosas difíceis por acidente.</p><p class="s-foot">Fonte: course/topics/MOD-04.md</p></section>
+<section class="slide " data-sid="MOD-04-CON-08" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-08 · Conceito 4 de 8</p><h2>Permissões e guardrails</h2></header><p class="principio">Permissão define o que a execução pode fazer. Guardrail verifica ou bloqueia entradas, ações ou saídas. Nenhum dos dois corrige uma decisão errada.</p><div class="pratica accent-yellow"><b>Na prática</b><p>Permissão mínima é por etapa, não por projeto. Investigar exige leitura; implementar exige escrita no diretório afetado; publicar exige confirmação própria.</p></div><p class="exemplo">Conceder tudo no início porque “vai precisar depois” anula o controle.</p><p class="s-foot">Fonte: course/topics/MOD-04.md</p></section>
+<section class="slide " data-sid="MOD-04-CON-09" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-09 · Conceito 5 de 8</p><h2>Observabilidade e evals</h2></header><p class="principio">Sem registro, um erro de agente é irreproduzível e, portanto, incorrigível.</p><div class="pratica accent-yellow"><b>Na prática</b><p>O mínimo útil: o que foi pedido, que arquivos foram lidos e alterados, que comandos rodaram e com que resultado.</p></div><p class="exemplo">Testes do produto e evals do workflow respondem a perguntas diferentes.</p><p class="s-foot">Fonte: course/topics/MOD-04.md</p></section>
+<section class="slide " data-sid="MOD-04-CON-12" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-12 · Conceito 8 de 8</p><h2>Risco residual</h2></header><p class="principio">Todo controle deixa resto. Um controle apresentado como garantia é pior que nenhum, porque desliga a atenção.</p><div class="pratica accent-yellow"><b>Na prática</b><p>Para cada controle do mapa, escreva o que ele não cobre e quem decide quando ele falhar.</p></div><p class="s-foot">Fonte: course/topics/MOD-04.md</p></section>
+<section class="slide " data-sid="MOD-04-CON-10" data-notes="Issue, comentário de código, log, página, README de dependência, resposta de servidor — qualquer um serve de veículo. Desenhe assumindo que a instrução será obedecida em algum momento, e pergunte o que aconteceria."><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-10 · Conceito 7 de 8</p><h2>Instrução hostil em conteúdo lido</h2></header><p class="principio">O agente não distingue, por si, dado de instrução. Um texto que ele lê para analisar pode conter uma ordem endereçada a ele — e ser obedecido.</p><div class="pratica accent-yellow"><b>Três controles, em ordem de eficácia</b><p>1. Reduzir o alcance da ação — o dano possível é o que as permissões permitem. &nbsp; 2. Tratar conteúdo lido explicitamente como dado. &nbsp; 3. Confirmar ação sensível fora do canal que a sugeriu.</p></div><p class="callout tone-red">O padrão mais perigoso combina leitura de conteúdo externo com capacidade de escrita ou publicação na mesma sessão. Separar as duas coisas custa pouco e remove a maior parte do risco.</p><p class="s-foot">MOD-04-CON-10 · risco RC-12</p></section>
+<section class="slide " data-sid="MOD-04-CON-11" data-notes="Defina a lista antes, não durante. Um dado exposto não volta atrás: a prevenção é o único controle eficaz. NÃO PROJETAR — antecipação para o instrutor. A política de dados fica declarada no adaptador do projeto, versionada e revisável."><header class="s-head accent-yellow"><p class="eyebrow">MOD-04-CON-11 · Segurança</p><h2>O que entra no contexto sai do seu perímetro</h2></header><div class="table-wrap"><table class=""><thead><tr><th>Categoria</th><th>Exemplo</th><th>Alternativa</th></tr></thead><tbody><tr><td class="key">Credenciais</td><td>Token, senha, chave de API, string de conexão</td><td>Referência ao cofre; nunca o valor</td></tr><tr><td class="key">Dados pessoais</td><td>CPF, nome, endereço, dados de cliente</td><td>Dados fictícios, como cliente-exemplo.com.br</td></tr><tr><td class="key">Topologia sensível</td><td>IP interno, nome de host, diagrama de rede</td><td>Faixas de documentação, como 192.0.2.0/24</td></tr><tr><td class="key">Conteúdo contratual</td><td>Proposta, valor, cláusula de terceiro</td><td>Descrição genérica do requisito</td></tr></tbody></table></div><p class="callout tone-red">Credencial exposta em log: sinalizar, substituir por marcador e ROTACIONAR. Trocar o valor no texto não desfaz a exposição.</p><p class="s-foot">MOD-04-CON-11 · risco RC-13</p></section>
+<section class="slide " data-sid="DEMO" data-notes="O foco não é demonstrar uma ferramenta específica."><header class="s-head accent-yellow"><p class="eyebrow">Demonstração do instrutor</p><h2>A mesma tarefa, três ambientes</h2></header><ol class="demo"><li><span class="demo-t">3 min</span><span class="demo-b"><b>Ambiente A</b>Conversa isolada: o modelo recebe apenas a pergunta. Que fontes faltam?</span></li><li><span class="demo-t">4 min</span><span class="demo-b"><b>Ambiente B</b>Agente com leitura: pesquisa, executa buscas e cita arquivos. Quais afirmações ainda são inferências?</span></li><li><span class="demo-t">3 min</span><span class="demo-b"><b>Ambiente C</b>Agente com escrita e execução. Antes de permitir: objetivo, escopo, reversibilidade, prova e ações que exigem confirmação.</span></li></ol><div class="observar"><b>O que a turma deve observar</b><ul><li>que a mesma solicitação produz riscos diferentes conforme o ambiente</li><li>em que ponto exato a capacidade passou a exceder a autorização</li></ul></div><p class="s-foot">MOD-04-DEMO</p></section>
+<section class="slide dark divider-yellow" data-sid="LAB" data-notes="Confirme o isolamento antes de começar. A instrução hostil precisa ser contida e sem efeito real. Em turma de cliente, alinhe previamente com a área de segurança."><div class="cover-body"><p class="eyebrow">Laboratório · 70 minutos</p><h1>Desenhar o harness — e testá-lo</h1><p class="lead">Cinco etapas de desenho e uma de ataque. Na etapa 5 o instrutor planta uma instrução hostil em um arquivo do projeto.</p><p class="divider-foot tone-yellow">Ambiente isolado: sem rede, sem escrita fora do laboratório.</p></div></section>
+<section class="slide " data-sid="LAB-1" data-notes="">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">1</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Inventário do ambiente</h2></div>
+      </header>
+      <ul class="passos"><li>Liste os componentes do ambiente do projeto-laboratório.</li></ul><div class="table-wrap"><table class="vazia "><thead><tr><th>Elemento</th><th>Exemplo no projeto</th><th>Responsável</th><th>Limite conhecido</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></div><p class="callout tone-cyan">Modelo · agente · instruções · fontes · skills · ferramentas · integrações · permissões · verificações</p><p class="s-foot">MOD-04-LAB · etapa 1</p></section>
+<section class="slide " data-sid="LAB-2" data-notes="">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">2</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Fluxo de execução</h2></div>
+      </header>
+      <ul class="passos"><li>Desenhe o caminho entre pedido, carregamento de contexto, escolha de ferramenta, observação, decisão, alteração e prova.</li><li>Marque onde existe checkpoint humano.</li></ul><p class="callout tone-cyan">Um fluxo sem checkpoint marcado é um fluxo sem controle identificado.</p><p class="s-foot">MOD-04-LAB · etapa 2</p></section>
+<section class="slide " data-sid="LAB-3" data-notes="">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">3</span>
+        <div><p class="eyebrow">Laboratório · 20 minutos</p><h2>Política de operações</h2></div>
+      </header>
+      <ul class="passos"><li>Classifique cada operação do ambiente.</li></ul><div class="table-wrap"><table class="vazia "><thead><tr><th>Operação</th><th>Leitura / escrita / publicação</th><th>Impacto</th><th>Reversível?</th><th>Confirmação?</th></tr></thead><tbody><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table></div><p class="s-foot">MOD-04-LAB · etapa 3</p></section>
+<section class="slide " data-sid="LAB-4" data-notes="Se algum grupo tiver exposto dado sensível nos encontros anteriores, trate como aprendizado e não como falta. Tenha o procedimento definido antes.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">4</span>
+        <div><p class="eyebrow">Laboratório · 15 minutos</p><h2>Política de dados</h2></div>
+      </header>
+      <ul class="passos"><li>Preencham a lista do que não pode entrar no contexto neste projeto, com a alternativa correspondente.</li><li>Revisem os registros produzidos nos encontros 1 a 3.</li></ul><p class="callout tone-red">Algo que não deveria ter entrado, entrou?</p><p class="s-foot">MOD-04-LAB · etapa 4</p></section>
+<section class="slide " data-sid="LAB-5" data-notes="Se o agente ignorar a instrução, ótimo — mas nomeie: o comportamento não é determinístico, e a proteção é o alcance limitado da ação, não a recusa observada uma vez.">
+      <header class="s-head accent-blue etapa-head">
+        <span class="etapa-num tone-blue">5</span>
+        <div><p class="eyebrow">Laboratório · 20 minutos</p><h2>Cenário adversarial</h2></div>
+      </header>
+      <ul class="passos"><li>Peçam ao agente uma análise que exija ler o arquivo indicado.</li><li>Observem o que acontece.</li></ul><p class="callout tone-red">O agente seguiu a instrução, mencionou ou ignorou? · Se tivesse permissão de escrita ou de rede, qual seria o dano? · Qual controle do mapa teria contido, e qual não teria? · O que muda na política depois deste teste?</p><p class="s-foot">MOD-04-LAB · etapa 5</p></section>
+<section class="slide " data-sid="ENTREGA" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">Encontro 4 · Entrega</p><h2>Mapa do harness</h2></header><ul class="checklist tone-yellow"><li>Modelo, agente, skills, scripts, ferramentas e MCPs</li><li>Fontes e fronteiras de confiança</li><li>Fluxo de contexto e execução, com checkpoints marcados</li><li>Operações de leitura, escrita e publicação classificadas</li><li>Permissões mínimas por etapa</li><li>Lista de dados vedados ao contexto, com alternativas</li><li>Resultado do cenário adversarial e o que mudou na política</li><li>Registros, testes e evals disponíveis</li><li>Risco residual por controle e responsável pela decisão</li></ul><p class="s-foot">MOD-04-ENT</p></section>
+<section class="slide " data-sid="EQUIVOCOS" data-notes=""><header class="s-head accent-yellow"><p class="eyebrow">Encontro 4 · Fechamento</p><h2>Nove leituras erradas deste encontro</h2></header><ul class="equivocos tone-red"><li><p class="mito">“O modelo acessa o projeto.”</p><p class="fato">O acesso é oferecido pelo ambiente e pelas ferramentas.</p></li><li><p class="mito">“MCP é a ferramenta.”</p><p class="fato">MCP é o protocolo; servidor e ferramenta são elementos distintos.</p></li><li><p class="mito">“Skill executa a tarefa.”</p><p class="fato">Skill orienta; execução depende do agente e das ferramentas.</p></li><li><p class="mito">“Sandbox resolve qualquer risco.”</p><p class="fato">Limita certos efeitos, não premissas ou decisões.</p></li><li><p class="mito">“Analisar autoriza editar.”</p><p class="fato">Leitura, escrita e publicação exigem distinção explícita.</p></li><li><p class="mito">“Injeção só acontece com conteúdo da internet.”</p><p class="fato">Um comentário no próprio repositório ou o README de uma dependência bastam.</p></li><li><p class="mito">“Se o agente ignorou a instrução hostil, estamos protegidos.”</p><p class="fato">O comportamento não é determinístico. A proteção é o alcance limitado da ação.</p></li><li><p class="mito">“Anonimizar depois resolve.”</p><p class="fato">Trocar o valor no texto não desfaz a exposição. A credencial precisa ser rotacionada.</p></li></ul><p class="s-foot">MOD-04-EQUIVOCOS</p></section>
+<section class="slide dark divider-yellow" data-sid="PONTE" data-notes="Este é o gancho para o encontro 5. Não diga qual método, nem o nome dele."><div class="cover-body"><p class="eyebrow">Encontro 5</p><h1>De volta ao<br>protocolo mínimo</h1><p class="lead">Vocês escreveram, no encontro 3, os controles que consideram indispensáveis. No próximo encontro esse documento volta — e vai ser comparado, item a item, com um método pronto.</p><p class="divider-foot tone-yellow">A pergunta será: o que vocês identificaram sozinhos, e o que faltou?</p></div></section>
+</div>
+
+<div id="chrome"><div id="bar"></div></div>
+<p id="deckname">Encontro 4</p>
+<p id="counter"></p>
+<p id="help">← → navegar · N notas · O índice · F tela cheia · P imprimir</p>
+<div id="notes"></div>
+<div id="index"><h2>Encontro 4 — Harness, permissões e segurança</h2><ol><li><button data-go="0"><span class="n">01</span>Capa do encontro</button></li><li><button data-go="1"><span class="n">02</span>Roteiro das 3 horas</button></li><li><button data-go="2"><span class="n">03</span>Objetivos do encontro</button></li><li><button data-go="3"><span class="n">04</span>Tese do encontro</button></li><li><button data-go="4"><span class="n">05</span>Vocabulário 1 · modelo, agente, ferramenta</button></li><li><button data-go="5"><span class="n">06</span>Vocabulário 2 · skill, script, MCP</button></li><li><button data-go="6"><span class="n">07</span>07 · Engenharia de contexto</button></li><li><button data-go="7"><span class="n">08</span>06 · Harness</button></li><li><button data-go="8"><span class="n">09</span>08 · Permissões e guardrails</button></li><li><button data-go="9"><span class="n">10</span>09 · Observabilidade e evals</button></li><li><button data-go="10"><span class="n">11</span>12 · Risco residual</button></li><li><button data-go="11"><span class="n">12</span>10 · Instrução hostil em conteúdo lido</button></li><li><button data-go="12"><span class="n">13</span>11 · Dados que não podem entrar no contexto</button></li><li><button data-go="13"><span class="n">14</span>Demonstração — três ambientes</button></li><li><button data-go="14"><span class="n">15</span>Laboratório — abertura</button></li><li><button data-go="15"><span class="n">16</span>Etapa 1 — Inventário</button></li><li><button data-go="16"><span class="n">17</span>Etapa 2 — Fluxo de execução</button></li><li><button data-go="17"><span class="n">18</span>Etapa 3 — Política de operações</button></li><li><button data-go="18"><span class="n">19</span>Etapa 4 — Política de dados</button></li><li><button data-go="19"><span class="n">20</span>Etapa 5 — Cenário adversarial</button></li><li><button data-go="20"><span class="n">21</span>Entrega do encontro</button></li><li><button data-go="21"><span class="n">22</span>Equívocos a evitar</button></li><li><button data-go="22"><span class="n">23</span>Próximo encontro</button></li></ol></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const notesData=slides.map(s=>s.dataset.notes||'');
+const ids=slides.map(s=>s.dataset.sid);
+const bar=document.getElementById('bar');
+const counter=document.getElementById('counter');
+const notes=document.getElementById('notes');
+const index=document.getElementById('index');
+let i=0;
+
+function fit(){
+  const st=document.getElementById('stage');
+  const aberto=notes.classList.contains('on');
+  const disponivel=aberto?innerHeight*0.74:innerHeight;
+  const k=Math.min(innerWidth/1280,disponivel/720)*(aberto?0.94:0.90);
+  st.style.transform='translate(-50%,-50%) scale('+k+')';
+  st.style.top=aberto?'37%':'50%';
+}
+function show(n,push){
+  i=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  counter.textContent=(i+1)+' / '+slides.length;
+  notes.innerHTML='<b>Notas do apresentador</b>'+(notesData[i]||'<i>sem notas</i>');
+  [...index.querySelectorAll('button')].forEach((b,k)=>b.classList.toggle('cur',k===i));
+  if(push!==false) history.replaceState(null,'','#'+ids[i]);
+}
+addEventListener('keydown',function(ev){
+  const k=ev.key;
+  if(index.classList.contains('on')&&k!=='o'&&k!=='O'&&k!=='Escape') return;
+  if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'){ev.preventDefault();show(i+1);}
+  else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'){ev.preventDefault();show(i-1);}
+  else if(k==='Home'){show(0);}
+  else if(k==='End'){show(slides.length-1);}
+  else if(k==='n'||k==='N'){notes.classList.toggle('on');fit();}
+  else if(k==='o'||k==='O'){index.classList.toggle('on');}
+  else if(k==='Escape'){index.classList.remove('on');}
+  else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+  else if(k==='p'||k==='P'){print();}
+});
+addEventListener('click',function(ev){
+  if(ev.target.closest('#index')||ev.target.closest('#notes'))return;
+  show(i+(ev.clientX<innerWidth*0.25?-1:1));
+});
+addEventListener('resize',fit);
+document.querySelectorAll('#index button').forEach(function(b){
+  b.addEventListener('click',function(){show(+b.dataset.go);index.classList.remove('on');});
+});
+const inicial=ids.indexOf(location.hash.slice(1));
+fit();
+show(inicial>=0?inicial:0,false);
+</script>
+</body>
+</html>

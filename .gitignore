@@ -16,3 +16,6 @@ Thumbs.db
 # Consumer-specific, non-canonical AI development data
 **/.cordel/generated/
 **/.cordel/local/
+
+# cache do Python dos geradores de deck
+__pycache__/
